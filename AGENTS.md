@@ -29,10 +29,18 @@ Two documents describe it:
 
 ## Current phase
 
-**M0 — the throwaway spike.** Prove the risky assumptions before writing product code:
-Bun + postgres.js + a compiled binary work together, and the compiled binary can load
-a config file. All spike code lives in `spike/` and is disposable. Product code
-(`src/`) has not started.
+**M0 — the throwaway spike — COMPLETE.** Proved that Bun + postgres.js + a
+compiled binary work together, and a compiled binary can load a TS config file
+(type-only import). Spike code lives in `spike/` and is disposable; `spike/
+FINDINGS.md` records the results and the decision: keep the TypeScript config
+format. Product code (`src/`) has not started.
+
+## Next phase
+
+**M1 — Skeleton and errors.** SeedError type + text/JSON printer, the three
+commands (init, inspect, run) with commander (each printing "not built yet"),
+the config loader (flags > file > env > defaults), config checks with exit 2,
+`init` writes a starter config, unit-test the merge order and error output.
 
 ## Key facts
 
