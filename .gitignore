@@ -14,3 +14,7 @@ dist/
 
 # OS junk
 .DS_Store
+
+# Documentation & local learning notes (kept local)
+docs/
+
