@@ -4,10 +4,13 @@
   "description": "Seed a PostgreSQL database with realistic mock data",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "bun test"
   },
   "keywords": [],
   "author": "",
   "license": "MIT",
-  "type": "commonjs"
+  "type": "module",
+  "dependencies": {
+    "commander": "^15.1.0"
+  }
 }
