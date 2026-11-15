@@ -38,7 +38,7 @@ export function createProgram(): Command {
   program
     .option("-c, --config <path>", "Path to seed.config.ts", "./seed.config.ts")
     .option("--database-url <url>", "PostgreSQL connection string")
-    .option("--schema <name>", "PostgreSQL schema name", "public")
+    .option("--schema <name>", "PostgreSQL schema name")
     .option("--format <type>", "Output format (text | json)", "text")
     .option("--json", "Shorthand for --format json")
     .option("--verbose", "Show detailed execution logs");
