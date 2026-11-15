@@ -23,9 +23,9 @@ A terminal tool that reads a live PostgreSQL schema, works out table dependencie
 and fills the tables with realistic fake data in the right order, all-or-nothing.
 Two documents describe it:
 
-- `PLAN.md` and `seed-db-full-plan.pdf` — the full spec (mission, MVP scope, error
+- `docs/PLAN.md` and `docs/seed-db-full-plan.pdf` — the full spec (mission, MVP scope, error
   contract, CLI surface, config types, SQL queries, data model, milestones, risks).
-- `seed-db-build-guide.pdf` — a shorter summary guide.
+- `docs/seed-db-build-guide.pdf` — a shorter summary guide.
 
 ## Current phase
 
@@ -49,7 +49,7 @@ the config loader (flags > file > env > defaults), config checks with exit 2,
 - Target DB: PostgreSQL 16 in Docker on port **5433** (port 5432 is taken by a local
   PostgreSQL 14 on this machine).
 - Language: TypeScript, strict mode.
-- `LEARNING.md` is the owner's running study journal. Add a section whenever a new
+- `docs/LEARNING.md` is the owner's running study journal. Add a section whenever a new
   concept is introduced, written for a learner.
 
 ## Ways of working
