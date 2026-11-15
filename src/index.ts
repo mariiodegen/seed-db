@@ -1,14 +1,14 @@
 #!/usr/bin/env bun
-import { createProgram } from "./cli";
+import { createProgram, isJsonRequested } from "./cli";
 import { SeedError, formatError } from "./errors";
 
-async function main() {
+export async function main(argv = process.argv) {
   const program = createProgram();
 
   try {
-    await program.parseAsync(process.argv);
+    await program.parseAsync(argv);
   } catch (err) {
-    const format = process.argv.includes("--json") || process.argv.includes("json") ? "json" : "text";
+    const format = isJsonRequested(argv) ? "json" : "text";
 
     if (err instanceof SeedError) {
       console.error(formatError(err, format));
@@ -28,4 +28,6 @@ async function main() {
   }
 }
 
-main();
+if (import.meta.main) {
+  main();
+}

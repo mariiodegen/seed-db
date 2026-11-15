@@ -1,5 +1,5 @@
 import { test, expect, describe } from "bun:test";
-import { createProgram } from "./cli";
+import { createProgram, isJsonRequested } from "./cli";
 
 describe("CLI skeleton", () => {
   test("program has expected metadata and commands", () => {
@@ -38,5 +38,28 @@ describe("CLI skeleton", () => {
     expect(runOptionNames).toContain("--out");
     expect(runOptionNames).toContain("--start-id");
     expect(runOptionNames).toContain("--yes");
+  });
+});
+
+describe("isJsonRequested flag parser", () => {
+  test("detects --json flag", () => {
+    expect(isJsonRequested(["bun", "seed-db", "run", "--json"])).toBe(true);
+  });
+
+  test("detects --format json", () => {
+    expect(isJsonRequested(["bun", "seed-db", "run", "--format", "json"])).toBe(true);
+  });
+
+  test("detects --format=json", () => {
+    expect(isJsonRequested(["bun", "seed-db", "run", "--format=json"])).toBe(true);
+  });
+
+  test("does NOT trigger on filenames with json", () => {
+    expect(isJsonRequested(["bun", "seed-db", "run", "--out", "my.json"])).toBe(false);
+    expect(isJsonRequested(["bun", "seed-db", "run", "--snapshot", "snapshot.json"])).toBe(false);
+  });
+
+  test("does NOT trigger on format text", () => {
+    expect(isJsonRequested(["bun", "seed-db", "run", "--format", "text"])).toBe(false);
   });
 });

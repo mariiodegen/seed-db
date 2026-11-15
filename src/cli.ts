@@ -2,6 +2,29 @@ import { Command } from "commander";
 import { initCommand } from "./commands/init";
 import { inspectCommand } from "./commands/inspect";
 import { runCommand } from "./commands/run";
+import type { GlobalOptions, InitCommandOptions, InspectCommandOptions, RunCommandOptions } from "./types";
+
+// Determines whether JSON error output was explicitly requested via --json or --format json.
+// Avoids false positives from filenames or arguments containing the word "json" (e.g. --out my.json).
+export function isJsonRequested(argv: string[]): boolean {
+  for (let i = 0; i < argv.length; i++) {
+    const arg = argv[i];
+    if (arg === "--json") return true;
+    if (arg === "--format=json") return true;
+    if (arg === "--format" && argv[i + 1] === "json") return true;
+  }
+  return false;
+}
+
+// One rule, one place: merge global and subcommand options and normalize format
+function mergeOptions<T extends GlobalOptions>(program: Command, commandOpts: Record<string, unknown>): T {
+  const globalOpts = program.opts<GlobalOptions>();
+  const merged = { ...globalOpts, ...commandOpts } as T;
+  if (merged.json) {
+    merged.format = "json";
+  }
+  return merged;
+}
 
 export function createProgram(): Command {
   const program = new Command();
@@ -25,7 +48,7 @@ export function createProgram(): Command {
     .command("init")
     .description("Scaffold a starter seed.config.ts configuration")
     .option("-f, --force", "Overwrite existing configuration file")
-    .action(async (options) => {
+    .action(async (options: InitCommandOptions) => {
       await initCommand(options);
     });
 
@@ -35,8 +58,7 @@ export function createProgram(): Command {
     .description("Inspect database schema, table hierarchy, and insertion plan")
     .option("--snapshot <file>", "Read schema from an inspect JSON snapshot")
     .action(async (options) => {
-      const opts = { ...program.opts(), ...options };
-      if (opts.json) opts.format = "json";
+      const opts = mergeOptions<InspectCommandOptions>(program, options);
       await inspectCommand(opts);
     });
 
@@ -54,8 +76,7 @@ export function createProgram(): Command {
     .option("--snapshot <file>", "Read schema from an inspect JSON snapshot")
     .option("-y, --yes", "Skip confirmation prompt on non-local databases")
     .action(async (options) => {
-      const opts = { ...program.opts(), ...options };
-      if (opts.json) opts.format = "json";
+      const opts = mergeOptions<RunCommandOptions>(program, options);
       await runCommand(opts);
     });
 

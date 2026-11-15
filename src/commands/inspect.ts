@@ -1,5 +1,7 @@
 // Command: seed-db inspect
 // Reads database schema and prints table hierarchy, generators, and insert plan.
-export async function inspectCommand(options: Record<string, unknown>): Promise<void> {
+import type { InspectCommandOptions } from "../types";
+
+export async function inspectCommand(options: InspectCommandOptions): Promise<void> {
   console.log("inspect: not built yet");
 }
