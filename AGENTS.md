@@ -56,8 +56,8 @@ the config loader (flags > file > env > defaults), config checks with exit 2,
 
 - **Proactively update documentation (.md files) without being reminded.**
   Whenever an architectural pattern, design decision, security contract, or trade-off is discussed or implemented:
-  - Update `docs/DESIGN.md`: Record the design choice, the mechanism, pros and cons, and alternatives considered in simple, clear language.
-  - Update `docs/LEARNING.md`: Add a numbered concept to the owner's running study journal (What, Why, How here).
+  - **`docs/DESIGN.md` (Architecture Reference):** Keep it clean, structured, and scannable with diagrams, tables, decisions to defend, pros and cons, and tradeoffs.
+  - **`docs/LEARNING.md` (Study Journal):** Detailed, pedagogical, and deeply educational. Must explain complex topics in depth using simple words, intuitive analogies, and step-by-step mechanisms. Never condense it into bare bullet summaries; it exists to teach someone who is learning systems engineering from scratch.
   - Keep documentation synchronized immediately at each step without waiting for the owner to ask.
 - Only `introspect/` and `execute/` will touch the database in the real tool; keep
   logic pure elsewhere. (Design rule: "thin edges, pure core".)
