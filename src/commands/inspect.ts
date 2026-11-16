@@ -5,14 +5,55 @@ import { SeedError } from "../errors";
 import { introspectDatabase } from "../introspect";
 import type { Schema } from "../introspect/types";
 import type { InspectCommandOptions } from "../types";
+import { orderTables } from "../graph/order";
 
 export function formatSchemaText(schema: Schema): string {
   if (schema.tables.length === 0) {
     return `Schema "${schema.name}": 0 tables found.`;
   }
 
-  const lines: string[] = [`Schema "${schema.name}" (${schema.tables.length} tables):`];
+  const { order, deferredFks } = orderTables(schema);
+  const lines: string[] = [];
 
+  // 1. Insert order plan
+  lines.push("Insert order:");
+  const tableMap = new Map(schema.tables.map((t) => [t.name, t]));
+  order.forEach((tableName, index) => {
+    const table = tableMap.get(tableName);
+    const notes: string[] = [];
+
+    // Note deferred FKs for this table
+    const tableDeferred = deferredFks.filter((d) => d.table === tableName);
+    for (const d of tableDeferred) {
+      notes.push(`${d.fk.columns.join(",")} deferred (${d.reason})`);
+    }
+
+    // Note active FK relationships
+    if (table) {
+      for (const fk of table.foreignKeys) {
+        if (!tableDeferred.some((d) => d.fk.name === fk.name)) {
+          notes.push(`${fk.columns.join(",")} -> ${fk.refTable}.${fk.refColumns.join(",")}`);
+        }
+      }
+    }
+
+    const noteStr = notes.length > 0 ? `  (${notes.join(", ")})` : "";
+    lines.push(`  ${String(index + 1).padStart(2)}  ${tableName}${noteStr}`);
+  });
+
+  // 2. Patch pass (if any deferred foreign keys exist)
+  if (deferredFks.length > 0) {
+    lines.push("");
+    lines.push("Patch pass:");
+    for (const d of deferredFks) {
+      lines.push(`  ${d.table}.${d.fk.columns.join(",")} (${d.reason})`);
+    }
+  }
+
+  lines.push("");
+  lines.push(`Schema "${schema.name}" (${schema.tables.length} tables):`);
+
+  // 3. Detailed table column definitions
   for (const table of schema.tables) {
     lines.push("");
     lines.push(`table ${table.name} (${table.columns.length} columns)`);

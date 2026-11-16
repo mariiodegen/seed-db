@@ -84,6 +84,9 @@ describe("seed-db inspect command", () => {
   test("formatSchemaText renders readable table details", () => {
     const text = formatSchemaText(mockSchema);
 
+    expect(text).toContain("Insert order:");
+    expect(text).toContain("1  users");
+    expect(text).toContain("2  orders  (user_id -> users.id)");
     expect(text).toContain('Schema "public" (2 tables):');
     expect(text).toContain("table users (2 columns)");
     expect(text).toContain("id                   integer | PK | NOT NULL | default | identity (always)");
