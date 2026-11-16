@@ -3,41 +3,67 @@
 > **Deterministic, relationally consistent mock data generator for PostgreSQL.**  
 > Built with Bun, TypeScript, and `postgres.js`.
 
-`seed-db` reads your live PostgreSQL schema (or an offline JSON snapshot), computes table dependencies into a Directed Acyclic Graph (DAG), and populates your database with realistic fake data in the correct topological order—all inside an atomic, all-or-nothing transaction.
+`seed-db` connects to any live PostgreSQL database, analyzes table relationships into a Directed Acyclic Graph (DAG), and fills your tables with realistic fake data in the correct dependency order—all wrapped in a safe, all-or-nothing transaction.
+
+---
+
+## 🚀 30-Second Quickstart
+
+```bash
+# 1. Scaffold a starter configuration and .env file
+bun run src/index.ts init
+
+# 2. Inspect your schema to see the calculated insertion order and patch pass
+bun run src/index.ts inspect
+
+# 3. Seed your database with 25 rows per table using a repeatable seed
+bun run src/index.ts run --rows 25 --seed 42
+```
 
 ---
 
 ## Key Features
 
-- **Zero-Config by Default:** Reads constraints and column types directly from PostgreSQL catalogs (`information_schema` + `pg_catalog`). No manual model definition required.
-- **Dependency Graph Sorting:** Uses Kahn's algorithm to resolve parent-child table hierarchies, automatically deferring self-references (`employees.manager_id`) and breaking nullable cycles.
-- **6-Tier Column Waterfall:** Evaluates a strict priority ladder (`Skip > Config > Foreign Key > Semantic Match > Type Mapping > Null Roll`).
-- **Semantic Pattern Matching:** Generates hyper-realistic names, emails, phone numbers, addresses, and avatar URLs based on column names, with strict SQL type guards and length truncation.
-- **Parent Key Pools:** Automatically captures primary keys returned from parent inserts (`RETURNING id`) into an in-memory `KeyPool` to populate child foreign keys with 100% referential integrity.
-- **Single-Transaction Safety:** All inserts run inside a single `BEGIN ... COMMIT` block. Any error triggers an immediate `ROLLBACK`, leaving the database untouched.
-- **Deterministic Reproducibility:** Supplying `--seed <number>` guarantees identical fake data and identical insert order across runs.
+- **Zero Configuration:** Reads constraints, foreign keys, and column types directly from PostgreSQL's live system catalogs (`information_schema` + `pg_catalog`).
+- **Graph-Aware Ordering:** Uses Kahn's topological sort algorithm to insert parents before children, automatically deferring self-references (`employees.manager_id`) and breaking circular loops.
+- **6-Tier Waterfall Resolution:** Strict priority ladder ensures database-generated columns and relational integrity always take precedence over text guessing (`Skip > Config > Foreign Key > Semantic Match > Type Mapping > Null Roll`).
+- **Smart Semantic Matching:** Intelligently recognizes column names to generate realistic emails, full names, phone numbers, addresses, avatar URLs, and dummy password hashes.
+- **Referential Integrity via Key Pools:** Automatically captures database-assigned primary keys (`RETURNING id`) into an in-memory `KeyPool`, guaranteeing child foreign keys always point to real rows.
+- **All-or-Nothing Safety:** Everything executes inside a single transaction (`BEGIN ... COMMIT`). Any error triggers an immediate `ROLLBACK`, leaving your database clean.
+- **100% Deterministic:** Running with the same `--seed` produces the exact same fake data and exact same row order every time.
 - **Single-File Binary:** Compiles into a standalone executable (`bun build --compile`) that runs with zero dependencies on user machines.
 
 ---
 
-## Current Milestone Status
+## 💡 Core Concept: `--rows` vs `--seed`
 
-| Milestone | Description | Status |
-| :--- | :--- | :---: |
-| **M0: Spike** | Bun + postgres.js + standalone binary + TS config loader | **Complete** |
-| **M1: Skeleton & Config** | 4-tier precedence loader, structured `SeedError`, CLI skeleton, `init` | **Complete** |
-| **M2: Introspect & Schema** | 3 catalog queries, pure schema assembly, `inspect` live & snapshot modes | **Complete** |
-| **M3: Dependency Graph** | Kahn's algorithm, distinct in-degrees, tie-breaking, cycle breaking | **Complete** |
-| **M4: Generation Engine** | 6-tier waterfall, `@faker-js/faker`, semantic rules, `KeyPool`, uniqueness | **Complete** |
-| **M5: Execution & Seeding** | Dynamic batching, single transaction, `--check`, `--dry-run`, `--out` | *In Progress* |
+It is common to confuse these two flags, but they control completely different things:
+
+| Flag | Question it Answers | What it Controls | Example |
+| :--- | :--- | :--- | :--- |
+| **`--rows <number>`** | *"How much data do you want?"* | **Quantity / Volume** | `--rows 50` creates 50 users, 50 orders, 50 products. |
+| **`--seed <number>`** | *"Which specific fake data do you want?"* | **Reproducibility** | `--seed 42` generates the *exact same* names, emails, and dates every time. |
+
+### Why `--seed` is a Superpower for Testing
+Computers use Pseudo-Random Number Generators (PRNG). If you don't supply `--seed`, the generator uses the current computer clock time, generating completely different names and emails on every run.
+
+When you specify `--seed 42`:
+- **Run 1:** User #1 is `"Sarah Connor"`, email `"sarah@example.com"`.
+- **Run 2 (Tomorrow):** User #1 is **still** `"Sarah Connor"`, email `"sarah@example.com"`.
+- **Run 3 (On your colleague's laptop in another country):** User #1 is **still** `"Sarah Connor"`.
+
+> [!TIP]
+> **Use them together for automated tests:**  
+> `seed-db run --rows 50 --seed 42`  
+> *"Generate 50 rows per table, and make sure they are the exact same 50 records every time my test suite runs."*
 
 ---
 
-## CLI Reference
+## CLI Reference & Examples
 
-### Global Options
+### Global Flags
 
-These options apply to all subcommands:
+These flags work across all subcommands:
 
 ```bash
 Options:
@@ -46,8 +72,7 @@ Options:
   --schema <name>       PostgreSQL schema name (default: "public")
   --format <type>       Output format: text | json (default: "text")
   --json                Shorthand for --format json
-  --verbose             Show detailed execution logs
-  -V, --version         Output the version number
+  --verbose             Show detailed execution and configuration logs
   -h, --help            Display help for command
 ```
 
@@ -56,30 +81,30 @@ Options:
 ### Commands
 
 #### 1. `seed-db init`
-Scaffolds a starter `seed.config.ts` and `.env.example` file in the current working directory.
+Creates a starter `seed.config.ts` and `.env.example` file in the current directory.
 
 ```bash
-# Initialize a new project configuration
+# Create starter config files
 seed-db init
 
-# Overwrite existing configuration files
+# Force overwrite if files already exist
 seed-db init --force
 ```
 
 #### 2. `seed-db inspect`
-Inspects the database schema, calculates the topological insertion order, identifies deferred foreign keys (patch pass), and displays column types, primary keys, and constraints.
+Examines your database, resolves dependencies, and prints the plan without writing any data.
 
 ```bash
-# Inspect a live database (uses DATABASE_URL)
+# Inspect your live database (reads connection from DATABASE_URL)
 seed-db inspect
 
-# Inspect a specific PostgreSQL database URL
+# Inspect a specific remote database URL
 seed-db inspect --database-url postgres://user:pass@localhost:5433/mydb
 
-# Export an offline schema snapshot for testing or CI/CD
+# Export an offline schema snapshot (safe to share: zero passwords, zero row data)
 seed-db inspect --json > schema.json
 
-# Inspect an offline snapshot without connecting to a database
+# Inspect an offline snapshot file without connecting to any database
 seed-db inspect --snapshot schema.json
 ```
 
@@ -103,31 +128,32 @@ table users (4 columns)
 ```
 
 #### 3. `seed-db run` *(Milestone 5)*
-Seeds the database with relationally consistent fake data.
+Generates and inserts realistic data into your tables.
 
 ```bash
-# Seed all tables with 10 rows (default)
+# Seed all tables with default 10 rows
 seed-db run
 
-# Seed a custom row count per table
-seed-db run --rows 50
+# Seed a custom row count (e.g. 100 rows per table)
+seed-db run --rows 100
 
-# Seed with a deterministic random seed for repeatable test data
+# Seed with a fixed random seed for reproducible test suites
 seed-db run --seed 42
 
-# Seed only specific tables
+# Seed only specific tables (skipping unrelated tables)
 seed-db run --tables users,orders
 
-# Dry-run: view generated SQL statements without writing to the database
+# Dry-run: view generated SQL statements in your terminal without executing
 seed-db run --dry-run
 
-# Constraint check: execute inside a transaction and rollback to verify schema validity
+# Safety check: execute inserts inside a transaction and rollback
+# (Verifies all foreign keys and constraints pass without keeping data)
 seed-db run --check
 
-# Generate a standalone SQL script file with client-assigned primary keys
+# Export as a standalone SQL script file instead of connecting to a live database
 seed-db run --out seed.sql --snapshot schema.json
 
-# Skip confirmation prompts when targeting non-local hosts
+# Skip the production prompt when targeting non-localhost databases
 seed-db run --yes
 ```
 
@@ -135,7 +161,7 @@ seed-db run --yes
 
 ## Configuration (`seed.config.ts`)
 
-`seed.config.ts` is optional. It is used to override specific column generators, specify static test values, or skip migration tables.
+An optional TypeScript configuration file for custom business rules, fixed IDs, and test passwords:
 
 ```ts
 import type { SeedConfig } from "seed-db"; // Type-only import (erased at runtime)
@@ -143,29 +169,30 @@ import type { SeedConfig } from "seed-db"; // Type-only import (erased at runtim
 export default {
   defaultRows: 25,
   seed: 42,
-  nullRate: 0.1, // 10% chance of NULL for nullable columns
+  nullRate: 0.1, // 10% chance a nullable column becomes NULL
 
   tables: {
-    // Ignore internal migration tables
+    // 1. Skip internal migration tables
     _prisma_migrations: { ignore: true },
 
+    // 2. Custom rules for the users table
     users: {
-      rows: 100, // Custom row count for this table
+      rows: 100, // Custom row count for this specific table
       columns: {
-        // 1. Static constant
+        // Constant value
         role: "customer",
 
-        // 2. Pre-computed bcrypt hash (instant test logins with "password123")
+        // Pre-computed bcrypt hash for "password123" (instant logins, zero CPU lag)
         password_hash: "$2b$10$EixZaYVK1fsbw1ZfbX3OXePaWxn96p36WQoeG6Lruj3vjPGga31lW",
 
-        // 3. OneOf categorical distribution
+        // Categorical distribution with custom weights
         status: { oneOf: ["active", "pending", "suspended"], weights: [70, 20, 10] },
 
-        // 4. Integer range
+        // Integer range
         age: { int: { min: 18, max: 75 } },
 
-        // 5. Custom context function
-        referral_code: ({ index, faker }) => `REF-${index + 1}-${faker.string.alphanumeric(4).toUpperCase()}`,
+        // Dynamic custom generator function
+        member_code: ({ index, faker }) => `MEMBER-${index + 1}-${faker.string.alphanumeric(4).toUpperCase()}`,
       },
     },
   },
@@ -176,40 +203,49 @@ export default {
 
 ## Architecture: "Thin Edges, Pure Core"
 
-`seed-db` isolates side effects (network I/O) to the boundaries of the application:
+`seed-db` isolates database interactions to the edges of the pipeline:
 
-```
-INPUTS                  PIPELINE (5 stages)                   OUTPUTS
-live DB     ─┐   1. Config → 2. Introspect → 3. Order →     ┌─ Insert (1 transaction)
-snapshot    ─┼─→             4. Generate   → 5. Execute    ├─ SQL file (--out)
-schema file ─┘                                             └─ Check (--check, rollback)
+```mermaid
+flowchart LR
+    A["1. Config\n(Flags, File, Env)"] --> B["2. Introspect\n(Reads DB / Snapshot)"]
+    B --> C["3. Order\n(Kahn's Sort DAG)"]
+    C --> D["4. Generate\n(Waterfall Rules)"]
+    D --> E["5. Execute\n(1 Transaction)"]
+
+    style A fill:#e9ecef,stroke:#495057
+    style B fill:#d8f3dc,stroke:#2d6a4f
+    style C fill:#d8f3dc,stroke:#2d6a4f
+    style D fill:#d8f3dc,stroke:#2d6a4f
+    style E fill:#cfe2ff,stroke:#084298
 ```
 
-- **Pure Core:** `src/config/`, `src/graph/`, and `src/generate/` are 100% pure functions. They do not connect to networks or touch disk files during generation, enabling unit tests to run in milliseconds.
-- **Thin Edges:** Only `src/introspect/` (reads catalog metadata) and `src/execute/` (writes batched inserts) interact with PostgreSQL.
+- **Pure Core:** Stages 1, 3, and 4 are pure functions. They execute in-memory with zero network or filesystem dependencies, allowing unit tests to run in milliseconds.
+- **Thin Edges:** Only Stage 2 (Introspect) and Stage 5 (Execute) touch PostgreSQL.
 
 ### Parameter Math: Safe Dynamic Batching
-PostgreSQL protocol limits bind parameters to **65,535** ($2^{16} - 1$). `seed-db` dynamically bounds batch sizes to ensure statements never exceed this ceiling:
+PostgreSQL protocol binds query parameters using an unsigned 16-bit integer ($2^{16} - 1 = 65,535$). Passing more parameters in a single statement causes a query crash.
 
+`seed-db` dynamically calculates batch sizes to maximize speed while guaranteeing safety:
 $$\text{batchSize} = \min\left(1000, \left\lfloor \frac{65000}{\text{columnCount}} \right\rfloor\right)$$
+
+- Table with 10 columns: $\min(1000, 6500) = 1,000\text{ rows/batch}$ ($10,000\text{ parameters}$).
+- Table with 100 columns: $\min(1000, 650) = 650\text{ rows/batch}$ ($65,000\text{ parameters}$).
 
 ---
 
 ## Development & Testing
 
-Built with Bun. Tests run hermetically in memory:
-
 ```bash
 # Install dependencies
 bun install
 
-# Run full test suite (46 unit tests across 8 suites)
+# Run the complete test suite (46 tests across 8 suites)
 bun test
 
 # Run tests in watch mode
 bun test --watch
 
-# Build standalone compiled binary
+# Compile standalone single binary
 bun build --compile ./src/index.ts --outfile dist/seed-db
 ```
 
