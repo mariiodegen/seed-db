@@ -54,7 +54,23 @@ the config loader (flags > file > env > defaults), config checks with exit 2,
 
 ## Ways of working
 
+- **Proactively update documentation (.md files) without being reminded.**
+  Whenever an architectural pattern, design decision, security contract, or trade-off is discussed or implemented:
+  - Update `docs/DESIGN.md`: Record the design choice, the mechanism, pros and cons, and alternatives considered in simple, clear language.
+  - Update `docs/LEARNING.md`: Add a numbered concept to the owner's running study journal (What, Why, How here).
+  - Keep documentation synchronized immediately at each step without waiting for the owner to ask.
 - Only `introspect/` and `execute/` will touch the database in the real tool; keep
   logic pure elsewhere. (Design rule: "thin edges, pure core".)
 - Never commit secrets. Use a `.env` for local connection strings and keep it ignored.
-- Do not commit unless the owner asks.
+- Regularly commit and push clean code and tests via SSH.
+
+## Current phase
+
+- **M0 (Spike) — COMPLETE.** Bun + postgres.js + compiled binary + TS config loaded.
+- **M1 (Skeleton, Errors, Config) — COMPLETE.** SeedError, CLI skeleton, 4-tier precedence loader, `init` command.
+- **M2 (Introspect & Schema Model) — COMPLETE.** 3 catalog queries, pure schema assembly, `inspect` live & snapshot modes.
+- **M3 (Dependency Graph & Ordering) — COMPLETE.** Kahn's algorithm, distinct in-degrees, tie-breaking, cycle breaking, deferred FKs.
+
+## Next phase
+
+**M4 — Generation engine & Value resolution.** 6-tier waterfall resolution, `@faker-js/faker` integration with deterministic seed, semantic dictionary, type mapping, parent `KeyPool` sampling, uniqueness retry loops, and custom config rules.
