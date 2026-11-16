@@ -93,6 +93,8 @@ describe("seed-db inspect command", () => {
   });
 
   test("throws E_MISSING_DB_URL (exit 2) when no URL provided and no snapshot", async () => {
+    const saved = process.env.DATABASE_URL;
+    delete process.env.DATABASE_URL;
     try {
       await inspectCommand({
         config: "./seed.config.ts",
@@ -105,6 +107,10 @@ describe("seed-db inspect command", () => {
       const seedErr = err as SeedError;
       expect(seedErr.code).toBe("E_MISSING_DB_URL");
       expect(seedErr.exit).toBe(2);
+    } finally {
+      if (saved !== undefined) {
+        process.env.DATABASE_URL = saved;
+      }
     }
   });
 

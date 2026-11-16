@@ -6,7 +6,7 @@ import { SeedError } from "../errors";
 
 describe("Config Precedence (Flags > File > Env > Defaults)", () => {
   test("uses built-in defaults when no inputs provided", () => {
-    const config = mergeConfig({});
+    const config = mergeConfig({ env: {} });
     expect(config.schema).toBe(DEFAULT_CONFIG.schema);
     expect(config.defaultRows).toBe(DEFAULT_CONFIG.defaultRows);
     expect(config.nullRate).toBe(DEFAULT_CONFIG.nullRate);
