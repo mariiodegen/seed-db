@@ -70,7 +70,8 @@ the config loader (flags > file > env > defaults), config checks with exit 2,
 - **M1 (Skeleton, Errors, Config) — COMPLETE.** SeedError, CLI skeleton, 4-tier precedence loader, `init` command.
 - **M2 (Introspect & Schema Model) — COMPLETE.** 3 catalog queries, pure schema assembly, `inspect` live & snapshot modes.
 - **M3 (Dependency Graph & Ordering) — COMPLETE.** Kahn's algorithm, distinct in-degrees, tie-breaking, cycle breaking, deferred FKs.
+- **M4 (Generation Engine & Resolution) — COMPLETE.** 6-tier waterfall, `@faker-js/faker` deterministic seeding, semantic dictionary, type mapping, parent `KeyPool` sampling, uniqueness retry loop, custom config rules.
 
 ## Next phase
 
-**M4 — Generation engine & Value resolution.** 6-tier waterfall resolution, `@faker-js/faker` integration with deterministic seed, semantic dictionary, type mapping, parent `KeyPool` sampling, uniqueness retry loops, and custom config rules.
+**M5 — Execution engine & Live Seeding.** Multi-row batching formula ($\min(1000, \lfloor 65000 / \text{cols} \rfloor)$), single transaction `BEGIN ... COMMIT` with automatic `ROLLBACK`, parent `KeyPool` collection via `RETURNING`, two-phase patch pass for deferred FKs, `--dry-run`, `--check` (transaction rollback verification), and `--out` (SQL script generation with sequential keys & `setval`).
