@@ -200,12 +200,20 @@ export function orderTables(
     }
 
     // No nullable foreign keys in the cycle: STRICT CYCLE (cannot be broken by insertion order)
+    const firstSource = cycle[0];
+    const firstTarget = cycle[1];
+    const firstFk = (activeFks.get(firstSource) ?? []).find(
+      (fk) => fk.refTable === firstTarget
+    );
+    const colName = firstFk?.columns[0] ?? "column_name";
+    const constraintName = firstFk?.name ?? "constraint_name";
+
     const cyclePath = cycle.join(" -> ");
     throw new SeedError({
       code: "E_CIRCULAR_DEPENDENCY",
       where: cyclePath,
       cause: `Circular foreign key dependency detected where all foreign keys are NOT NULL: ${cyclePath}. No table in this cycle can be inserted first without violating constraints.`,
-      fix: `Make at least one foreign key column nullable (e.g. ALTER TABLE ${cycle[0]} ALTER COLUMN <column> DROP NOT NULL) or declare the constraint as DEFERRABLE in PostgreSQL.`,
+      fix: `Make at least one foreign key nullable: ALTER TABLE "${firstSource}" ALTER COLUMN "${colName}" DROP NOT NULL; OR declare constraint deferrable: ALTER TABLE "${firstSource}" ALTER CONSTRAINT "${constraintName}" DEFERRABLE INITIALLY DEFERRED;`,
       exit: 3,
     });
   }
