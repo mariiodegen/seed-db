@@ -1,3 +1,5 @@
+import pc from "picocolors";
+
 // One error type for the whole tool.
 // Every failure carries: a stable code, where it happened, the cause, a fix, and an exit code.
 
@@ -43,5 +45,10 @@ export function formatError(err: SeedError, format: "text" | "json"): string {
     });
   }
 
-  return `error ${err.code}  ${err.where}\n  ${err.cause}\n  Fix: ${err.fix}`;
+  const badge = pc.red(pc.bold("error"));
+  const code = pc.bold(err.code);
+  const where = pc.dim(err.where);
+  const fixLabel = pc.cyan(pc.bold("Fix:"));
+
+  return `${badge} ${code}  ${where}\n  ${err.cause}\n  ${fixLabel} ${err.fix}`;
 }
