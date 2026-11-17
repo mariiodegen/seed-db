@@ -127,8 +127,8 @@ table users (4 columns)
   created_at           timestamptz | NOT NULL | default
 ```
 
-#### 3. `seed-db run` *(Milestone 5)*
-Generates and inserts realistic data into your tables.
+#### 3. `seed-db run`
+Generates and inserts relationally consistent mock data into your tables.
 
 ```bash
 # Seed all tables with default 10 rows
