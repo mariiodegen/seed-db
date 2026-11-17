@@ -7,8 +7,14 @@
     "seed-db": "./src/index.ts"
   },
   "scripts": {
-    "test": "bun test"
+    "test": "bun test",
+    "build": "bun build --compile --minify --outfile dist/seed-db src/index.ts"
   },
+  "files": [
+    "src",
+    "README.md",
+    "package.json"
+  ],
   "keywords": [],
   "author": "",
   "license": "MIT",
