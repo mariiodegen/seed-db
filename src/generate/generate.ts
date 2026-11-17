@@ -289,7 +289,10 @@ export function generateTableRows(
             const tuple = sampledFkTuples.get(fk.name);
             if (tuple) {
               const colIdx = fk.columns.indexOf(col.name);
-              value = tuple[colIdx];
+              const refCol = fk.refColumns[colIdx];
+              const parentTable = schema.tables.find((t) => t.name === fk.refTable);
+              const pkIdx = parentTable ? parentTable.primaryKey.indexOf(refCol) : colIdx;
+              value = tuple[pkIdx >= 0 ? pkIdx : colIdx];
             } else {
               value = null;
             }

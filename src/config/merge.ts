@@ -26,8 +26,12 @@ export function mergeConfig(inputs: MergeInputs = {}): ResolvedConfig {
   const resolved: ResolvedConfig = {
     databaseUrl: flags.databaseUrl ?? file.databaseUrl ?? env.DATABASE_URL,
     schema: flags.schema ?? file.schema ?? DEFAULT_CONFIG.schema,
-    defaultRows: flags.rows ?? file.defaultRows ?? DEFAULT_CONFIG.defaultRows,
-    seed: flags.seed ?? file.seed,
+    defaultRows: flags.rows !== undefined
+      ? (typeof flags.rows === "string" ? parseInt(flags.rows, 10) : flags.rows)
+      : (file.defaultRows ?? DEFAULT_CONFIG.defaultRows),
+    seed: flags.seed !== undefined
+      ? (typeof flags.seed === "string" ? parseInt(flags.seed, 10) : flags.seed)
+      : file.seed,
     nullRate: file.nullRate ?? DEFAULT_CONFIG.nullRate,
     allowedHosts: file.allowedHosts ?? [],
     tables: file.tables ?? {},

@@ -72,7 +72,8 @@ the config loader (flags > file > env > defaults), config checks with exit 2,
 - **M3 (Dependency Graph & Ordering) — COMPLETE.** Kahn's algorithm, distinct in-degrees, tie-breaking, cycle breaking, deferred FKs.
 - **M4 (Generation Engine & Resolution) — COMPLETE.** 6-tier waterfall, `@faker-js/faker` deterministic seeding, semantic dictionary, type mapping, parent `KeyPool` sampling, uniqueness retry loop, custom config rules.
 - **M5 (Execution Engine & Modes) — COMPLETE.** Dynamic batching math, single transaction atomicity with automatic rollback, parent `KeyPool` collection via `RETURNING`, two-phase patch pass for deferred FKs, `--dry-run`, `--check` (transaction rollback verification), and `--out` (standalone SQL script generation).
+- **M6 (Integration Testing & Schema Fixtures) — COMPLETE.** 10 integration tests against live PostgreSQL 16 container across 9 hard fixture schemas (`blog`, `shop`, `employees`, `cycle_nullable`, `cycle_strict`, `composite`, `uniques`, `types`, `identity`, `check_mode`). Hermetic schema isolation with `DROP ... CASCADE`. 100% referential integrity and constraint checks verified. 63 total tests passing.
 
 ## Next phase
 
-**M6 — Integration Testing & Schema Fixtures.** Verification against a live PostgreSQL 16 container across hard fixture schemas: `blog` (3-level parent chain), `shop` (many-to-one fan-out, enums, numeric precision), `employees` (self-referencing FK), `cycle_nullable` & `cycle_strict`, `composite` (composite PK/FK pairs), `uniques` (unique constraints at volume), `types` (arrays, jsonb, uuid, inet, bytea), and `identity` (GENERATED ALWAYS).
+**M7 — Packaging, Standalone Compilation & Release Verification.** Compile self-contained native binary via `bun build --compile --outfile dist/seed-db src/index.ts`, verify binary execution (`--version`, `--help`, `--dry-run`), test npm packaging, and prepare distribution artifacts.
