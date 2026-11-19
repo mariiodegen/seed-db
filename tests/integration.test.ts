@@ -12,6 +12,7 @@ describe("Milestone 6: Integration Testing & Schema Fixtures (PostgreSQL 16)", (
 
   beforeAll(async () => {
     sql = postgres(DB_URL);
+    await sql`SELECT 1`;
   });
 
   afterAll(async () => {
