@@ -27,20 +27,9 @@ Two documents describe it:
   contract, CLI surface, config types, SQL queries, data model, milestones, risks).
 - `docs/seed-db-build-guide.pdf` — a shorter summary guide.
 
-## Current phase
+## Historical Spike (M0)
 
-**M0 — the throwaway spike — COMPLETE.** Proved that Bun + postgres.js + a
-compiled binary work together, and a compiled binary can load a TS config file
-(type-only import). Spike code lives in `spike/` and is disposable; `spike/
-FINDINGS.md` records the results and the decision: keep the TypeScript config
-format. Product code (`src/`) has not started.
-
-## Next phase
-
-**M1 — Skeleton and errors.** SeedError type + text/JSON printer, the three
-commands (init, inspect, run) with commander (each printing "not built yet"),
-the config loader (flags > file > env > defaults), config checks with exit 2,
-`init` writes a starter config, unit-test the merge order and error output.
+The throwaway spike proved that Bun + postgres.js + a compiled binary work together, and a compiled binary can load a TS config file (type-only import). Having served its purpose, the disposable `spike/` sandbox was removed after Milestone 7 verification.
 
 ## Key facts
 
