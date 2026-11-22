@@ -1,6 +1,6 @@
 ---
 import Logo from './Logo.astro';
-const base = import.meta.env.BASE_URL;
+import { getPath } from '../utils/url';
 ---
 
 <footer class="surface-dark-metal border-t border-[#2c3036] py-12 text-[#9aa1a8]">
@@ -16,9 +16,9 @@ const base = import.meta.env.BASE_URL;
       </div>
 
       <div class="flex items-center gap-6 text-sm font-mono">
-        <a href={`${base}docs`} class="text-[#c7ccd2] hover:text-white transition-colors">Docs</a>
-        <a href={`${base}#examples`} class="text-[#c7ccd2] hover:text-white transition-colors">Examples</a>
-        <a href={`${base}#ci`} class="text-[#c7ccd2] hover:text-white transition-colors">CI</a>
+        <a href={getPath("/docs")} class="text-[#c7ccd2] hover:text-white transition-colors">Docs</a>
+        <a href={getPath("/#examples")} class="text-[#c7ccd2] hover:text-white transition-colors">Examples</a>
+        <a href={getPath("/#ci")} class="text-[#c7ccd2] hover:text-white transition-colors">CI</a>
         <a
           href="https://github.com/mariiodegen/seed-db"
           target="_blank"
