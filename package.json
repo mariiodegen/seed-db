@@ -1,24 +1,60 @@
 {
   "name": "@mariiodegen/seed-db",
-  "version": "0.0.1",
-  "description": "Seed a PostgreSQL database with realistic mock data",
-  "main": "src/index.ts",
+  "version": "0.1.0",
+  "description": "Deterministic, relationally consistent database seeding for PostgreSQL in CI and local dev",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "bin": {
-    "seed-db": "./src/index.ts"
+    "seed-db": "./dist/cli.js"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
   },
   "scripts": {
     "test": "bun test",
-    "build": "bun build --compile --minify --outfile dist/seed-db src/index.ts",
-    "build:website": "bun run --cwd website build"
+    "build:binary": "bun build --compile --minify --outfile dist/seed-db src/bin.ts",
+    "build:cli": "bun build src/bin.ts --target=node --outfile dist/cli.js",
+    "build:lib": "bun build src/index.ts --target=node --outfile dist/index.js",
+    "build:types": "tsc -p tsconfig.build.json",
+    "build": "bun run build:binary && bun run build:cli && bun run build:lib && bun run build:types",
+    "build:website": "bun run --cwd website build",
+    "prepack": "bun run build:cli && bun run build:lib && bun run build:types"
   },
   "files": [
-    "src",
+    "dist/cli.js",
+    "dist/index.js",
+    "dist/index.d.ts",
+    "dist/**/*.d.ts",
     "README.md",
     "package.json"
   ],
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "postgres",
+    "postgresql",
+    "seed",
+    "database-seeding",
+    "mock-data",
+    "faker",
+    "ci",
+    "testing",
+    "kahn-algorithm",
+    "topological-sort"
+  ],
+  "author": "Mario Degen",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mariiodegen/seed-db.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mariiodegen/seed-db/issues"
+  },
+  "homepage": "https://github.com/mariiodegen/seed-db#readme",
   "type": "module",
   "dependencies": {
     "@clack/prompts": "^1.9.0",
@@ -26,5 +62,9 @@
     "commander": "^15.1.0",
     "picocolors": "^1.1.1",
     "postgres": "^4.1.1"
+  },
+  "devDependencies": {
+    "@types/bun": "^1.4.5",
+    "@types/node": "^26.6.6"
   }
 }

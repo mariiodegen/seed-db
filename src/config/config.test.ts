@@ -2,6 +2,7 @@ import { test, expect, describe } from "bun:test";
 import { mergeConfig, DEFAULT_CONFIG } from "./merge";
 import { validateConfig } from "./validate";
 import { loadConfigFile } from "./load";
+import { defineSeedConfig } from "./define";
 import { SeedError } from "../errors";
 
 describe("Config Precedence (Flags > File > Env > Defaults)", () => {
@@ -143,5 +144,20 @@ describe("Config File Loading", () => {
       expect(seedErr.exit).toBe(2);
       expect(seedErr.code).toBe("E_CONFIG_NOT_FOUND");
     }
+  });
+});
+
+describe("defineSeedConfig Helper", () => {
+  test("returns the exact passed config object with type safety", () => {
+    const raw = {
+      defaultRows: 30,
+      seed: 123,
+      tables: {
+        users: { rows: 100 },
+      },
+    };
+    const config = defineSeedConfig(raw);
+    expect(config).toBe(raw);
+    expect(config.defaultRows).toBe(30);
   });
 });

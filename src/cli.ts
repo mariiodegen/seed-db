@@ -1,4 +1,5 @@
 import { Command } from "commander";
+import packageJson from "../package.json";
 import { initCommand } from "./commands/init";
 import { inspectCommand } from "./commands/inspect";
 import { runCommand } from "./commands/run";
@@ -32,7 +33,7 @@ export function createProgram(): Command {
   program
     .name("seed-db")
     .description("Generate realistic mock data for PostgreSQL schemas")
-    .version("0.0.1");
+    .version(packageJson.version);
 
   // Global options
   program

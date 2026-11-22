@@ -161,8 +161,8 @@ export async function executeLive(options: LiveExecutionOptions): Promise<Execut
 
                 await tx`
                   UPDATE ${tx(schema.name)}.${tx(table.name)}
-                  SET ${tx(fkCol)} = ${parentId}
-                  WHERE ${tx(pkColName)} = ${childId}
+                  SET ${tx(fkCol)} = ${parentId as any}
+                  WHERE ${tx(pkColName)} = ${childId as any}
                 `;
                 patchedCount++;
               }

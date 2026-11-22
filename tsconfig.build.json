@@ -1,0 +1,15 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": false,
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "noUncheckedIndexedAccess": false,
+    "noImplicitOverride": false,
+    "types": ["bun", "node"]
+  },
+  "include": ["src/**/*"],
+  "exclude": ["src/**/*.test.ts", "tests/**/*"]
+}
