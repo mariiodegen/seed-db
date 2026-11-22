@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 380 90" fill="none">
+  <!-- seed-db Wordmark (Page 4 Design Spec + Option E JetBrains Mono) -->
+  <g transform="translate(10, 5) scale(0.35)">
+    <!-- Database Cylinder -->
+    <path d="M40 160 C40 185 200 185 200 160 V185 C200 210 40 210 40 185 Z" fill="#1b3d32"/>
+    <path d="M40 160 C40 185 200 185 200 160" stroke="#132e25" stroke-width="3" fill="none"/>
+    <path d="M40 178 C40 203 200 203 200 178" stroke="#255445" stroke-width="3" fill="none"/>
+
+    <path d="M40 125 C40 150 200 150 200 125 V150 C200 175 40 175 40 150 Z" fill="#234c3f"/>
+    <path d="M40 125 C40 150 200 150 200 125" stroke="#18382e" stroke-width="3" fill="none"/>
+    <path d="M40 143 C40 168 200 168 200 143" stroke="#2c6150" stroke-width="3" fill="none"/>
+
+    <path d="M40 90 C40 115 200 115 200 90 V115 C200 140 40 140 40 115 Z" fill="#2d5e4e"/>
+    <ellipse cx="120" cy="90" rx="80" ry="25" fill="#387461" stroke="#234c3f" stroke-width="3"/>
+    <ellipse cx="120" cy="90" rx="20" ry="6" fill="#1a352c"/>
+
+    <!-- Sprout -->
+    <path d="M120 90 C120 75 120 62 120 54" stroke="#4ade80" stroke-width="6" stroke-linecap="round"/>
+    <path d="M120 65 C100 65 80 50 86 35 C105 32 118 48 120 65 Z" fill="#4ade80" stroke="#22c55e" stroke-width="2"/>
+    <path d="M120 55 C138 52 160 38 152 24 C132 23 122 40 120 55 Z" fill="#22c55e" stroke="#16a34a" stroke-width="2"/>
+  </g>
+
+  <!-- Typography: Option E (JetBrains Mono style, heavy, geometric, clean) -->
+  <text x="105" y="58" font-family="'JetBrains Mono', 'Fira Code', 'Roboto Mono', monospace" font-size="44" font-weight="800" fill="#1e293b" letter-spacing="-1.5">
+    seed<tspan fill="#22c55e">-</tspan>db
+  </text>
+</svg>

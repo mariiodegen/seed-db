@@ -1,7 +1,13 @@
-# seed-db
+<p align="center">
+  <img src="./assets/wordmark.svg" alt="seed-db logo" width="320" />
+</p>
 
-> **Deterministic, relationally consistent mock data generator for PostgreSQL.**  
-> Built with Bun, TypeScript, and `postgres.js`.
+<p align="center">
+  <b>Deterministic, relationally consistent mock data generator for PostgreSQL.</b><br>
+  Built with Bun, TypeScript, and postgres.js.
+</p>
+
+---
 
 `seed-db` connects to any live PostgreSQL database, analyzes table relationships into a Directed Acyclic Graph (DAG), and fills your tables with realistic fake data in the correct dependency order—all wrapped in a safe, all-or-nothing transaction.
 
