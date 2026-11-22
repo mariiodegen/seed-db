@@ -270,9 +270,10 @@ import PillBadge from '../components/PillBadge.astro';
             <div class="silver-frame">
               <div class="bg-[#0c0d10] border border-[#2c3036] rounded-[18px] p-5 relative group">
                 <div class="text-xs font-mono text-[#8a9199] mb-2">seed.config.ts</div>
-                <pre class="font-mono text-xs text-[#f4f6f8] leading-relaxed overflow-x-auto">import type &#123; SeedConfig &#125; from "seed-db"; // type-only, so it loads in the compiled binary
+                <pre class="font-mono text-xs text-[#f4f6f8] leading-relaxed overflow-x-auto">import &#123; defineSeedConfig &#125; from "@mariiodegen/seed-db";
+// Or type-only for standalone binary: import type &#123; SeedConfig &#125; from "seed-db";
 
-export default &#123;
+export default defineSeedConfig(&#123;
   databaseUrl: process.env.DATABASE_URL,
   defaultRows: 50,
   seed: 42,
@@ -287,12 +288,12 @@ export default &#123;
     &#125;,
     _prisma_migrations: &#123; ignore: true &#125;,
   &#125;,
-&#125; satisfies SeedConfig;</pre>
+&#125;);</pre>
                 <button
                   class="doc-copy-btn absolute top-4 right-4 h-[36px] px-3 rounded text-xs font-mono font-bold text-white bg-[#1b1d22] hover:bg-[#2a2d33] border border-[#454a52] transition-colors"
-                  data-copy='import type { SeedConfig } from "seed-db";
+                  data-copy='import { defineSeedConfig } from "@mariiodegen/seed-db";
 
-export default {
+export default defineSeedConfig({
   databaseUrl: process.env.DATABASE_URL,
   defaultRows: 50,
   seed: 42,
@@ -307,11 +308,21 @@ export default {
     },
     _prisma_migrations: { ignore: true },
   },
-} satisfies SeedConfig;'
+});'
                 >
                   Copy
                 </button>
               </div>
+            </div>
+
+            <!-- Autocomplete & Type Inference Callout -->
+            <div class="surface-panel p-4 text-xs font-sans text-[#4a4f56] space-y-2">
+              <p>
+                <strong class="text-[#0a0a0a] font-mono">TypeScript Autocomplete:</strong> Wrapping your config with <span class="code-chip">defineSeedConfig</span> provides instant IDE autocompletion, type checking, and documentation for every option without needing awkward type annotations.
+              </p>
+              <p class="text-[#6b727a]">
+                Running the zero-dependency standalone binary? Use <span class="code-chip">import type &#123; SeedConfig &#125; from "seed-db"; export default &#123; ... &#125; satisfies SeedConfig;</span> — because it is type-only, the binary evaluates it cleanly without requiring <span class="font-mono">node_modules</span>.
+              </p>
             </div>
 
             <!-- Top-level Options Table -->
