@@ -8,35 +8,35 @@
       <div class="text-[#0a0a0a] font-bold text-base">Kahn's Algorithm Rounds</div>
     </div>
 
-    <!-- Stepper Controls -->
-    <div class="flex items-center gap-2 self-start sm:self-auto">
+    <!-- Stepper Controls (tap targets >= 44px) -->
+    <div class="flex items-center gap-2 self-start sm:self-auto flex-wrap">
       <button
         data-step="1"
-        class="kahn-step-btn active px-3.5 py-1.5 rounded text-xs font-mono font-bold transition-all"
+        class="kahn-step-btn active min-h-[44px] min-w-[44px] px-3.5 py-1.5 rounded text-xs font-mono font-bold transition-all flex items-center justify-center"
       >
         1
       </button>
       <button
         data-step="2"
-        class="kahn-step-btn px-3.5 py-1.5 rounded text-xs font-mono font-bold transition-all"
+        class="kahn-step-btn min-h-[44px] min-w-[44px] px-3.5 py-1.5 rounded text-xs font-mono font-bold transition-all flex items-center justify-center"
       >
         2
       </button>
       <button
         data-step="3"
-        class="kahn-step-btn px-3.5 py-1.5 rounded text-xs font-mono font-bold transition-all"
+        class="kahn-step-btn min-h-[44px] min-w-[44px] px-3.5 py-1.5 rounded text-xs font-mono font-bold transition-all flex items-center justify-center"
       >
         3
       </button>
       <button
         data-step="4"
-        class="kahn-step-btn px-3.5 py-1.5 rounded text-xs font-mono font-bold transition-all"
+        class="kahn-step-btn min-h-[44px] min-w-[44px] px-3.5 py-1.5 rounded text-xs font-mono font-bold transition-all flex items-center justify-center"
       >
         4
       </button>
       <button
         id="kahn-play-pause-btn"
-        class="ml-2 px-3.5 py-1.5 rounded text-xs font-mono font-bold text-[#0a0a0a] bg-[var(--btn-metal)] border border-[#8c939b] flex items-center gap-1.5 transition-all shadow-sm active:scale-95 hover:brightness-105"
+        class="ml-1 sm:ml-2 min-h-[44px] px-3.5 py-1.5 rounded text-xs font-mono font-bold text-[#0a0a0a] bg-[var(--btn-metal)] border border-[#8c939b] flex items-center gap-1.5 transition-all shadow-sm active:scale-95 hover:brightness-105"
       >
         <span id="play-pause-icon">⏸</span>
         <span id="play-pause-label">Pause</span>

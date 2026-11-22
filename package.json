@@ -6,7 +6,7 @@
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "bin": {
-    "seed-db": "./dist/cli.js"
+    "seed-db": "dist/cli.js"
   },
   "exports": {
     ".": {

@@ -3,31 +3,74 @@ import Logo from './Logo.astro';
 import { getPath } from '../utils/url';
 ---
 
-<footer class="surface-dark-metal border-t border-[#2c3036] py-12 text-[#9aa1a8]">
+<footer
+  class="surface-dark-metal border-t border-[#2c3036] text-[#9aa1a8]"
+  style="padding-top: 3rem; padding-bottom: calc(32px + env(safe-area-inset-bottom, 0px));"
+>
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex flex-col md:flex-row items-center justify-between gap-6">
-      <div class="flex items-center gap-3">
+    <!-- Below 640px: single column (flex-direction: column; align-items: flex-start; gap: 14px) -->
+    <!-- At/above 640px: flex-row, justify-between, items-center -->
+    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-[14px] sm:gap-6">
+      
+      <!-- 1. Logo and Name (flex: none, whitespace: nowrap) -->
+      <div class="flex items-center gap-3 flex-none whitespace-nowrap">
         <Logo size={24} isDark={true} />
-        <span class="font-mono font-bold text-white text-base tracking-tight">seed-db</span>
-        <span class="text-[#454a52]">|</span>
-        <span class="text-xs font-mono text-[#9aa1a8]">
+        <span class="font-mono font-bold text-white text-base tracking-tight whitespace-nowrap">
+          seed-db
+        </span>
+        <span class="hidden sm:inline text-[#454a52]">|</span>
+        <!-- Desktop-only inline licence -->
+        <span class="hidden sm:inline text-xs font-mono text-[#9aa1a8]">
           MIT licensed. No telemetry. Built with Bun and TypeScript.
         </span>
       </div>
 
-      <div class="flex items-center gap-6 text-sm font-mono">
-        <a href={getPath("/docs")} class="text-[#c7ccd2] hover:text-white transition-colors">Docs</a>
-        <a href={getPath("/#examples")} class="text-[#c7ccd2] hover:text-white transition-colors">Examples</a>
-        <a href={getPath("/#ci")} class="text-[#c7ccd2] hover:text-white transition-colors">CI</a>
+      <!-- 2. Links (tap targets >= 44px) -->
+      <div class="flex flex-wrap items-center gap-4 sm:gap-6 text-sm font-mono">
+        <a
+          href={getPath("/docs")}
+          class="text-[#c7ccd2] hover:text-white transition-colors min-h-[44px] flex items-center"
+        >
+          Docs
+        </a>
+        <a
+          href={getPath("/#examples")}
+          class="text-[#c7ccd2] hover:text-white transition-colors min-h-[44px] flex items-center"
+        >
+          Examples
+        </a>
+        <a
+          href={getPath("/#ci")}
+          class="text-[#c7ccd2] hover:text-white transition-colors min-h-[44px] flex items-center"
+        >
+          CI
+        </a>
+        <!-- Desktop-only GitHub link inside links row -->
         <a
           href="https://github.com/mariiodegen/seed-db"
           target="_blank"
           rel="noopener noreferrer"
-          class="text-[#c7ccd2] hover:text-white transition-colors"
+          class="hidden sm:flex text-[#c7ccd2] hover:text-white transition-colors min-h-[44px] items-center [overflow-wrap:anywhere]"
         >
           github.com/mariiodegen/seed-db
         </a>
       </div>
+
+      <!-- 3. Licence line (Visible below 640px only) -->
+      <div class="sm:hidden text-xs font-mono text-[#9aa1a8]">
+        MIT licensed. No telemetry. Built with Bun and TypeScript.
+      </div>
+
+      <!-- 4. GitHub address (Visible below 640px only, overflow-wrap: anywhere, min-h-[44px]) -->
+      <a
+        href="https://github.com/mariiodegen/seed-db"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="sm:hidden text-xs font-mono text-[#c7ccd2] hover:text-white transition-colors min-h-[44px] flex items-center [overflow-wrap:anywhere] break-all"
+      >
+        github.com/mariiodegen/seed-db
+      </a>
+
     </div>
   </div>
 </footer>

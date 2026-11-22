@@ -6,31 +6,31 @@
   <div class="flex flex-wrap items-center gap-2 pb-5 border-b border-[#9aa1a8]/60" id="examples-tabs">
     <button
       data-example="local"
-      class="example-tab active px-3.5 py-1.5 rounded-lg text-xs font-mono font-bold transition-all"
+      class="example-tab active min-h-[44px] px-3.5 py-2 rounded-lg text-xs font-mono font-bold transition-all flex items-center justify-center"
     >
       Seed locally
     </button>
     <button
       data-example="tables"
-      class="example-tab px-3.5 py-1.5 rounded-lg text-xs font-mono font-bold transition-all"
+      class="example-tab min-h-[44px] px-3.5 py-2 rounded-lg text-xs font-mono font-bold transition-all flex items-center justify-center"
     >
       Only some tables
     </button>
     <button
       data-example="offline"
-      class="example-tab px-3.5 py-1.5 rounded-lg text-xs font-mono font-bold transition-all"
+      class="example-tab min-h-[44px] px-3.5 py-2 rounded-lg text-xs font-mono font-bold transition-all flex items-center justify-center"
     >
       No live database
     </button>
     <button
       data-example="ci"
-      class="example-tab px-3.5 py-1.5 rounded-lg text-xs font-mono font-bold transition-all"
+      class="example-tab min-h-[44px] px-3.5 py-2 rounded-lg text-xs font-mono font-bold transition-all flex items-center justify-center"
     >
       Check in CI
     </button>
     <button
       data-example="override"
-      class="example-tab px-3.5 py-1.5 rounded-lg text-xs font-mono font-bold transition-all"
+      class="example-tab min-h-[44px] px-3.5 py-2 rounded-lg text-xs font-mono font-bold transition-all flex items-center justify-center"
     >
       Override a column
     </button>
@@ -50,7 +50,7 @@
         <div class="font-bold flex items-center justify-between">
           <span>seed-db run --seed 1 --rows 25</span>
           <button
-            class="copy-btn h-[36px] px-3 rounded text-xs font-mono font-bold text-white bg-[#1b1d22] hover:bg-[#2a2d33] border border-[#454a52] flex items-center gap-1 transition-all active:scale-95"
+            class="copy-btn min-h-[44px] px-3 rounded text-xs font-mono font-bold text-white bg-[#1b1d22] hover:bg-[#2a2d33] border border-[#454a52] flex items-center gap-1 transition-all active:scale-95"
             data-copy="seed-db run --seed 1 --rows 25"
           >
             Copy
@@ -76,7 +76,7 @@
         <div class="font-bold flex items-center justify-between">
           <span>seed-db run --tables users,products,orders --rows 50</span>
           <button
-            class="copy-btn h-[36px] px-3 rounded text-xs font-mono font-bold text-white bg-[#1b1d22] hover:bg-[#2a2d33] border border-[#454a52] flex items-center gap-1 transition-all active:scale-95"
+            class="copy-btn min-h-[44px] px-3 rounded text-xs font-mono font-bold text-white bg-[#1b1d22] hover:bg-[#2a2d33] border border-[#454a52] flex items-center gap-1 transition-all active:scale-95"
             data-copy="seed-db run --tables users,products,orders --rows 50"
           >
             Copy
@@ -105,7 +105,7 @@
           <div>psql mydb -f seed.sql</div>
         </div>
         <button
-          class="copy-btn absolute top-4 right-4 h-[36px] px-3 rounded text-xs font-mono font-bold text-white bg-[#1b1d22] hover:bg-[#2a2d33] border border-[#454a52] flex items-center gap-1 transition-all active:scale-95"
+          class="copy-btn absolute top-4 right-4 min-h-[44px] px-3.5 rounded text-xs font-mono font-bold text-white bg-[#1b1d22] hover:bg-[#2a2d33] border border-[#454a52] flex items-center gap-1 transition-all active:scale-95"
           data-copy="seed-db inspect --json > schema.json && seed-db run --snapshot schema.json --out seed.sql --seed 1 && psql mydb -f seed.sql"
         >
           Copy
@@ -130,7 +130,7 @@
         <div class="font-bold flex items-center justify-between">
           <span>seed-db run --check --seed 1 --format json</span>
           <button
-            class="copy-btn h-[36px] px-3 rounded text-xs font-mono font-bold text-white bg-[#1b1d22] hover:bg-[#2a2d33] border border-[#454a52] flex items-center gap-1 transition-all active:scale-95"
+            class="copy-btn min-h-[44px] px-3 rounded text-xs font-mono font-bold text-white bg-[#1b1d22] hover:bg-[#2a2d33] border border-[#454a52] flex items-center gap-1 transition-all active:scale-95"
             data-copy="seed-db run --check --seed 1 --format json"
           >
             Copy
@@ -165,7 +165,7 @@
   &#125;,
 &#125;;</pre>
         <button
-          class="copy-btn absolute top-4 right-4 h-[36px] px-3 rounded text-xs font-mono font-bold text-white bg-[#1b1d22] hover:bg-[#2a2d33] border border-[#454a52] flex items-center gap-1 transition-all active:scale-95"
+          class="copy-btn absolute top-4 right-4 min-h-[44px] px-3.5 rounded text-xs font-mono font-bold text-white bg-[#1b1d22] hover:bg-[#2a2d33] border border-[#454a52] flex items-center gap-1 transition-all active:scale-95"
           data-copy='export default { tables: { users: { columns: { status: ({ faker }) => faker.helpers.arrayElement(["active", "suspended"]), tenant_id: "fixed-uuid-1234", age: { int: { min: 18, max: 90 } } } } } };'
         >
           Copy

@@ -46,7 +46,7 @@ import PillBadge from '../components/PillBadge.astro';
         </aside>
 
         <!-- MAIN DOCUMENTATION CONTENT -->
-        <article class="lg:col-span-9 space-y-16">
+        <article class="lg:col-span-9 space-y-16 min-w-0">
           <!-- Title & Pre-release Callout -->
           <div class="space-y-4 pb-6 border-b border-[#9aa1a8]">
             <h1 class="font-mono text-3xl sm:text-4xl font-bold text-[#0a0a0a] tracking-tight">
@@ -77,7 +77,7 @@ import PillBadge from '../components/PillBadge.astro';
                 </h3>
                 <div class="rounded-lg bg-[#0c0d10] p-3 border border-[#2c3036] flex items-center justify-between font-mono text-xs text-white">
                   <span class="font-bold"><span class="text-[#8a9199] select-none">$ </span>seed-db init</span>
-                  <button class="doc-copy-btn h-[32px] px-3 rounded text-xs font-mono font-bold text-white bg-[#1b1d22] hover:bg-[#2a2d33] border border-[#454a52] transition-colors" data-copy="seed-db init">Copy</button>
+                  <button class="doc-copy-btn min-h-[44px] px-3.5 rounded text-xs font-mono font-bold text-white bg-[#1b1d22] hover:bg-[#2a2d33] border border-[#454a52] transition-colors flex items-center justify-center" data-copy="seed-db init">Copy</button>
                 </div>
                 <p class="font-sans text-xs text-[#4a4f56] leading-relaxed">
                   Asks for your database URL and a default row count. Writes <span class="code-chip">seed.config.ts</span> and <span class="code-chip">.env.example</span>. It refuses to overwrite existing files unless you pass <span class="code-chip">--force</span>.
@@ -91,7 +91,7 @@ import PillBadge from '../components/PillBadge.astro';
                 </h3>
                 <div class="rounded-lg bg-[#0c0d10] p-3 border border-[#2c3036] flex items-center justify-between font-mono text-xs text-white">
                   <span class="font-bold"><span class="text-[#8a9199] select-none">$ </span>seed-db inspect</span>
-                  <button class="doc-copy-btn h-[32px] px-3 rounded text-xs font-mono font-bold text-white bg-[#1b1d22] hover:bg-[#2a2d33] border border-[#454a52] transition-colors" data-copy="seed-db inspect">Copy</button>
+                  <button class="doc-copy-btn min-h-[44px] px-3.5 rounded text-xs font-mono font-bold text-white bg-[#1b1d22] hover:bg-[#2a2d33] border border-[#454a52] transition-colors flex items-center justify-center" data-copy="seed-db inspect">Copy</button>
                 </div>
                 <p class="font-sans text-xs text-[#4a4f56] leading-relaxed">
                   Prints your tables, columns, relationships, the insert order, and which generator each column will use. Nothing is written. Add <span class="code-chip">--json</span> to print the schema as JSON.
@@ -105,7 +105,7 @@ import PillBadge from '../components/PillBadge.astro';
                 </h3>
                 <div class="rounded-lg bg-[#0c0d10] p-3 border border-[#2c3036] flex items-center justify-between font-mono text-xs text-white">
                   <span class="font-bold"><span class="text-[#8a9199] select-none">$ </span>seed-db run</span>
-                  <button class="doc-copy-btn h-[32px] px-3 rounded text-xs font-mono font-bold text-white bg-[#1b1d22] hover:bg-[#2a2d33] border border-[#454a52] transition-colors" data-copy="seed-db run">Copy</button>
+                  <button class="doc-copy-btn min-h-[44px] px-3.5 rounded text-xs font-mono font-bold text-white bg-[#1b1d22] hover:bg-[#2a2d33] border border-[#454a52] transition-colors flex items-center justify-center" data-copy="seed-db run">Copy</button>
                 </div>
                 <p class="font-sans text-xs text-[#4a4f56] leading-relaxed">
                   Generates data and inserts it in one transaction. If anything fails, everything rolls back. Add <span class="code-chip">--dry-run</span> to print the SQL, or <span class="code-chip">--check</span> to run it all and roll back.
@@ -124,7 +124,7 @@ import PillBadge from '../components/PillBadge.astro';
               </p>
             </div>
 
-            <div class="surface-panel overflow-hidden">
+            <div class="surface-panel overflow-x-auto">
               <table class="w-full text-left font-sans text-xs border-collapse">
                 <thead>
                   <tr class="border-b border-[#9aa1a8] bg-gradient-to-b from-[#ffffff] to-[#cfd4da] font-mono text-[#0a0a0a]">
@@ -157,7 +157,7 @@ import PillBadge from '../components/PillBadge.astro';
               <h3 class="font-mono text-sm font-bold text-[#4a4f56]">seed-db run</h3>
             </div>
 
-            <div class="surface-panel overflow-hidden">
+            <div class="surface-panel overflow-x-auto">
               <table class="w-full text-left font-sans text-xs border-collapse">
                 <thead>
                   <tr class="border-b border-[#9aa1a8] bg-gradient-to-b from-[#ffffff] to-[#cfd4da] font-mono text-[#0a0a0a]">
@@ -208,7 +208,7 @@ import PillBadge from '../components/PillBadge.astro';
 
             <div class="space-y-2 pt-4">
               <h3 class="font-mono text-sm font-bold text-[#4a4f56]">Flags for every command</h3>
-              <div class="surface-panel overflow-hidden">
+              <div class="surface-panel overflow-x-auto">
                 <table class="w-full text-left font-sans text-xs border-collapse">
                   <thead>
                     <tr class="border-b border-[#9aa1a8] bg-gradient-to-b from-[#ffffff] to-[#cfd4da] font-mono text-[#0a0a0a]">
@@ -290,7 +290,7 @@ export default defineSeedConfig(&#123;
   &#125;,
 &#125;);</pre>
                 <button
-                  class="doc-copy-btn absolute top-4 right-4 h-[36px] px-3 rounded text-xs font-mono font-bold text-white bg-[#1b1d22] hover:bg-[#2a2d33] border border-[#454a52] transition-colors"
+                  class="doc-copy-btn absolute top-4 right-4 min-h-[44px] px-3.5 rounded text-xs font-mono font-bold text-white bg-[#1b1d22] hover:bg-[#2a2d33] border border-[#454a52] transition-colors flex items-center justify-center"
                   data-copy='import { defineSeedConfig } from "@mariiodegen/seed-db";
 
 export default defineSeedConfig({
@@ -328,7 +328,7 @@ export default defineSeedConfig({
             <!-- Top-level Options Table -->
             <div class="space-y-3 pt-2">
               <h3 class="font-mono text-sm font-bold text-[#0a0a0a]">Top-level options</h3>
-              <div class="surface-panel overflow-hidden">
+              <div class="surface-panel overflow-x-auto">
                 <table class="w-full text-left font-sans text-xs border-collapse">
                   <thead>
                     <tr class="border-b border-[#9aa1a8] bg-gradient-to-b from-[#ffffff] to-[#cfd4da] font-mono text-[#0a0a0a]">
@@ -381,7 +381,7 @@ export default defineSeedConfig({
             <!-- Column Rules Table -->
             <div class="space-y-3 pt-2">
               <h3 class="font-mono text-sm font-bold text-[#0a0a0a]">Column rules</h3>
-              <div class="surface-panel overflow-hidden">
+              <div class="surface-panel overflow-x-auto">
                 <table class="w-full text-left font-sans text-xs border-collapse">
                   <thead>
                     <tr class="border-b border-[#9aa1a8] bg-gradient-to-b from-[#ffffff] to-[#cfd4da] font-mono text-[#0a0a0a]">
@@ -441,7 +441,7 @@ export default defineSeedConfig({
               </p>
             </div>
 
-            <div class="surface-panel overflow-hidden">
+            <div class="surface-panel overflow-x-auto">
               <table class="w-full text-left font-sans text-xs border-collapse">
                 <thead>
                   <tr class="border-b border-[#9aa1a8] bg-gradient-to-b from-[#ffffff] to-[#cfd4da] font-mono text-[#0a0a0a]">
@@ -517,7 +517,7 @@ export default defineSeedConfig({
             </div>
 
             <!-- Circular Situations Table -->
-            <div class="surface-panel overflow-hidden">
+            <div class="surface-panel overflow-x-auto">
               <table class="w-full text-left font-sans text-xs border-collapse">
                 <thead>
                   <tr class="border-b border-[#9aa1a8] bg-gradient-to-b from-[#ffffff] to-[#cfd4da] font-mono text-[#0a0a0a]">
@@ -561,7 +561,7 @@ export default defineSeedConfig({
                 <div>seed-db run --snapshot schema.json --out seed.sql --seed 1</div>
                 <div>psql mydb -f seed.sql</div>
                 <button
-                  class="doc-copy-btn absolute top-3 right-3 h-[32px] px-3 rounded text-xs font-mono font-bold text-white bg-[#1b1d22] hover:bg-[#2a2d33] border border-[#454a52] transition-colors"
+                  class="doc-copy-btn absolute top-3 right-3 min-h-[44px] px-3.5 rounded text-xs font-mono font-bold text-white bg-[#1b1d22] hover:bg-[#2a2d33] border border-[#454a52] transition-colors flex items-center justify-center"
                   data-copy="seed-db inspect --json > schema.json && seed-db run --snapshot schema.json --out seed.sql --seed 1 && psql mydb -f seed.sql"
                 >
                   Copy
@@ -577,7 +577,7 @@ export default defineSeedConfig({
               <h3 class="font-mono text-sm font-bold text-[#0a0a0a]">Run it, then roll it back</h3>
               <div class="rounded-lg bg-[#0c0d10] p-3 border border-[#2c3036] font-mono text-xs text-white flex items-center justify-between">
                 <span class="font-bold">seed-db run --check --seed 1</span>
-                <button class="doc-copy-btn h-[32px] px-3 rounded text-xs font-mono font-bold text-white bg-[#1b1d22] hover:bg-[#2a2d33] border border-[#454a52] transition-colors" data-copy="seed-db run --check --seed 1">Copy</button>
+                <button class="doc-copy-btn min-h-[44px] px-3.5 rounded text-xs font-mono font-bold text-white bg-[#1b1d22] hover:bg-[#2a2d33] border border-[#454a52] transition-colors flex items-center justify-center" data-copy="seed-db run --check --seed 1">Copy</button>
               </div>
               <p class="font-sans text-xs text-[#4a4f56] leading-relaxed">
                 Check mode runs every insert and ends with a rollback. It proves a real run would succeed and leaves nothing behind. Sequences still advance.
@@ -598,7 +598,7 @@ export default defineSeedConfig({
               </p>
             </div>
 
-            <div class="surface-panel overflow-hidden">
+            <div class="surface-panel overflow-x-auto">
               <table class="w-full text-left font-sans text-xs border-collapse">
                 <thead>
                   <tr class="border-b border-[#9aa1a8] bg-gradient-to-b from-[#ffffff] to-[#cfd4da] font-mono text-[#0a0a0a]">
@@ -639,7 +639,7 @@ export default defineSeedConfig({
             </div>
 
             <!-- Error Fields Table -->
-            <div class="surface-panel overflow-hidden">
+            <div class="surface-panel overflow-x-auto">
               <table class="w-full text-left font-sans text-xs border-collapse">
                 <thead>
                   <tr class="border-b border-[#9aa1a8] bg-gradient-to-b from-[#ffffff] to-[#cfd4da] font-mono text-[#0a0a0a]">
@@ -703,7 +703,7 @@ export default defineSeedConfig({
             <!-- Exit Codes Table -->
             <div class="space-y-3 pt-4">
               <h3 class="font-mono text-sm font-bold text-[#0a0a0a]">Exit codes</h3>
-              <div class="surface-panel overflow-hidden">
+              <div class="surface-panel overflow-x-auto">
                 <table class="w-full text-left font-sans text-xs border-collapse">
                   <thead>
                     <tr class="border-b border-[#9aa1a8] bg-gradient-to-b from-[#ffffff] to-[#cfd4da] font-mono text-[#0a0a0a]">
@@ -738,7 +738,7 @@ export default defineSeedConfig({
               <h3 class="font-mono text-sm font-bold text-[#0a0a0a]">In CI</h3>
               <div class="rounded-lg bg-[#0c0d10] p-3 border border-[#2c3036] font-mono text-xs text-white flex items-center justify-between">
                 <span class="font-bold">seed-db run --check --seed 1 --format json</span>
-                <button class="doc-copy-btn h-[32px] px-3 rounded text-xs font-mono font-bold text-white bg-[#1b1d22] hover:bg-[#2a2d33] border border-[#454a52] transition-colors" data-copy="seed-db run --check --seed 1 --format json">Copy</button>
+                <button class="doc-copy-btn min-h-[44px] px-3.5 rounded text-xs font-mono font-bold text-white bg-[#1b1d22] hover:bg-[#2a2d33] border border-[#454a52] transition-colors flex items-center justify-center" data-copy="seed-db run --check --seed 1 --format json">Copy</button>
               </div>
               <p class="font-sans text-xs text-[#4a4f56] leading-relaxed">
                 Exit code 0 means a real run would succeed. Any other code fails the step, and the JSON tells you why.
