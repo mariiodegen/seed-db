@@ -1,0 +1,116 @@
+---
+interface Props {
+  size?: number;
+  className?: string;
+  isDark?: boolean;
+}
+
+const { size = 32, className = "", isDark = true } = Astro.props;
+const uniqueId = Math.random().toString(36).substring(2, 9);
+const bodyFill = isDark ? "#286355" : "#1f4a40";
+const topFill = isDark ? "#3b806f" : "#2f6b5c";
+---
+
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 128 128"
+  width={size}
+  height={size}
+  fill="none"
+  class={`inline-block select-none ${className}`}
+  aria-label="seed-db logo"
+>
+  <defs>
+    <clipPath id={`cylinder-clip-${uniqueId}`}>
+      <path d="M24 64 C24 74 104 74 104 64 V96 C104 108 24 108 24 96 Z" />
+    </clipPath>
+  </defs>
+
+  <!-- Database Cylinder Body -->
+  <g id={`cylinder-${uniqueId}`}>
+    <!-- Base / Lower Body -->
+    <path
+      d="M24 64 C24 76 104 76 104 64 V96 C104 108 24 108 24 96 Z"
+      fill={bodyFill}
+    />
+
+    <!-- Bands at 55% opacity -->
+    <path
+      d="M24 78 C24 88 104 88 104 78"
+      stroke="#8fd3a4"
+      stroke-opacity="0.55"
+      stroke-width="2.5"
+      fill="none"
+    />
+    <path
+      d="M24 90 C24 100 104 100 104 90"
+      stroke="#8fd3a4"
+      stroke-opacity="0.55"
+      stroke-width="2.5"
+      fill="none"
+    />
+
+    <!-- Cylinder Top Disk -->
+    <ellipse cx="64" cy="64" rx="40" ry="12" fill={topFill} />
+    <ellipse cx="64" cy="64" rx="14" ry="4" fill="#14312a" opacity="0.8" />
+  </g>
+
+  <!-- Seedling / Sprout (sways slowly) -->
+  <g id={`sprout-${uniqueId}`} class="sprout-sway">
+    <!-- Stem -->
+    <path
+      d="M64 64 C64 52 64 42 64 36"
+      stroke="#3f9e5a"
+      stroke-width="3.5"
+      stroke-linecap="round"
+    />
+
+    <!-- Left Leaf (Lower) -->
+    <path
+      d="M64 45 C48 45 36 34 40 22 C54 20 63 32 64 45 Z"
+      fill="#6fcf86"
+    />
+    <!-- Left Leaf Vein -->
+    <path
+      d="M48 30 C54 32 60 38 64 45"
+      stroke="#e6f7ea"
+      stroke-width="1.2"
+      stroke-linecap="round"
+    />
+
+    <!-- Right Leaf (Higher) -->
+    <path
+      d="M64 37 C78 35 94 24 88 12 C72 11 65 24 64 37 Z"
+      fill="#4fb86c"
+    />
+    <!-- Right Leaf Vein -->
+    <path
+      d="M80 20 C74 24 68 29 64 37"
+      stroke="#e6f7ea"
+      stroke-width="1.2"
+      stroke-linecap="round"
+    />
+  </g>
+</svg>
+
+<style>
+  .sprout-sway {
+    transform-origin: 64px 64px;
+    animation: sprout-sway 4s ease-in-out infinite;
+  }
+
+  @keyframes sprout-sway {
+    0%, 100% {
+      transform: rotate(-1.5deg);
+    }
+    50% {
+      transform: rotate(1.5deg);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .sprout-sway {
+      animation: none !important;
+    }
+  }
+</style>

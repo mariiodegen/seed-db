@@ -1,25 +1,177 @@
 @import "@fontsource/jetbrains-mono/400.css";
 @import "@fontsource/jetbrains-mono/500.css";
-@import "@fontsource/jetbrains-mono/600.css";
 @import "@fontsource/jetbrains-mono/700.css";
-@import "@fontsource/ibm-plex-sans/300.css";
+@import "@fontsource/jetbrains-mono/800.css";
 @import "@fontsource/ibm-plex-sans/400.css";
 @import "@fontsource/ibm-plex-sans/500.css";
 @import "@fontsource/ibm-plex-sans/600.css";
-@import "@fontsource/ibm-plex-sans/700.css";
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  color-scheme: dark;
+  /* greys */
+  --ink: #0a0a0a;
+  --ink-2: #4a4f56;          /* secondary text on light */
+  --steel-100: #f4f6f8;
+  --steel-200: #e4e8ec;
+  --steel-300: #c7ccd2;
+  --steel-400: #9aa1a8;
+  --steel-500: #6b727a;
+  --steel-900: #15171b;
+  --black: #050607;
+
+  /* metals (gradients) */
+  --chrome-text: linear-gradient(180deg, #ffffff 0%, #f1f3f5 22%, #aab1b8 44%, #4d535a 50%, #c9ced3 58%, #ffffff 78%, #9aa1a8 100%);
+  --chrome-bar: linear-gradient(90deg, #4a4f55 0%, #f7f9fb 14%, #8a9199 28%, #ffffff 42%, #6b727a 56%, #f2f4f6 72%, #8a9199 86%, #e6e9ec 100%);
+  --chrome-frame: linear-gradient(135deg, #ffffff 0%, #8d949c 18%, #f4f6f8 34%, #5f666e 52%, #e9ecef 70%, #80878f 86%, #f7f8fa 100%);
+  --btn-metal: linear-gradient(180deg, #ffffff 0%, #eef0f3 18%, #c7ccd2 46%, #8b929a 52%, #c4c9cf 70%, #f4f6f8 100%);
+  --btn-dark: linear-gradient(180deg, #5a6068 0%, #2a2d33 48%, #0c0d10 52%, #23262b 100%);
+  --gunmetal: radial-gradient(120% 90% at 50% -10%, #454a52 0%, #1b1d22 45%, #050607 100%);
+  --aluminium: linear-gradient(180deg, #f4f6f8 0%, #d3d8de 55%, #e6e9ed 100%);
+  --aluminium-light: linear-gradient(180deg, #fafbfc 0%, #e4e8ec 100%);
+  --panel: linear-gradient(180deg, #ffffff 0%, #e9edf0 50%, #d8dde2 100%);
+
+  /* brushed grain (layer on top of a ground) */
+  --grain-dark: repeating-linear-gradient(90deg, rgba(255,255,255,.07) 0 1px, rgba(0,0,0,.18) 2px, transparent 3px);
+  --grain-light: repeating-linear-gradient(90deg, rgba(0,0,0,.045) 0 1px, rgba(255,255,255,.35) 2px, transparent 3px);
+
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
 }
 
 body {
-  font-family: 'IBM Plex Sans', sans-serif;
-  background-color: #0b0f19;
-  color: #e2e8f0;
+  font-family: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 17px;
+  line-height: 1.6;
+  background-color: var(--black);
+  color: var(--steel-100);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Headings in JetBrains Mono */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* Chrome Headline on Dark */
+.chrome-headline {
+  background: var(--chrome-text);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+}
+
+/* Surfaces */
+.surface-dark-metal {
+  background: var(--grain-dark), var(--gunmetal);
+  background-color: #111317;
+  color: #f4f6f8;
+}
+
+.surface-aluminium {
+  background: var(--grain-light), var(--aluminium);
+  background-color: #e4e8ec;
+  color: var(--ink);
+}
+
+.surface-aluminium-light {
+  background: var(--grain-light), var(--aluminium-light);
+  background-color: #f4f6f8;
+  color: var(--ink);
+}
+
+.surface-panel {
+  background: var(--panel);
+  border: 1px solid #9aa1a8;
+  box-shadow: inset 0 1px 0 #fff, inset 0 -1px 0 rgba(0,0,0,.18), 0 2px 6px rgba(0,0,0,.22);
+  border-radius: var(--radius-md);
+}
+
+.silver-frame {
+  background: var(--chrome-frame);
+  padding: 2px;
+  border-radius: var(--radius-lg);
+  box-shadow: 0 8px 24px rgba(0,0,0,.45);
+}
+
+/* Primary Button */
+.btn-metal {
+  background: var(--btn-metal);
+  color: var(--ink);
+  height: 48px;
+  border: 1px solid #8c939b;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+  border-radius: var(--radius-sm);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 22px;
+  font-size: 14px;
+  transition: filter 150ms ease, transform 150ms ease;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+  cursor: pointer;
+}
+
+.btn-metal:hover {
+  filter: brightness(1.07);
+  transform: translateY(-1px);
+}
+
+/* Dark Button */
+.btn-dark {
+  background: var(--btn-dark);
+  color: #ffffff;
+  height: 48px;
+  border: 1px solid #3a3f47;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+  border-radius: var(--radius-sm);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.25), 0 2px 4px rgba(0,0,0,0.3);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 22px;
+  font-size: 14px;
+  transition: filter 150ms ease, transform 150ms ease;
+  cursor: pointer;
+}
+
+.btn-dark:hover {
+  filter: brightness(1.15);
+  transform: translateY(-1px);
+}
+
+/* Inline Code Chip */
+.code-chip {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13.5px;
+  background: linear-gradient(180deg, #ffffff, #d5dae0 55%, #c0c6cd);
+  border: 1px solid #cdd3da;
+  border-radius: 4px;
+  padding: 1px 6px;
+  color: var(--ink);
+  font-weight: 600;
+  display: inline-block;
+}
+
+/* Card hover lift */
+.card-lift {
+  transition: transform 150ms ease, box-shadow 150ms ease;
+}
+
+.card-lift:hover {
+  transform: translateY(-2px);
+  box-shadow: inset 0 1px 0 #fff, inset 0 -1px 0 rgba(0,0,0,.18), 0 6px 16px rgba(0,0,0,.26);
+}
+
+/* Focus Visible */
+:focus-visible {
+  outline: 2px solid #ffffff !important;
+  outline-offset: 4px !important;
 }
 
 /* Custom scrollbars */
@@ -28,12 +180,12 @@ body {
   height: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #0b0f19;
+  background: #111317;
 }
 ::-webkit-scrollbar-thumb {
-  background: #1e293b;
+  background: #4a4f56;
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #334155;
+  background: #6b727a;
 }

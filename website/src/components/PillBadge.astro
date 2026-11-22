@@ -1,13 +1,21 @@
 ---
 interface Props {
   text?: string;
+  isDark?: boolean;
   className?: string;
 }
 
-const { text = "IN PLAIN WORDS", className = "" } = Astro.props;
+const { text = "IN PLAIN WORDS", isDark = false, className = "" } = Astro.props;
 ---
 
-<div class={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-mono font-medium tracking-wider uppercase bg-emerald-950/40 text-emerald-400 border border-emerald-500/30 ${className}`}>
-  <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-  <span>{text}</span>
-</div>
+{isDark ? (
+  <div class={`inline-flex items-center gap-2 px-3 py-1 rounded text-[11px] font-mono font-bold tracking-wider uppercase bg-[#15171b] text-[#c7ccd2] border border-[#3a3f47] shadow-inner ${className}`}>
+    <span class="w-1.5 h-1.5 rounded-full bg-[#8a9199]"></span>
+    <span>{text}</span>
+  </div>
+) : (
+  <div class={`inline-flex items-center gap-2 px-3 py-1 rounded text-[11px] font-mono font-bold tracking-wider uppercase bg-[#e4e8ec] text-[#0a0a0a] border border-[#9aa1a8] shadow-sm ${className}`}>
+    <span class="w-1.5 h-1.5 rounded-full bg-[#4a4f56]"></span>
+    <span>{text}</span>
+  </div>
+)}

@@ -4,271 +4,273 @@ import PillBadge from '../components/PillBadge.astro';
 ---
 
 <Layout title="seed-db — Documentation" description="Comprehensive documentation for seed-db: setup, commands, flags, config, waterfall heuristics, DAG resolution, safety, and error contract." currentPath="/docs">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
-      <!-- STICKY SIDEBAR NAVIGATION -->
-      <aside class="hidden lg:block lg:col-span-3">
-        <div class="sticky top-24 space-y-4">
-          <div class="font-mono text-xs font-bold text-slate-400 uppercase tracking-wider px-3">
-            ON THIS PAGE
+  <div class="surface-aluminium min-h-screen py-10 border-b border-[#c7ccd2]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
+        <!-- STICKY SIDEBAR NAVIGATION -->
+        <aside class="hidden lg:block lg:col-span-3">
+          <div class="sticky top-24 surface-panel p-4 space-y-3">
+            <div class="font-mono text-xs font-bold text-[#0a0a0a] uppercase tracking-wider px-2">
+              ON THIS PAGE
+            </div>
+            <nav class="space-y-1 font-mono text-xs">
+              <a href="#quick-start" class="docs-nav-link block px-3 py-2 rounded text-[#4a4f56] hover:text-[#0a0a0a] transition-all">
+                Quick start
+              </a>
+              <a href="#commands" class="docs-nav-link block px-3 py-2 rounded text-[#4a4f56] hover:text-[#0a0a0a] transition-all">
+                Commands
+              </a>
+              <a href="#flags" class="docs-nav-link block px-3 py-2 rounded text-[#4a4f56] hover:text-[#0a0a0a] transition-all">
+                Flags
+              </a>
+              <a href="#config-file" class="docs-nav-link block px-3 py-2 rounded text-[#4a4f56] hover:text-[#0a0a0a] transition-all">
+                Config file
+              </a>
+              <a href="#how-values-are-chosen" class="docs-nav-link block px-3 py-2 rounded text-[#4a4f56] hover:text-[#0a0a0a] transition-all">
+                How values are chosen
+              </a>
+              <a href="#insert-order" class="docs-nav-link block px-3 py-2 rounded text-[#4a4f56] hover:text-[#0a0a0a] transition-all">
+                Insert order
+              </a>
+              <a href="#without-a-live-database" class="docs-nav-link block px-3 py-2 rounded text-[#4a4f56] hover:text-[#0a0a0a] transition-all">
+                Without a live database
+              </a>
+              <a href="#safety" class="docs-nav-link block px-3 py-2 rounded text-[#4a4f56] hover:text-[#0a0a0a] transition-all">
+                Safety
+              </a>
+              <a href="#errors-and-exit-codes" class="docs-nav-link block px-3 py-2 rounded text-[#4a4f56] hover:text-[#0a0a0a] transition-all">
+                Errors and exit codes
+              </a>
+            </nav>
           </div>
-          <nav class="space-y-1 font-mono text-xs">
-            <a href="#quick-start" class="docs-nav-link block px-3 py-1.5 rounded text-slate-400 hover:text-emerald-400 hover:bg-slate-900/40 transition-colors">
-              Quick start
-            </a>
-            <a href="#commands" class="docs-nav-link block px-3 py-1.5 rounded text-slate-400 hover:text-emerald-400 hover:bg-slate-900/40 transition-colors">
-              Commands
-            </a>
-            <a href="#flags" class="docs-nav-link block px-3 py-1.5 rounded text-slate-400 hover:text-emerald-400 hover:bg-slate-900/40 transition-colors">
-              Flags
-            </a>
-            <a href="#config-file" class="docs-nav-link block px-3 py-1.5 rounded text-slate-400 hover:text-emerald-400 hover:bg-slate-900/40 transition-colors">
-              Config file
-            </a>
-            <a href="#how-values-are-chosen" class="docs-nav-link block px-3 py-1.5 rounded text-slate-400 hover:text-emerald-400 hover:bg-slate-900/40 transition-colors">
-              How values are chosen
-            </a>
-            <a href="#insert-order" class="docs-nav-link block px-3 py-1.5 rounded text-slate-400 hover:text-emerald-400 hover:bg-slate-900/40 transition-colors">
-              Insert order
-            </a>
-            <a href="#without-a-live-database" class="docs-nav-link block px-3 py-1.5 rounded text-slate-400 hover:text-emerald-400 hover:bg-slate-900/40 transition-colors">
-              Without a live database
-            </a>
-            <a href="#safety" class="docs-nav-link block px-3 py-1.5 rounded text-slate-400 hover:text-emerald-400 hover:bg-slate-900/40 transition-colors">
-              Safety
-            </a>
-            <a href="#errors-and-exit-codes" class="docs-nav-link block px-3 py-1.5 rounded text-slate-400 hover:text-emerald-400 hover:bg-slate-900/40 transition-colors">
-              Errors and exit codes
-            </a>
-          </nav>
-        </div>
-      </aside>
+        </aside>
 
-      <!-- MAIN DOCUMENTATION CONTENT -->
-      <article class="lg:col-span-9 space-y-16">
-        <!-- Title & Pre-release Callout -->
-        <div class="space-y-4 pb-6 border-b border-slate-800">
-          <h1 class="font-mono text-3xl sm:text-4xl font-bold text-white tracking-tight">
-            Documentation
-          </h1>
-          <p class="font-sans text-base text-slate-300 leading-relaxed">
-            Everything you need to seed a PostgreSQL database with seed-db, in the order you will need it.
-          </p>
-          <div class="rounded-lg bg-amber-500/10 border border-amber-500/20 p-4 text-xs font-sans text-amber-300/90 leading-relaxed">
-            <span class="font-bold">Notice:</span> seed-db is pre-release. Version 0.0.1 only reserves the package name, so these docs describe version 1 as designed. The commands below are the plan, not something you can install today.
-          </div>
-        </div>
-
-        <!-- 1. QUICK START -->
-        <section id="quick-start" class="space-y-6 scroll-mt-24">
-          <div class="space-y-2">
-            <h2 class="font-mono text-2xl font-bold text-white">Quick start</h2>
-            <p class="font-sans text-sm text-slate-300 leading-relaxed">
-              seed-db works with PostgreSQL, one schema per run (default <code class="px-1 py-0.5 rounded bg-slate-800 text-slate-200 font-mono text-xs">public</code>). Three commands take you from nothing to seeded data.
+        <!-- MAIN DOCUMENTATION CONTENT -->
+        <article class="lg:col-span-9 space-y-16">
+          <!-- Title & Pre-release Callout -->
+          <div class="space-y-4 pb-6 border-b border-[#9aa1a8]">
+            <h1 class="font-mono text-3xl sm:text-4xl font-bold text-[#0a0a0a] tracking-tight">
+              Documentation
+            </h1>
+            <p class="font-sans text-base text-[#4a4f56] leading-relaxed">
+              Everything you need to seed a PostgreSQL database with seed-db, in the order you will need it.
             </p>
+            <div class="surface-panel p-4 text-xs font-sans text-[#0a0a0a] leading-relaxed">
+              <strong class="font-mono">Notice:</strong> seed-db is pre-release. Version 0.0.1 only reserves the package name, so these docs describe version 1 as designed. The commands below are the plan, not something you can install today.
+            </div>
           </div>
 
-          <div class="space-y-4">
-            <!-- Step 1 -->
-            <div class="rounded-xl border border-slate-800 bg-[#090d16] p-5 space-y-3">
-              <h3 class="font-mono text-sm font-bold text-white flex items-center gap-2">
-                <span class="text-emerald-400">1.</span> Set up
-              </h3>
-              <div class="rounded bg-slate-950 p-3 border border-slate-800/80 flex items-center justify-between font-mono text-xs">
-                <span class="text-emerald-400 font-bold">$ seed-db init</span>
-                <button class="doc-copy-btn text-slate-400 hover:text-white transition-colors" data-copy="seed-db init">Copy</button>
-              </div>
-              <p class="font-sans text-xs text-slate-400 leading-relaxed">
-                Asks for your database URL and a default row count. Writes <code class="text-slate-300 font-mono">seed.config.ts</code> and <code class="text-slate-300 font-mono">.env.example</code>. It refuses to overwrite existing files unless you pass <code class="text-slate-300 font-mono">--force</code>.
+          <!-- 1. QUICK START -->
+          <section id="quick-start" class="space-y-6 scroll-mt-24">
+            <div class="space-y-2">
+              <h2 class="font-mono text-2xl font-bold text-[#0a0a0a]">Quick start</h2>
+              <p class="font-sans text-sm text-[#4a4f56] leading-relaxed">
+                seed-db works with PostgreSQL, one schema per run (default <span class="code-chip">public</span>). Three commands take you from nothing to seeded data.
               </p>
             </div>
 
-            <!-- Step 2 -->
-            <div class="rounded-xl border border-slate-800 bg-[#090d16] p-5 space-y-3">
-              <h3 class="font-mono text-sm font-bold text-white flex items-center gap-2">
-                <span class="text-emerald-400">2.</span> Look
-              </h3>
-              <div class="rounded bg-slate-950 p-3 border border-slate-800/80 flex items-center justify-between font-mono text-xs">
-                <span class="text-emerald-400 font-bold">$ seed-db inspect</span>
-                <button class="doc-copy-btn text-slate-400 hover:text-white transition-colors" data-copy="seed-db inspect">Copy</button>
+            <div class="space-y-4">
+              <!-- Step 1 -->
+              <div class="surface-panel p-5 space-y-3 card-lift">
+                <h3 class="font-mono text-sm font-bold text-[#0a0a0a] flex items-center gap-2">
+                  <span>1.</span> Set up
+                </h3>
+                <div class="rounded-lg bg-[#0c0d10] p-3 border border-[#2c3036] flex items-center justify-between font-mono text-xs text-white">
+                  <span class="font-bold"><span class="text-[#8a9199] select-none">$ </span>seed-db init</span>
+                  <button class="doc-copy-btn h-[32px] px-3 rounded text-xs font-mono font-bold text-white bg-[#1b1d22] hover:bg-[#2a2d33] border border-[#454a52] transition-colors" data-copy="seed-db init">Copy</button>
+                </div>
+                <p class="font-sans text-xs text-[#4a4f56] leading-relaxed">
+                  Asks for your database URL and a default row count. Writes <span class="code-chip">seed.config.ts</span> and <span class="code-chip">.env.example</span>. It refuses to overwrite existing files unless you pass <span class="code-chip">--force</span>.
+                </p>
               </div>
-              <p class="font-sans text-xs text-slate-400 leading-relaxed">
-                Prints your tables, columns, relationships, the insert order, and which generator each column will use. Nothing is written. Add <code class="text-slate-300 font-mono">--json</code> to print the schema as JSON.
+
+              <!-- Step 2 -->
+              <div class="surface-panel p-5 space-y-3 card-lift">
+                <h3 class="font-mono text-sm font-bold text-[#0a0a0a] flex items-center gap-2">
+                  <span>2.</span> Look
+                </h3>
+                <div class="rounded-lg bg-[#0c0d10] p-3 border border-[#2c3036] flex items-center justify-between font-mono text-xs text-white">
+                  <span class="font-bold"><span class="text-[#8a9199] select-none">$ </span>seed-db inspect</span>
+                  <button class="doc-copy-btn h-[32px] px-3 rounded text-xs font-mono font-bold text-white bg-[#1b1d22] hover:bg-[#2a2d33] border border-[#454a52] transition-colors" data-copy="seed-db inspect">Copy</button>
+                </div>
+                <p class="font-sans text-xs text-[#4a4f56] leading-relaxed">
+                  Prints your tables, columns, relationships, the insert order, and which generator each column will use. Nothing is written. Add <span class="code-chip">--json</span> to print the schema as JSON.
+                </p>
+              </div>
+
+              <!-- Step 3 -->
+              <div class="surface-panel p-5 space-y-3 card-lift">
+                <h3 class="font-mono text-sm font-bold text-[#0a0a0a] flex items-center gap-2">
+                  <span>3.</span> Seed
+                </h3>
+                <div class="rounded-lg bg-[#0c0d10] p-3 border border-[#2c3036] flex items-center justify-between font-mono text-xs text-white">
+                  <span class="font-bold"><span class="text-[#8a9199] select-none">$ </span>seed-db run</span>
+                  <button class="doc-copy-btn h-[32px] px-3 rounded text-xs font-mono font-bold text-white bg-[#1b1d22] hover:bg-[#2a2d33] border border-[#454a52] transition-colors" data-copy="seed-db run">Copy</button>
+                </div>
+                <p class="font-sans text-xs text-[#4a4f56] leading-relaxed">
+                  Generates data and inserts it in one transaction. If anything fails, everything rolls back. Add <span class="code-chip">--dry-run</span> to print the SQL, or <span class="code-chip">--check</span> to run it all and roll back.
+                </p>
+              </div>
+            </div>
+          </section>
+
+          <!-- 2. COMMANDS -->
+          <section id="commands" class="space-y-6 scroll-mt-24">
+            <div class="space-y-3">
+              <PillBadge text="IN PLAIN WORDS" isDark={false} />
+              <h2 class="font-mono text-2xl font-bold text-[#0a0a0a]">Commands</h2>
+              <p class="font-sans text-sm text-[#4a4f56]">
+                Three commands. One sets up, one shows you what it understands, one does the work.
               </p>
             </div>
 
-            <!-- Step 3 -->
-            <div class="rounded-xl border border-slate-800 bg-[#090d16] p-5 space-y-3">
-              <h3 class="font-mono text-sm font-bold text-white flex items-center gap-2">
-                <span class="text-emerald-400">3.</span> Seed
-              </h3>
-              <div class="rounded bg-slate-950 p-3 border border-slate-800/80 flex items-center justify-between font-mono text-xs">
-                <span class="text-emerald-400 font-bold">$ seed-db run</span>
-                <button class="doc-copy-btn text-slate-400 hover:text-white transition-colors" data-copy="seed-db run">Copy</button>
-              </div>
-              <p class="font-sans text-xs text-slate-400 leading-relaxed">
-                Generates data and inserts it in one transaction. If anything fails, everything rolls back. Add <code class="text-slate-300 font-mono">--dry-run</code> to print the SQL, or <code class="text-slate-300 font-mono">--check</code> to run it all and roll back.
-              </p>
-            </div>
-          </div>
-        </section>
-
-        <!-- 2. COMMANDS -->
-        <section id="commands" class="space-y-6 scroll-mt-24">
-          <div class="space-y-3">
-            <PillBadge text="IN PLAIN WORDS" />
-            <h2 class="font-mono text-2xl font-bold text-white">Commands</h2>
-            <p class="font-sans text-sm text-slate-400">
-              Three commands. One sets up, one shows you what it understands, one does the work.
-            </p>
-          </div>
-
-          <div class="rounded-xl border border-slate-800 bg-[#090d16] overflow-hidden">
-            <table class="w-full text-left font-sans text-xs border-collapse">
-              <thead>
-                <tr class="border-b border-slate-800 bg-slate-900/60 font-mono text-slate-300">
-                  <th class="py-3 px-4 font-semibold">Command</th>
-                  <th class="py-3 px-4 font-semibold">What it does</th>
-                </tr>
-              </thead>
-              <tbody class="divide-y divide-slate-800/60 font-sans text-slate-300">
-                <tr class="hover:bg-slate-900/30 transition-colors">
-                  <td class="py-3 px-4 font-mono text-emerald-400 whitespace-nowrap">seed-db init</td>
-                  <td class="py-3 px-4">Interactive setup. Writes seed.config.ts and .env.example. Refuses to overwrite unless --force.</td>
-                </tr>
-                <tr class="hover:bg-slate-900/30 transition-colors">
-                  <td class="py-3 px-4 font-mono text-emerald-400 whitespace-nowrap">seed-db inspect</td>
-                  <td class="py-3 px-4">Reads the database and prints tables, columns, relationships, insert order, and the generator chosen for each column. --json prints the schema model.</td>
-                </tr>
-                <tr class="hover:bg-slate-900/30 transition-colors">
-                  <td class="py-3 px-4 font-mono text-emerald-400 whitespace-nowrap">seed-db run</td>
-                  <td class="py-3 px-4">Generates data and inserts it. --dry-run prints the SQL. --check runs everything and rolls back.</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </section>
-
-        <!-- 3. FLAGS -->
-        <section id="flags" class="space-y-6 scroll-mt-24">
-          <div class="space-y-2">
-            <h2 class="font-mono text-2xl font-bold text-white">Flags</h2>
-            <h3 class="font-mono text-sm font-semibold text-emerald-400">seed-db run</h3>
-          </div>
-
-          <div class="rounded-xl border border-slate-800 bg-[#090d16] overflow-hidden">
-            <table class="w-full text-left font-sans text-xs border-collapse">
-              <thead>
-                <tr class="border-b border-slate-800 bg-slate-900/60 font-mono text-slate-300">
-                  <th class="py-3 px-4 font-semibold">Flag</th>
-                  <th class="py-3 px-4 font-semibold">What it does</th>
-                </tr>
-              </thead>
-              <tbody class="divide-y divide-slate-800/60 text-slate-300">
-                <tr class="hover:bg-slate-900/30 transition-colors">
-                  <td class="py-3 px-4 font-mono text-emerald-300 whitespace-nowrap">-t, --tables &lt;a,b&gt;</td>
-                  <td class="py-3 px-4">Seed only these tables. Default: all tables in the schema. Missing parent rows are sampled from rows that already exist.</td>
-                </tr>
-                <tr class="hover:bg-slate-900/30 transition-colors">
-                  <td class="py-3 px-4 font-mono text-emerald-300 whitespace-nowrap">-r, --rows &lt;n&gt;</td>
-                  <td class="py-3 px-4">Rows per table. Default 10, or defaultRows from your config.</td>
-                </tr>
-                <tr class="hover:bg-slate-900/30 transition-colors">
-                  <td class="py-3 px-4 font-mono text-emerald-300 whitespace-nowrap">--seed &lt;n&gt;</td>
-                  <td class="py-3 px-4">Seed the random generator. Same seed, same data.</td>
-                </tr>
-                <tr class="hover:bg-slate-900/30 transition-colors">
-                  <td class="py-3 px-4 font-mono text-emerald-300 whitespace-nowrap">--dry-run</td>
-                  <td class="py-3 px-4">Print the SQL and change nothing.</td>
-                </tr>
-                <tr class="hover:bg-slate-900/30 transition-colors">
-                  <td class="py-3 px-4 font-mono text-emerald-300 whitespace-nowrap">--check</td>
-                  <td class="py-3 px-4">Run the full seed inside the transaction, report the result, then roll back. Exit code 0 means a real run would succeed.</td>
-                </tr>
-                <tr class="hover:bg-slate-900/30 transition-colors">
-                  <td class="py-3 px-4 font-mono text-emerald-300 whitespace-nowrap">--out &lt;file&gt;</td>
-                  <td class="py-3 px-4">Write the INSERT statements to a file instead of a database. The tool assigns the keys.</td>
-                </tr>
-                <tr class="hover:bg-slate-900/30 transition-colors">
-                  <td class="py-3 px-4 font-mono text-emerald-300 whitespace-nowrap">--start-id &lt;n&gt;</td>
-                  <td class="py-3 px-4">First integer key in file mode. Default 1.</td>
-                </tr>
-                <tr class="hover:bg-slate-900/30 transition-colors">
-                  <td class="py-3 px-4 font-mono text-emerald-300 whitespace-nowrap">--snapshot &lt;file&gt;</td>
-                  <td class="py-3 px-4">Read the schema from an inspect --json snapshot. inspect accepts it too.</td>
-                </tr>
-                <tr class="hover:bg-slate-900/30 transition-colors">
-                  <td class="py-3 px-4 font-mono text-emerald-300 whitespace-nowrap">--yes</td>
-                  <td class="py-3 px-4">Skip the confirmation prompt for non-local hosts.</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-          <div class="space-y-2 pt-4">
-            <h3 class="font-mono text-sm font-semibold text-emerald-400">Flags for every command</h3>
-            <div class="rounded-xl border border-slate-800 bg-[#090d16] overflow-hidden">
+            <div class="surface-panel overflow-hidden">
               <table class="w-full text-left font-sans text-xs border-collapse">
                 <thead>
-                  <tr class="border-b border-slate-800 bg-slate-900/60 font-mono text-slate-300">
-                    <th class="py-3 px-4 font-semibold">Flag</th>
-                    <th class="py-3 px-4 font-semibold">What it does</th>
+                  <tr class="border-b border-[#9aa1a8] bg-gradient-to-b from-[#ffffff] to-[#cfd4da] font-mono text-[#0a0a0a]">
+                    <th class="py-3 px-4 font-bold">Command</th>
+                    <th class="py-3 px-4 font-bold">What it does</th>
                   </tr>
                 </thead>
-                <tbody class="divide-y divide-slate-800/60 text-slate-300">
-                  <tr class="hover:bg-slate-900/30 transition-colors">
-                    <td class="py-3 px-4 font-mono text-emerald-300 whitespace-nowrap">-c, --config &lt;path&gt;</td>
-                    <td class="py-3 px-4">Config file. Default ./seed.config.ts.</td>
+                <tbody class="divide-y divide-[#b9c0c8] text-[#0a0a0a]">
+                  <tr class="hover:bg-[#ffffff]/50 transition-colors">
+                    <td class="py-3.5 px-4 font-mono font-bold whitespace-nowrap">seed-db init</td>
+                    <td class="py-3.5 px-4 text-[#4a4f56]">Interactive setup. Writes seed.config.ts and .env.example. Refuses to overwrite unless --force.</td>
                   </tr>
-                  <tr class="hover:bg-slate-900/30 transition-colors">
-                    <td class="py-3 px-4 font-mono text-emerald-300 whitespace-nowrap">--database-url &lt;url&gt;</td>
-                    <td class="py-3 px-4">Database to connect to.</td>
+                  <tr class="hover:bg-[#ffffff]/50 transition-colors">
+                    <td class="py-3.5 px-4 font-mono font-bold whitespace-nowrap">seed-db inspect</td>
+                    <td class="py-3.5 px-4 text-[#4a4f56]">Reads the database and prints tables, columns, relationships, insert order, and the generator chosen for each column. --json prints the schema model.</td>
                   </tr>
-                  <tr class="hover:bg-slate-900/30 transition-colors">
-                    <td class="py-3 px-4 font-mono text-emerald-300 whitespace-nowrap">--schema &lt;name&gt;</td>
-                    <td class="py-3 px-4">Schema to use. Default public.</td>
-                  </tr>
-                  <tr class="hover:bg-slate-900/30 transition-colors">
-                    <td class="py-3 px-4 font-mono text-emerald-300 whitespace-nowrap">--format &lt;text|json&gt;</td>
-                    <td class="py-3 px-4">Output format. --json is shorthand for --format json.</td>
-                  </tr>
-                  <tr class="hover:bg-slate-900/30 transition-colors">
-                    <td class="py-3 px-4 font-mono text-emerald-300 whitespace-nowrap">--verbose</td>
-                    <td class="py-3 px-4">Show extra detail, including the raw database error.</td>
+                  <tr class="hover:bg-[#ffffff]/50 transition-colors">
+                    <td class="py-3.5 px-4 font-mono font-bold whitespace-nowrap">seed-db run</td>
+                    <td class="py-3.5 px-4 text-[#4a4f56]">Generates data and inserts it. --dry-run prints the SQL. --check runs everything and rolls back.</td>
                   </tr>
                 </tbody>
               </table>
             </div>
-          </div>
+          </section>
 
-          <div class="rounded-lg bg-slate-900/50 border border-slate-800 p-4 text-xs font-sans text-slate-400 space-y-2">
-            <p>
-              <strong class="text-white font-mono">Precedence order:</strong> Command-line flags first, then <code class="text-slate-300 font-mono">seed.config.ts</code>, then the <code class="text-slate-300 font-mono">DATABASE_URL</code> environment variable, then built-in defaults.
+          <!-- 3. FLAGS -->
+          <section id="flags" class="space-y-6 scroll-mt-24">
+            <div class="space-y-2">
+              <h2 class="font-mono text-2xl font-bold text-[#0a0a0a]">Flags</h2>
+              <h3 class="font-mono text-sm font-bold text-[#4a4f56]">seed-db run</h3>
+            </div>
+
+            <div class="surface-panel overflow-hidden">
+              <table class="w-full text-left font-sans text-xs border-collapse">
+                <thead>
+                  <tr class="border-b border-[#9aa1a8] bg-gradient-to-b from-[#ffffff] to-[#cfd4da] font-mono text-[#0a0a0a]">
+                    <th class="py-3 px-4 font-bold">Flag</th>
+                    <th class="py-3 px-4 font-bold">What it does</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-[#b9c0c8] text-[#0a0a0a]">
+                  <tr class="hover:bg-[#ffffff]/50 transition-colors">
+                    <td class="py-3.5 px-4 font-mono font-bold whitespace-nowrap">-t, --tables &lt;a,b&gt;</td>
+                    <td class="py-3.5 px-4 text-[#4a4f56]">Seed only these tables. Default: all tables in the schema. Missing parent rows are sampled from rows that already exist.</td>
+                  </tr>
+                  <tr class="hover:bg-[#ffffff]/50 transition-colors">
+                    <td class="py-3.5 px-4 font-mono font-bold whitespace-nowrap">-r, --rows &lt;n&gt;</td>
+                    <td class="py-3.5 px-4 text-[#4a4f56]">Rows per table. Default 10, or defaultRows from your config.</td>
+                  </tr>
+                  <tr class="hover:bg-[#ffffff]/50 transition-colors">
+                    <td class="py-3.5 px-4 font-mono font-bold whitespace-nowrap">--seed &lt;n&gt;</td>
+                    <td class="py-3.5 px-4 text-[#4a4f56]">Seed the random generator. Same seed, same data.</td>
+                  </tr>
+                  <tr class="hover:bg-[#ffffff]/50 transition-colors">
+                    <td class="py-3.5 px-4 font-mono font-bold whitespace-nowrap">--dry-run</td>
+                    <td class="py-3.5 px-4 text-[#4a4f56]">Print the SQL and change nothing.</td>
+                  </tr>
+                  <tr class="hover:bg-[#ffffff]/50 transition-colors">
+                    <td class="py-3.5 px-4 font-mono font-bold whitespace-nowrap">--check</td>
+                    <td class="py-3.5 px-4 text-[#4a4f56]">Run the full seed inside the transaction, report the result, then roll back. Exit code 0 means a real run would succeed.</td>
+                  </tr>
+                  <tr class="hover:bg-[#ffffff]/50 transition-colors">
+                    <td class="py-3.5 px-4 font-mono font-bold whitespace-nowrap">--out &lt;file&gt;</td>
+                    <td class="py-3.5 px-4 text-[#4a4f56]">Write the INSERT statements to a file instead of a database. The tool assigns the keys.</td>
+                  </tr>
+                  <tr class="hover:bg-[#ffffff]/50 transition-colors">
+                    <td class="py-3.5 px-4 font-mono font-bold whitespace-nowrap">--start-id &lt;n&gt;</td>
+                    <td class="py-3.5 px-4 text-[#4a4f56]">First integer key in file mode. Default 1.</td>
+                  </tr>
+                  <tr class="hover:bg-[#ffffff]/50 transition-colors">
+                    <td class="py-3.5 px-4 font-mono font-bold whitespace-nowrap">--snapshot &lt;file&gt;</td>
+                    <td class="py-3.5 px-4 text-[#4a4f56]">Read the schema from an inspect --json snapshot. inspect accepts it too.</td>
+                  </tr>
+                  <tr class="hover:bg-[#ffffff]/50 transition-colors">
+                    <td class="py-3.5 px-4 font-mono font-bold whitespace-nowrap">--yes</td>
+                    <td class="py-3.5 px-4 text-[#4a4f56]">Skip the confirmation prompt for non-local hosts.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="space-y-2 pt-4">
+              <h3 class="font-mono text-sm font-bold text-[#4a4f56]">Flags for every command</h3>
+              <div class="surface-panel overflow-hidden">
+                <table class="w-full text-left font-sans text-xs border-collapse">
+                  <thead>
+                    <tr class="border-b border-[#9aa1a8] bg-gradient-to-b from-[#ffffff] to-[#cfd4da] font-mono text-[#0a0a0a]">
+                      <th class="py-3 px-4 font-bold">Flag</th>
+                      <th class="py-3 px-4 font-bold">What it does</th>
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y divide-[#b9c0c8] text-[#0a0a0a]">
+                    <tr class="hover:bg-[#ffffff]/50 transition-colors">
+                      <td class="py-3.5 px-4 font-mono font-bold whitespace-nowrap">-c, --config &lt;path&gt;</td>
+                      <td class="py-3.5 px-4 text-[#4a4f56]">Config file. Default ./seed.config.ts.</td>
+                    </tr>
+                    <tr class="hover:bg-[#ffffff]/50 transition-colors">
+                      <td class="py-3.5 px-4 font-mono font-bold whitespace-nowrap">--database-url &lt;url&gt;</td>
+                      <td class="py-3.5 px-4 text-[#4a4f56]">Database to connect to.</td>
+                    </tr>
+                    <tr class="hover:bg-[#ffffff]/50 transition-colors">
+                      <td class="py-3.5 px-4 font-mono font-bold whitespace-nowrap">--schema &lt;name&gt;</td>
+                      <td class="py-3.5 px-4 text-[#4a4f56]">Schema to use. Default public.</td>
+                    </tr>
+                    <tr class="hover:bg-[#ffffff]/50 transition-colors">
+                      <td class="py-3.5 px-4 font-mono font-bold whitespace-nowrap">--format &lt;text|json&gt;</td>
+                      <td class="py-3.5 px-4 text-[#4a4f56]">Output format. --json is shorthand for --format json.</td>
+                    </tr>
+                    <tr class="hover:bg-[#ffffff]/50 transition-colors">
+                      <td class="py-3.5 px-4 font-mono font-bold whitespace-nowrap">--verbose</td>
+                      <td class="py-3.5 px-4 text-[#4a4f56]">Show extra detail, including the raw database error.</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="surface-panel p-4 text-xs font-sans text-[#4a4f56] space-y-2">
+              <p>
+                <strong class="text-[#0a0a0a] font-mono">Precedence order:</strong> Command-line flags first, then <span class="code-chip">seed.config.ts</span>, then the <span class="code-chip">DATABASE_URL</span> environment variable, then built-in defaults.
+              </p>
+              <p class="text-[#6b727a]">
+                After version 1: <span class="font-mono">--schema-file</span> (read a pg_dump file). Version 1 reads a live database or a snapshot.
+              </p>
+            </div>
+          </section>
+
+          <!-- 4. CONFIG FILE -->
+          <section id="config-file" class="space-y-6 scroll-mt-24">
+            <div class="space-y-3">
+              <PillBadge text="IN PLAIN WORDS" isDark={false} />
+              <h2 class="font-mono text-2xl font-bold text-[#0a0a0a]">Config file</h2>
+              <p class="font-sans text-sm text-[#4a4f56]">
+                You only need a config file when the tool guesses a column wrong. Everything else works without it.
+              </p>
+            </div>
+
+            <p class="font-sans text-xs text-[#4a4f56] leading-relaxed">
+              <span class="code-chip">seed.config.ts</span> is optional. Use it to set fixed values, write your own generators, or skip tables.
             </p>
-            <p class="text-slate-500">
-              After version 1: <code class="font-mono">--schema-file</code> (read a pg_dump file). Version 1 reads a live database or a snapshot.
-            </p>
-          </div>
-        </section>
 
-        <!-- 4. CONFIG FILE -->
-        <section id="config-file" class="space-y-6 scroll-mt-24">
-          <div class="space-y-3">
-            <PillBadge text="IN PLAIN WORDS" />
-            <h2 class="font-mono text-2xl font-bold text-white">Config file</h2>
-            <p class="font-sans text-sm text-slate-400">
-              You only need a config file when the tool guesses a column wrong. Everything else works without it.
-            </p>
-          </div>
-
-          <p class="font-sans text-xs text-slate-300 leading-relaxed">
-            <code class="font-mono text-emerald-400">seed.config.ts</code> is optional. Use it to set fixed values, write your own generators, or skip tables.
-          </p>
-
-          <!-- Code Snippet -->
-          <div class="rounded-xl border border-slate-800 bg-[#090d16] p-5 relative group">
-            <div class="text-xs font-mono text-slate-500 mb-2">seed.config.ts</div>
-            <pre class="font-mono text-xs text-slate-300 leading-relaxed overflow-x-auto">import type &#123; SeedConfig &#125; from "seed-db"; // type-only, so it loads in the compiled binary
+            <!-- Code Snippet in Silver Frame -->
+            <div class="silver-frame">
+              <div class="bg-[#0c0d10] border border-[#2c3036] rounded-[18px] p-5 relative group">
+                <div class="text-xs font-mono text-[#8a9199] mb-2">seed.config.ts</div>
+                <pre class="font-mono text-xs text-[#f4f6f8] leading-relaxed overflow-x-auto">import type &#123; SeedConfig &#125; from "seed-db"; // type-only, so it loads in the compiled binary
 
 export default &#123;
   databaseUrl: process.env.DATABASE_URL,
@@ -286,9 +288,9 @@ export default &#123;
     _prisma_migrations: &#123; ignore: true &#125;,
   &#125;,
 &#125; satisfies SeedConfig;</pre>
-            <button
-              class="doc-copy-btn absolute top-4 right-4 text-xs font-mono text-slate-400 hover:text-white bg-slate-900 border border-slate-800 px-2 py-1 rounded"
-              data-copy='import type { SeedConfig } from "seed-db";
+                <button
+                  class="doc-copy-btn absolute top-4 right-4 h-[36px] px-3 rounded text-xs font-mono font-bold text-white bg-[#1b1d22] hover:bg-[#2a2d33] border border-[#454a52] transition-colors"
+                  data-copy='import type { SeedConfig } from "seed-db";
 
 export default {
   databaseUrl: process.env.DATABASE_URL,
@@ -306,369 +308,375 @@ export default {
     _prisma_migrations: { ignore: true },
   },
 } satisfies SeedConfig;'
-            >
-              Copy
-            </button>
-          </div>
+                >
+                  Copy
+                </button>
+              </div>
+            </div>
 
-          <!-- Top-level Options Table -->
-          <div class="space-y-3 pt-2">
-            <h3 class="font-mono text-sm font-semibold text-white">Top-level options</h3>
-            <div class="rounded-xl border border-slate-800 bg-[#090d16] overflow-hidden">
+            <!-- Top-level Options Table -->
+            <div class="space-y-3 pt-2">
+              <h3 class="font-mono text-sm font-bold text-[#0a0a0a]">Top-level options</h3>
+              <div class="surface-panel overflow-hidden">
+                <table class="w-full text-left font-sans text-xs border-collapse">
+                  <thead>
+                    <tr class="border-b border-[#9aa1a8] bg-gradient-to-b from-[#ffffff] to-[#cfd4da] font-mono text-[#0a0a0a]">
+                      <th class="py-3 px-4 font-bold">Option</th>
+                      <th class="py-3 px-4 font-bold">Default</th>
+                      <th class="py-3 px-4 font-bold">Meaning</th>
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y divide-[#b9c0c8] text-[#0a0a0a] font-sans">
+                    <tr class="hover:bg-[#ffffff]/50 transition-colors">
+                      <td class="py-3.5 px-4 font-mono font-bold">databaseUrl</td>
+                      <td class="py-3.5 px-4 font-mono text-[#6b727a]">DATABASE_URL</td>
+                      <td class="py-3.5 px-4 text-[#4a4f56]">Database to connect to.</td>
+                    </tr>
+                    <tr class="hover:bg-[#ffffff]/50 transition-colors">
+                      <td class="py-3.5 px-4 font-mono font-bold">schema</td>
+                      <td class="py-3.5 px-4 font-mono text-[#6b727a]">public</td>
+                      <td class="py-3.5 px-4 text-[#4a4f56]">Schema to seed.</td>
+                    </tr>
+                    <tr class="hover:bg-[#ffffff]/50 transition-colors">
+                      <td class="py-3.5 px-4 font-mono font-bold">defaultRows</td>
+                      <td class="py-3.5 px-4 font-mono text-[#6b727a]">10</td>
+                      <td class="py-3.5 px-4 text-[#4a4f56]">Rows per table.</td>
+                    </tr>
+                    <tr class="hover:bg-[#ffffff]/50 transition-colors">
+                      <td class="py-3.5 px-4 font-mono font-bold">seed</td>
+                      <td class="py-3.5 px-4 font-mono text-[#6b727a]">none</td>
+                      <td class="py-3.5 px-4 text-[#4a4f56]">Random seed. Same as --seed.</td>
+                    </tr>
+                    <tr class="hover:bg-[#ffffff]/50 transition-colors">
+                      <td class="py-3.5 px-4 font-mono font-bold">nullRate</td>
+                      <td class="py-3.5 px-4 font-mono text-[#6b727a]">0.1</td>
+                      <td class="py-3.5 px-4 text-[#4a4f56]">Chance (0 to 1) that a nullable column is NULL.</td>
+                    </tr>
+                    <tr class="hover:bg-[#ffffff]/50 transition-colors">
+                      <td class="py-3.5 px-4 font-mono font-bold">allowedHosts</td>
+                      <td class="py-3.5 px-4 font-mono text-[#6b727a]">none</td>
+                      <td class="py-3.5 px-4 text-[#4a4f56]">Hosts that skip the confirmation prompt.</td>
+                    </tr>
+                    <tr class="hover:bg-[#ffffff]/50 transition-colors">
+                      <td class="py-3.5 px-4 font-mono font-bold">tables</td>
+                      <td class="py-3.5 px-4 font-mono text-[#6b727a]">none</td>
+                      <td class="py-3.5 px-4 text-[#4a4f56]">Per-table settings: ignore, rows, columns.</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- Column Rules Table -->
+            <div class="space-y-3 pt-2">
+              <h3 class="font-mono text-sm font-bold text-[#0a0a0a]">Column rules</h3>
+              <div class="surface-panel overflow-hidden">
+                <table class="w-full text-left font-sans text-xs border-collapse">
+                  <thead>
+                    <tr class="border-b border-[#9aa1a8] bg-gradient-to-b from-[#ffffff] to-[#cfd4da] font-mono text-[#0a0a0a]">
+                      <th class="py-3 px-4 font-bold">Rule</th>
+                      <th class="py-3 px-4 font-bold">Example</th>
+                      <th class="py-3 px-4 font-bold">Result</th>
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y divide-[#b9c0c8] text-[#0a0a0a] font-sans">
+                    <tr class="hover:bg-[#ffffff]/50 transition-colors">
+                      <td class="py-3.5 px-4 font-bold text-[#0a0a0a]">A constant</td>
+                      <td class="py-3.5 px-4 font-mono font-bold">"fixed-tenant-uuid-1234"</td>
+                      <td class="py-3.5 px-4 text-[#4a4f56]">Every row gets that value.</td>
+                    </tr>
+                    <tr class="hover:bg-[#ffffff]/50 transition-colors">
+                      <td class="py-3.5 px-4 font-bold text-[#0a0a0a]">Pick from a list</td>
+                      <td class="py-3.5 px-4 font-mono font-bold">&#123; oneOf: ["a", "b"], weights: [3, 1] &#125;</td>
+                      <td class="py-3.5 px-4 text-[#4a4f56]">Random pick, optionally weighted.</td>
+                    </tr>
+                    <tr class="hover:bg-[#ffffff]/50 transition-colors">
+                      <td class="py-3.5 px-4 font-bold text-[#0a0a0a]">A whole number</td>
+                      <td class="py-3.5 px-4 font-mono font-bold">&#123; int: &#123; min: 18, max: 90 &#125; &#125;</td>
+                      <td class="py-3.5 px-4 text-[#4a4f56]">Random integer in the range.</td>
+                    </tr>
+                    <tr class="hover:bg-[#ffffff]/50 transition-colors">
+                      <td class="py-3.5 px-4 font-bold text-[#0a0a0a]">A decimal</td>
+                      <td class="py-3.5 px-4 font-mono font-bold">&#123; float: &#123; min: 0, max: 1, precision: 2 &#125; &#125;</td>
+                      <td class="py-3.5 px-4 text-[#4a4f56]">Random decimal in the range.</td>
+                    </tr>
+                    <tr class="hover:bg-[#ffffff]/50 transition-colors">
+                      <td class="py-3.5 px-4 font-bold text-[#0a0a0a]">A faker path</td>
+                      <td class="py-3.5 px-4 font-mono font-bold">&#123; faker: "internet.email" &#125;</td>
+                      <td class="py-3.5 px-4 text-[#4a4f56]">Uses that faker generator.</td>
+                    </tr>
+                    <tr class="hover:bg-[#ffffff]/50 transition-colors">
+                      <td class="py-3.5 px-4 font-bold text-[#0a0a0a]">Your own function</td>
+                      <td class="py-3.5 px-4 font-mono font-bold">(&#123; faker, index, row &#125;) =&gt; ...</td>
+                      <td class="py-3.5 px-4 text-[#4a4f56]">Return any value. Use the supplied faker, not Math.random(), or --seed stops being repeatable.</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="surface-panel p-4 text-xs font-sans text-[#4a4f56]">
+              The config is checked when it loads. An unknown table, an unknown column, or a rule that cannot fit the column exits with code 2 and names the key.
+            </div>
+          </section>
+
+          <!-- 5. HOW VALUES ARE CHOSEN -->
+          <section id="how-values-are-chosen" class="space-y-6 scroll-mt-24">
+            <div class="space-y-3">
+              <PillBadge text="IN PLAIN WORDS" isDark={false} />
+              <h2 class="font-mono text-2xl font-bold text-[#0a0a0a]">How each column gets its value</h2>
+              <p class="font-sans text-sm text-[#4a4f56]">
+                For every column it tries five things in order and uses the first one that applies.
+              </p>
+            </div>
+
+            <div class="surface-panel overflow-hidden">
               <table class="w-full text-left font-sans text-xs border-collapse">
                 <thead>
-                  <tr class="border-b border-slate-800 bg-slate-900/60 font-mono text-slate-300">
-                    <th class="py-3 px-4 font-semibold">Option</th>
-                    <th class="py-3 px-4 font-semibold">Default</th>
-                    <th class="py-3 px-4 font-semibold">Meaning</th>
+                  <tr class="border-b border-[#9aa1a8] bg-gradient-to-b from-[#ffffff] to-[#cfd4da] font-mono text-[#0a0a0a]">
+                    <th class="py-3 px-4 font-bold w-16">Order</th>
+                    <th class="py-3 px-4 font-bold">Rule</th>
+                    <th class="py-3 px-4 font-bold">Example</th>
                   </tr>
                 </thead>
-                <tbody class="divide-y divide-slate-800/60 text-slate-300 font-sans">
-                  <tr class="hover:bg-slate-900/30 transition-colors">
-                    <td class="py-3 px-4 font-mono text-emerald-300">databaseUrl</td>
-                    <td class="py-3 px-4 font-mono text-slate-400">DATABASE_URL</td>
-                    <td class="py-3 px-4">Database to connect to.</td>
+                <tbody class="divide-y divide-[#b9c0c8] text-[#0a0a0a] font-sans">
+                  <tr class="hover:bg-[#ffffff]/50 transition-colors">
+                    <td class="py-3.5 px-4 font-mono font-bold">1</td>
+                    <td class="py-3.5 px-4 font-bold text-[#0a0a0a]">Skip it. The database fills it in.</td>
+                    <td class="py-3.5 px-4 text-[#4a4f56]">Auto IDs, defaults, computed columns.</td>
                   </tr>
-                  <tr class="hover:bg-slate-900/30 transition-colors">
-                    <td class="py-3 px-4 font-mono text-emerald-300">schema</td>
-                    <td class="py-3 px-4 font-mono text-slate-400">public</td>
-                    <td class="py-3 px-4">Schema to seed.</td>
+                  <tr class="hover:bg-[#ffffff]/50 transition-colors">
+                    <td class="py-3.5 px-4 font-mono font-bold">2</td>
+                    <td class="py-3.5 px-4 font-bold text-[#0a0a0a]">Your rule. Anything in seed.config.ts wins.</td>
+                    <td class="py-3.5 px-4 font-mono font-bold">status: &#123; oneOf: [...] &#125;</td>
                   </tr>
-                  <tr class="hover:bg-slate-900/30 transition-colors">
-                    <td class="py-3 px-4 font-mono text-emerald-300">defaultRows</td>
-                    <td class="py-3 px-4 font-mono text-slate-400">10</td>
-                    <td class="py-3 px-4">Rows per table.</td>
+                  <tr class="hover:bg-[#ffffff]/50 transition-colors">
+                    <td class="py-3.5 px-4 font-mono font-bold">3</td>
+                    <td class="py-3.5 px-4 font-bold text-[#0a0a0a]">Foreign key. Pick a real ID from the parent table.</td>
+                    <td class="py-3.5 px-4 text-[#4a4f56]"><span class="code-chip">orders.user_id</span> gets an existing <span class="code-chip">users.id</span></td>
                   </tr>
-                  <tr class="hover:bg-slate-900/30 transition-colors">
-                    <td class="py-3 px-4 font-mono text-emerald-300">seed</td>
-                    <td class="py-3 px-4 font-mono text-slate-400">none</td>
-                    <td class="py-3 px-4">Random seed. Same as --seed.</td>
+                  <tr class="hover:bg-[#ffffff]/50 transition-colors">
+                    <td class="py-3.5 px-4 font-mono font-bold">4</td>
+                    <td class="py-3.5 px-4 font-bold text-[#0a0a0a]">Name match. The column name says what it holds.</td>
+                    <td class="py-3.5 px-4 text-[#4a4f56]"><span class="code-chip">email</span> gets an email, <span class="code-chip">phone</span> gets a phone number</td>
                   </tr>
-                  <tr class="hover:bg-slate-900/30 transition-colors">
-                    <td class="py-3 px-4 font-mono text-emerald-300">nullRate</td>
-                    <td class="py-3 px-4 font-mono text-slate-400">0.1</td>
-                    <td class="py-3 px-4">Chance (0 to 1) that a nullable column is NULL.</td>
-                  </tr>
-                  <tr class="hover:bg-slate-900/30 transition-colors">
-                    <td class="py-3 px-4 font-mono text-emerald-300">allowedHosts</td>
-                    <td class="py-3 px-4 font-mono text-slate-400">none</td>
-                    <td class="py-3 px-4">Hosts that skip the confirmation prompt.</td>
-                  </tr>
-                  <tr class="hover:bg-slate-900/30 transition-colors">
-                    <td class="py-3 px-4 font-mono text-emerald-300">tables</td>
-                    <td class="py-3 px-4 font-mono text-slate-400">none</td>
-                    <td class="py-3 px-4">Per-table settings: ignore, rows, columns.</td>
+                  <tr class="hover:bg-[#ffffff]/50 transition-colors">
+                    <td class="py-3.5 px-4 font-mono font-bold">5</td>
+                    <td class="py-3.5 px-4 font-bold text-[#0a0a0a]">Type fallback. Use the column type.</td>
+                    <td class="py-3.5 px-4 text-[#4a4f56]">Text gets words, numbers get numbers, dates get dates</td>
                   </tr>
                 </tbody>
               </table>
             </div>
-          </div>
 
-          <!-- Column Rules Table -->
-          <div class="space-y-3 pt-2">
-            <h3 class="font-mono text-sm font-semibold text-white">Column rules</h3>
-            <div class="rounded-xl border border-slate-800 bg-[#090d16] overflow-hidden">
+            <p class="font-sans text-xs text-[#4a4f56] leading-relaxed">
+              Nullable columns are NULL about 10% of the time. Change that with <span class="code-chip">nullRate</span>. Run <span class="code-chip">seed-db inspect</span> to see which rule each column will use before anything is written.
+            </p>
+          </section>
+
+          <!-- 6. INSERT ORDER AND CIRCULAR TABLES -->
+          <section id="insert-order" class="space-y-6 scroll-mt-24">
+            <div class="space-y-3">
+              <PillBadge text="IN PLAIN WORDS" isDark={false} />
+              <h2 class="font-mono text-2xl font-bold text-[#0a0a0a]">Insert order and circular tables</h2>
+              <p class="font-sans text-sm text-[#4a4f56]">
+                Parent tables are filled before the tables that point at them.
+              </p>
+            </div>
+
+            <p class="font-sans text-xs text-[#4a4f56] leading-relaxed">
+              seed-db draws an arrow from every table to the tables it needs, then fills tables whose parents are done. Ties break alphabetically, so the order never changes.
+            </p>
+
+            <!-- Inspect Terminal Box -->
+            <div class="silver-frame">
+              <div class="bg-[#0c0d10] border border-[#2c3036] rounded-[18px] p-5 font-mono text-xs space-y-2 text-[#c7ccd2]">
+                <div class="text-[#8a9199]"><span class="text-white select-none">$</span> seed-db inspect</div>
+                <div class="space-y-1 pt-2">
+                  <div class="flex justify-between text-white"><span class="font-bold">1</span> employees <span class="text-[#8a9199]">10 rows</span> <span class="text-[#c7ccd2]">manager_id deferred (self-reference)</span></div>
+                  <div class="flex justify-between text-white"><span class="font-bold">2</span> products <span class="text-[#8a9199]">10 rows</span></div>
+                  <div class="flex justify-between text-white"><span class="font-bold">3</span> users <span class="text-[#8a9199]">10 rows</span> <span class="text-[#8a9199]">user_id &lt;- users.id</span></div>
+                  <div class="flex justify-between text-white"><span class="font-bold">4</span> orders <span class="text-[#8a9199]">10 rows</span> <span class="text-[#8a9199]">order_id &lt;- orders.id, product_id &lt;- products.id</span></div>
+                  <div class="flex justify-between text-white"><span class="font-bold">5</span> order_items <span class="text-[#8a9199]">10 rows</span></div>
+                </div>
+                <div class="pt-3 border-t border-[#2c3036] text-white font-bold">
+                  Patch pass: employees.manager_id
+                </div>
+              </div>
+            </div>
+
+            <!-- Circular Situations Table -->
+            <div class="surface-panel overflow-hidden">
               <table class="w-full text-left font-sans text-xs border-collapse">
                 <thead>
-                  <tr class="border-b border-slate-800 bg-slate-900/60 font-mono text-slate-300">
-                    <th class="py-3 px-4 font-semibold">Rule</th>
-                    <th class="py-3 px-4 font-semibold">Example</th>
-                    <th class="py-3 px-4 font-semibold">Result</th>
+                  <tr class="border-b border-[#9aa1a8] bg-gradient-to-b from-[#ffffff] to-[#cfd4da] font-mono text-[#0a0a0a]">
+                    <th class="py-3 px-4 font-bold">Situation</th>
+                    <th class="py-3 px-4 font-bold">What happens</th>
                   </tr>
                 </thead>
-                <tbody class="divide-y divide-slate-800/60 text-slate-300 font-sans">
-                  <tr class="hover:bg-slate-900/30 transition-colors">
-                    <td class="py-3 px-4 font-medium text-white">A constant</td>
-                    <td class="py-3 px-4 font-mono text-emerald-300">"fixed-tenant-uuid-1234"</td>
-                    <td class="py-3 px-4">Every row gets that value.</td>
+                <tbody class="divide-y divide-[#b9c0c8] text-[#0a0a0a] font-sans">
+                  <tr class="hover:bg-[#ffffff]/50 transition-colors">
+                    <td class="py-3.5 px-4 font-bold text-[#0a0a0a]">A table points at itself, and the link can be empty</td>
+                    <td class="py-3.5 px-4 text-[#4a4f56]">The link is inserted empty, then filled by one update after all inserts.</td>
                   </tr>
-                  <tr class="hover:bg-slate-900/30 transition-colors">
-                    <td class="py-3 px-4 font-medium text-white">Pick from a list</td>
-                    <td class="py-3 px-4 font-mono text-emerald-300">&#123; oneOf: ["a", "b"], weights: [3, 1] &#125;</td>
-                    <td class="py-3 px-4">Random pick, optionally weighted.</td>
+                  <tr class="hover:bg-[#ffffff]/50 transition-colors">
+                    <td class="py-3.5 px-4 font-bold text-[#0a0a0a]">Two tables point at each other, and one link can be empty</td>
+                    <td class="py-3.5 px-4 text-[#4a4f56]">That link only is deferred. Both tables are inserted, then the link is patched.</td>
                   </tr>
-                  <tr class="hover:bg-slate-900/30 transition-colors">
-                    <td class="py-3 px-4 font-medium text-white">A whole number</td>
-                    <td class="py-3 px-4 font-mono text-emerald-300">&#123; int: &#123; min: 18, max: 90 &#125; &#125;</td>
-                    <td class="py-3 px-4">Random integer in the range.</td>
-                  </tr>
-                  <tr class="hover:bg-slate-900/30 transition-colors">
-                    <td class="py-3 px-4 font-medium text-white">A decimal</td>
-                    <td class="py-3 px-4 font-mono text-emerald-300">&#123; float: &#123; min: 0, max: 1, precision: 2 &#125; &#125;</td>
-                    <td class="py-3 px-4">Random decimal in the range.</td>
-                  </tr>
-                  <tr class="hover:bg-slate-900/30 transition-colors">
-                    <td class="py-3 px-4 font-medium text-white">A faker path</td>
-                    <td class="py-3 px-4 font-mono text-emerald-300">&#123; faker: "internet.email" &#125;</td>
-                    <td class="py-3 px-4">Uses that faker generator.</td>
-                  </tr>
-                  <tr class="hover:bg-slate-900/30 transition-colors">
-                    <td class="py-3 px-4 font-medium text-white">Your own function</td>
-                    <td class="py-3 px-4 font-mono text-emerald-300">(&#123; faker, index, row &#125;) =&gt; ...</td>
-                    <td class="py-3 px-4">Return any value. Use the supplied faker, not Math.random(), or --seed stops being repeatable.</td>
+                  <tr class="hover:bg-[#ffffff]/50 transition-colors">
+                    <td class="py-3.5 px-4 font-bold text-[#0a0a0a]">A circle where every link is required (NOT NULL)</td>
+                    <td class="py-3.5 px-4 text-[#0a0a0a] font-bold">No valid first row exists. seed-db stops with exit code 3, prints the circle, and tells you to make one link nullable or deferrable.</td>
                   </tr>
                 </tbody>
               </table>
             </div>
-          </div>
+          </section>
 
-          <div class="rounded-lg bg-slate-900/50 border border-slate-800 p-4 text-xs font-sans text-slate-400">
-            The config is checked when it loads. An unknown table, an unknown column, or a rule that cannot fit the column exits with code 2 and names the key.
-          </div>
-        </section>
-
-        <!-- 5. HOW VALUES ARE CHOSEN -->
-        <section id="how-values-are-chosen" class="space-y-6 scroll-mt-24">
-          <div class="space-y-3">
-            <PillBadge text="IN PLAIN WORDS" />
-            <h2 class="font-mono text-2xl font-bold text-white">How each column gets its value</h2>
-            <p class="font-sans text-sm text-slate-400">
-              For every column it tries five things in order and uses the first one that applies.
-            </p>
-          </div>
-
-          <div class="rounded-xl border border-slate-800 bg-[#090d16] overflow-hidden">
-            <table class="w-full text-left font-sans text-xs border-collapse">
-              <thead>
-                <tr class="border-b border-slate-800 bg-slate-900/60 font-mono text-slate-300">
-                  <th class="py-3 px-4 font-semibold w-16">Order</th>
-                  <th class="py-3 px-4 font-semibold">Rule</th>
-                  <th class="py-3 px-4 font-semibold">Example</th>
-                </tr>
-              </thead>
-              <tbody class="divide-y divide-slate-800/60 text-slate-300 font-sans">
-                <tr class="hover:bg-slate-900/30 transition-colors">
-                  <td class="py-3 px-4 font-mono font-bold text-emerald-400">1</td>
-                  <td class="py-3 px-4 font-medium text-white">Skip it. The database fills it in.</td>
-                  <td class="py-3 px-4 text-slate-400">Auto IDs, defaults, computed columns.</td>
-                </tr>
-                <tr class="hover:bg-slate-900/30 transition-colors">
-                  <td class="py-3 px-4 font-mono font-bold text-emerald-400">2</td>
-                  <td class="py-3 px-4 font-medium text-white">Your rule. Anything in seed.config.ts wins.</td>
-                  <td class="py-3 px-4 font-mono text-emerald-300">status: &#123; oneOf: [...] &#125;</td>
-                </tr>
-                <tr class="hover:bg-slate-900/30 transition-colors">
-                  <td class="py-3 px-4 font-mono font-bold text-emerald-400">3</td>
-                  <td class="py-3 px-4 font-medium text-white">Foreign key. Pick a real ID from the parent table.</td>
-                  <td class="py-3 px-4 text-slate-400"><code class="text-slate-300 font-mono">orders.user_id</code> gets an existing <code class="text-slate-300 font-mono">users.id</code></td>
-                </tr>
-                <tr class="hover:bg-slate-900/30 transition-colors">
-                  <td class="py-3 px-4 font-mono font-bold text-emerald-400">4</td>
-                  <td class="py-3 px-4 font-medium text-white">Name match. The column name says what it holds.</td>
-                  <td class="py-3 px-4 text-slate-400"><code class="text-slate-300 font-mono">email</code> gets an email, <code class="text-slate-300 font-mono">phone</code> gets a phone number</td>
-                </tr>
-                <tr class="hover:bg-slate-900/30 transition-colors">
-                  <td class="py-3 px-4 font-mono font-bold text-emerald-400">5</td>
-                  <td class="py-3 px-4 font-medium text-white">Type fallback. Use the column type.</td>
-                  <td class="py-3 px-4 text-slate-400">Text gets words, numbers get numbers, dates get dates</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-          <p class="font-sans text-xs text-slate-400 leading-relaxed">
-            Nullable columns are NULL about 10% of the time. Change that with <code class="font-mono text-slate-300">nullRate</code>. Run <code class="font-mono text-emerald-400">seed-db inspect</code> to see which rule each column will use before anything is written.
-          </p>
-        </section>
-
-        <!-- 6. INSERT ORDER AND CIRCULAR TABLES -->
-        <section id="insert-order" class="space-y-6 scroll-mt-24">
-          <div class="space-y-3">
-            <PillBadge text="IN PLAIN WORDS" />
-            <h2 class="font-mono text-2xl font-bold text-white">Insert order and circular tables</h2>
-            <p class="font-sans text-sm text-slate-400">
-              Parent tables are filled before the tables that point at them.
-            </p>
-          </div>
-
-          <p class="font-sans text-xs text-slate-300 leading-relaxed">
-            seed-db draws an arrow from every table to the tables it needs, then fills tables whose parents are done. Ties break alphabetically, so the order never changes.
-          </p>
-
-          <!-- Inspect Terminal Box -->
-          <div class="rounded-xl border border-slate-800 bg-[#090d16] p-5 font-mono text-xs space-y-2">
-            <div class="text-slate-400"><span class="text-emerald-400">$</span> seed-db inspect</div>
-            <div class="space-y-1 pt-2">
-              <div class="flex justify-between text-slate-300"><span class="text-emerald-400 font-bold">1</span> employees <span class="text-slate-500">10 rows</span> <span class="text-amber-400/90">manager_id deferred (self-reference)</span></div>
-              <div class="flex justify-between text-slate-300"><span class="text-emerald-400 font-bold">2</span> products <span class="text-slate-500">10 rows</span></div>
-              <div class="flex justify-between text-slate-300"><span class="text-emerald-400 font-bold">3</span> users <span class="text-slate-500">10 rows</span> <span class="text-slate-400">user_id &lt;- users.id</span></div>
-              <div class="flex justify-between text-slate-300"><span class="text-emerald-400 font-bold">4</span> orders <span class="text-slate-500">10 rows</span> <span class="text-slate-400">order_id &lt;- orders.id, product_id &lt;- products.id</span></div>
-              <div class="flex justify-between text-slate-300"><span class="text-emerald-400 font-bold">5</span> order_items <span class="text-slate-500">10 rows</span></div>
-            </div>
-            <div class="pt-3 border-t border-slate-800/80 text-amber-300 font-bold">
-              Patch pass: employees.manager_id
-            </div>
-          </div>
-
-          <!-- Circular Situations Table -->
-          <div class="rounded-xl border border-slate-800 bg-[#090d16] overflow-hidden">
-            <table class="w-full text-left font-sans text-xs border-collapse">
-              <thead>
-                <tr class="border-b border-slate-800 bg-slate-900/60 font-mono text-slate-300">
-                  <th class="py-3 px-4 font-semibold">Situation</th>
-                  <th class="py-3 px-4 font-semibold">What happens</th>
-                </tr>
-              </thead>
-              <tbody class="divide-y divide-slate-800/60 text-slate-300 font-sans">
-                <tr class="hover:bg-slate-900/30 transition-colors">
-                  <td class="py-3 px-4 font-medium text-white">A table points at itself, and the link can be empty</td>
-                  <td class="py-3 px-4">The link is inserted empty, then filled by one update after all inserts.</td>
-                </tr>
-                <tr class="hover:bg-slate-900/30 transition-colors">
-                  <td class="py-3 px-4 font-medium text-white">Two tables point at each other, and one link can be empty</td>
-                  <td class="py-3 px-4">That link only is deferred. Both tables are inserted, then the link is patched.</td>
-                </tr>
-                <tr class="hover:bg-slate-900/30 transition-colors">
-                  <td class="py-3 px-4 font-medium text-white">A circle where every link is required (NOT NULL)</td>
-                  <td class="py-3 px-4 text-rose-300">No valid first row exists. seed-db stops with exit code 3, prints the circle, and tells you to make one link nullable or deferrable.</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </section>
-
-        <!-- 7. WITHOUT A LIVE DATABASE -->
-        <section id="without-a-live-database" class="space-y-6 scroll-mt-24">
-          <div class="space-y-3">
-            <PillBadge text="IN PLAIN WORDS" />
-            <h2 class="font-mono text-2xl font-bold text-white">Without a live database</h2>
-            <p class="font-sans text-sm text-slate-400">
-              You can use seed-db without ever giving it your real database.
-            </p>
-          </div>
-
-          <!-- Subsection 1 -->
-          <div class="rounded-xl border border-slate-800 bg-[#090d16] p-5 space-y-4">
-            <h3 class="font-mono text-sm font-bold text-white">Snapshot, then a SQL file</h3>
-            <div class="rounded bg-slate-950 p-4 border border-slate-800 font-mono text-xs text-emerald-400 space-y-1 relative group">
-              <div>seed-db inspect --json &gt; schema.json</div>
-              <div>seed-db run --snapshot schema.json --out seed.sql --seed 1</div>
-              <div>psql mydb -f seed.sql</div>
-              <button
-                class="doc-copy-btn absolute top-3 right-3 text-slate-400 hover:text-white"
-                data-copy="seed-db inspect --json > schema.json && seed-db run --snapshot schema.json --out seed.sql --seed 1 && psql mydb -f seed.sql"
-              >
-                Copy
-              </button>
-            </div>
-            <p class="font-sans text-xs text-slate-400 leading-relaxed">
-              A snapshot holds table and column names and types only. It has no rows and no connection details, so it is safe to share. The SQL file is plain INSERT statements. You can read it before you run it.
-            </p>
-          </div>
-
-          <!-- Subsection 2 -->
-          <div class="rounded-xl border border-slate-800 bg-[#090d16] p-5 space-y-4">
-            <h3 class="font-mono text-sm font-bold text-white">Run it, then roll it back</h3>
-            <div class="rounded bg-slate-950 p-4 border border-slate-800 font-mono text-xs text-emerald-400 flex items-center justify-between">
-              <span>seed-db run --check --seed 1</span>
-              <button class="doc-copy-btn text-slate-400 hover:text-white" data-copy="seed-db run --check --seed 1">Copy</button>
-            </div>
-            <p class="font-sans text-xs text-slate-400 leading-relaxed">
-              Check mode runs every insert and ends with a rollback. It proves a real run would succeed and leaves nothing behind. Sequences still advance.
-            </p>
-            <p class="font-sans text-xs text-slate-500">
-              SQL file mode assumes the target tables are empty. The tool assigns primary keys itself, starting at 1. Change the start with <code class="font-mono">--start-id</code> if your tables already hold rows.
-            </p>
-          </div>
-        </section>
-
-        <!-- 8. SAFETY -->
-        <section id="safety" class="space-y-6 scroll-mt-24">
-          <div class="space-y-3">
-            <PillBadge text="IN PLAIN WORDS" />
-            <h2 class="font-mono text-2xl font-bold text-white">Safety</h2>
-            <p class="font-sans text-sm text-slate-400">
-              It asks before touching anything that is not on your own machine.
-            </p>
-          </div>
-
-          <div class="rounded-xl border border-slate-800 bg-[#090d16] overflow-hidden">
-            <table class="w-full text-left font-sans text-xs border-collapse">
-              <thead>
-                <tr class="border-b border-slate-800 bg-slate-900/60 font-mono text-slate-300">
-                  <th class="py-3 px-4 font-semibold">Protection</th>
-                  <th class="py-3 px-4 font-semibold">How it works</th>
-                </tr>
-              </thead>
-              <tbody class="divide-y divide-slate-800/60 text-slate-300 font-sans">
-                <tr class="hover:bg-slate-900/30 transition-colors">
-                  <td class="py-3 px-4 font-medium text-white whitespace-nowrap">One transaction</td>
-                  <td class="py-3 px-4">Every real run is a single transaction. Any error rolls everything back.</td>
-                </tr>
-                <tr class="hover:bg-slate-900/30 transition-colors">
-                  <td class="py-3 px-4 font-medium text-white whitespace-nowrap">Confirmation for other hosts</td>
-                  <td class="py-3 px-4">If the database host is not localhost, 127.0.0.1 or ::1, and not listed in allowedHosts, run prints the target and asks to continue. Pass --yes to skip. --dry-run never asks.</td>
-                </tr>
-                <tr class="hover:bg-slate-900/30 transition-colors">
-                  <td class="py-3 px-4 font-medium text-white whitespace-nowrap">No surprises in CI</td>
-                  <td class="py-3 px-4">Nothing prompts when output is not a terminal.</td>
-                </tr>
-                <tr class="hover:bg-slate-900/30 transition-colors">
-                  <td class="py-3 px-4 font-medium text-white whitespace-nowrap">No telemetry</td>
-                  <td class="py-3 px-4">It connects only to the database you give it.</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </section>
-
-        <!-- 9. ERRORS AND EXIT CODES -->
-        <section id="errors-and-exit-codes" class="space-y-6 scroll-mt-24">
-          <div class="space-y-3">
-            <PillBadge text="IN PLAIN WORDS" />
-            <h2 class="font-mono text-2xl font-bold text-white">Errors and exit codes</h2>
-            <p class="font-sans text-sm text-slate-400">
-              Every error says what failed, where, why, and how to fix it. Scripts can read the same thing as JSON.
-            </p>
-          </div>
-
-          <!-- Error Fields Table -->
-          <div class="rounded-xl border border-slate-800 bg-[#090d16] overflow-hidden">
-            <table class="w-full text-left font-sans text-xs border-collapse">
-              <thead>
-                <tr class="border-b border-slate-800 bg-slate-900/60 font-mono text-slate-300">
-                  <th class="py-3 px-4 font-semibold">Field</th>
-                  <th class="py-3 px-4 font-semibold">Meaning</th>
-                </tr>
-              </thead>
-              <tbody class="divide-y divide-slate-800/60 text-slate-300 font-sans">
-                <tr class="hover:bg-slate-900/30 transition-colors">
-                  <td class="py-3 px-4 font-mono text-emerald-300">code</td>
-                  <td class="py-3 px-4">Stable identifier your scripts can match, such as E_UNSUPPORTED_TYPE.</td>
-                </tr>
-                <tr class="hover:bg-slate-900/30 transition-colors">
-                  <td class="py-3 px-4 font-mono text-emerald-300">where</td>
-                  <td class="py-3 px-4">The table and column, or the constraint, involved.</td>
-                </tr>
-                <tr class="hover:bg-slate-900/30 transition-colors">
-                  <td class="py-3 px-4 font-mono text-emerald-300">cause</td>
-                  <td class="py-3 px-4">What happened, in plain words.</td>
-                </tr>
-                <tr class="hover:bg-slate-900/30 transition-colors">
-                  <td class="py-3 px-4 font-mono text-emerald-300">fix</td>
-                  <td class="py-3 px-4">One concrete step, including a config snippet where it helps.</td>
-                </tr>
-                <tr class="hover:bg-slate-900/30 transition-colors">
-                  <td class="py-3 px-4 font-mono text-emerald-300">exit</td>
-                  <td class="py-3 px-4">The exit code the CLI returns.</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-          <!-- Terminal vs JSON Examples -->
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2 font-mono text-xs">
-            <div class="rounded-xl border border-slate-800 bg-[#090d16] p-5 space-y-2">
-              <div class="text-slate-500 text-[11px]">in a terminal</div>
-              <div class="text-rose-400 font-bold">error E_UNSUPPORTED_TYPE orders.total</div>
-              <div class="text-slate-300">No generator exists for type "money", and the column is NOT NULL.</div>
-              <div class="text-emerald-400 pt-2 font-semibold">Fix: add a rule in seed.config.ts:</div>
-              <pre class="text-slate-400 text-[11px] overflow-x-auto">tables: &#123; orders: &#123; columns: &#123; total: (&#123; faker &#125;) =&gt; "$" + faker.finance.amount() &#125; &#125; &#125;</pre>
+          <!-- 7. WITHOUT A LIVE DATABASE -->
+          <section id="without-a-live-database" class="space-y-6 scroll-mt-24">
+            <div class="space-y-3">
+              <PillBadge text="IN PLAIN WORDS" isDark={false} />
+              <h2 class="font-mono text-2xl font-bold text-[#0a0a0a]">Without a live database</h2>
+              <p class="font-sans text-sm text-[#4a4f56]">
+                You can use seed-db without ever giving it your real database.
+              </p>
             </div>
 
-            <div class="rounded-xl border border-slate-800 bg-slate-950 p-5 space-y-2">
-              <div class="text-slate-500 text-[11px]">with --format json</div>
-              <pre class="text-slate-300 leading-relaxed overflow-x-auto text-[11px]">&#123;
+            <!-- Subsection 1 -->
+            <div class="surface-panel p-5 space-y-4">
+              <h3 class="font-mono text-sm font-bold text-[#0a0a0a]">Snapshot, then a SQL file</h3>
+              <div class="rounded-lg bg-[#0c0d10] p-4 border border-[#2c3036] font-mono text-xs text-white space-y-1 relative group">
+                <div>seed-db inspect --json &gt; schema.json</div>
+                <div>seed-db run --snapshot schema.json --out seed.sql --seed 1</div>
+                <div>psql mydb -f seed.sql</div>
+                <button
+                  class="doc-copy-btn absolute top-3 right-3 h-[32px] px-3 rounded text-xs font-mono font-bold text-white bg-[#1b1d22] hover:bg-[#2a2d33] border border-[#454a52] transition-colors"
+                  data-copy="seed-db inspect --json > schema.json && seed-db run --snapshot schema.json --out seed.sql --seed 1 && psql mydb -f seed.sql"
+                >
+                  Copy
+                </button>
+              </div>
+              <p class="font-sans text-xs text-[#4a4f56] leading-relaxed">
+                A snapshot holds table and column names and types only. It has no rows and no connection details, so it is safe to share. The SQL file is plain INSERT statements. You can read it before you run it.
+              </p>
+            </div>
+
+            <!-- Subsection 2 -->
+            <div class="surface-panel p-5 space-y-4">
+              <h3 class="font-mono text-sm font-bold text-[#0a0a0a]">Run it, then roll it back</h3>
+              <div class="rounded-lg bg-[#0c0d10] p-3 border border-[#2c3036] font-mono text-xs text-white flex items-center justify-between">
+                <span class="font-bold">seed-db run --check --seed 1</span>
+                <button class="doc-copy-btn h-[32px] px-3 rounded text-xs font-mono font-bold text-white bg-[#1b1d22] hover:bg-[#2a2d33] border border-[#454a52] transition-colors" data-copy="seed-db run --check --seed 1">Copy</button>
+              </div>
+              <p class="font-sans text-xs text-[#4a4f56] leading-relaxed">
+                Check mode runs every insert and ends with a rollback. It proves a real run would succeed and leaves nothing behind. Sequences still advance.
+              </p>
+              <p class="font-sans text-xs text-[#6b727a]">
+                SQL file mode assumes the target tables are empty. The tool assigns primary keys itself, starting at 1. Change the start with <span class="code-chip">--start-id</span> if your tables already hold rows.
+              </p>
+            </div>
+          </section>
+
+          <!-- 8. SAFETY -->
+          <section id="safety" class="space-y-6 scroll-mt-24">
+            <div class="space-y-3">
+              <PillBadge text="IN PLAIN WORDS" isDark={false} />
+              <h2 class="font-mono text-2xl font-bold text-[#0a0a0a]">Safety</h2>
+              <p class="font-sans text-sm text-[#4a4f56]">
+                It asks before touching anything that is not on your own machine.
+              </p>
+            </div>
+
+            <div class="surface-panel overflow-hidden">
+              <table class="w-full text-left font-sans text-xs border-collapse">
+                <thead>
+                  <tr class="border-b border-[#9aa1a8] bg-gradient-to-b from-[#ffffff] to-[#cfd4da] font-mono text-[#0a0a0a]">
+                    <th class="py-3 px-4 font-bold">Protection</th>
+                    <th class="py-3 px-4 font-bold">How it works</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-[#b9c0c8] text-[#0a0a0a] font-sans">
+                  <tr class="hover:bg-[#ffffff]/50 transition-colors">
+                    <td class="py-3.5 px-4 font-bold text-[#0a0a0a] whitespace-nowrap">One transaction</td>
+                    <td class="py-3.5 px-4 text-[#4a4f56]">Every real run is a single transaction. Any error rolls everything back.</td>
+                  </tr>
+                  <tr class="hover:bg-[#ffffff]/50 transition-colors">
+                    <td class="py-3.5 px-4 font-bold text-[#0a0a0a] whitespace-nowrap">Confirmation for other hosts</td>
+                    <td class="py-3.5 px-4 text-[#4a4f56]">If the database host is not localhost, 127.0.0.1 or ::1, and not listed in allowedHosts, run prints the target and asks to continue. Pass --yes to skip. --dry-run never asks.</td>
+                  </tr>
+                  <tr class="hover:bg-[#ffffff]/50 transition-colors">
+                    <td class="py-3.5 px-4 font-bold text-[#0a0a0a] whitespace-nowrap">No surprises in CI</td>
+                    <td class="py-3.5 px-4 text-[#4a4f56]">Nothing prompts when output is not a terminal.</td>
+                  </tr>
+                  <tr class="hover:bg-[#ffffff]/50 transition-colors">
+                    <td class="py-3.5 px-4 font-bold text-[#0a0a0a] whitespace-nowrap">No telemetry</td>
+                    <td class="py-3.5 px-4 text-[#4a4f56]">It connects only to the database you give it.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <!-- 9. ERRORS AND EXIT CODES -->
+          <section id="errors-and-exit-codes" class="space-y-6 scroll-mt-24">
+            <div class="space-y-3">
+              <PillBadge text="IN PLAIN WORDS" isDark={false} />
+              <h2 class="font-mono text-2xl font-bold text-[#0a0a0a]">Errors and exit codes</h2>
+              <p class="font-sans text-sm text-[#4a4f56]">
+                Every error says what failed, where, why, and how to fix it. Scripts can read the same thing as JSON.
+              </p>
+            </div>
+
+            <!-- Error Fields Table -->
+            <div class="surface-panel overflow-hidden">
+              <table class="w-full text-left font-sans text-xs border-collapse">
+                <thead>
+                  <tr class="border-b border-[#9aa1a8] bg-gradient-to-b from-[#ffffff] to-[#cfd4da] font-mono text-[#0a0a0a]">
+                    <th class="py-3 px-4 font-bold">Field</th>
+                    <th class="py-3 px-4 font-bold">Meaning</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-[#b9c0c8] text-[#0a0a0a] font-sans">
+                  <tr class="hover:bg-[#ffffff]/50 transition-colors">
+                    <td class="py-3.5 px-4 font-mono font-bold">code</td>
+                    <td class="py-3.5 px-4 text-[#4a4f56]">Stable identifier your scripts can match, such as E_UNSUPPORTED_TYPE.</td>
+                  </tr>
+                  <tr class="hover:bg-[#ffffff]/50 transition-colors">
+                    <td class="py-3.5 px-4 font-mono font-bold">where</td>
+                    <td class="py-3.5 px-4 text-[#4a4f56]">The table and column, or the constraint, involved.</td>
+                  </tr>
+                  <tr class="hover:bg-[#ffffff]/50 transition-colors">
+                    <td class="py-3.5 px-4 font-mono font-bold">cause</td>
+                    <td class="py-3.5 px-4 text-[#4a4f56]">What happened, in plain words.</td>
+                  </tr>
+                  <tr class="hover:bg-[#ffffff]/50 transition-colors">
+                    <td class="py-3.5 px-4 font-mono font-bold">fix</td>
+                    <td class="py-3.5 px-4 text-[#4a4f56]">One concrete step, including a config snippet where it helps.</td>
+                  </tr>
+                  <tr class="hover:bg-[#ffffff]/50 transition-colors">
+                    <td class="py-3.5 px-4 font-mono font-bold">exit</td>
+                    <td class="py-3.5 px-4 text-[#4a4f56]">The exit code the CLI returns.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Terminal vs JSON Examples in Silver Frames -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2 font-mono text-xs">
+              <div class="silver-frame">
+                <div class="bg-[#0c0d10] border border-[#2c3036] rounded-[18px] p-5 space-y-2 text-[#c7ccd2]">
+                  <div class="text-[#8a9199] text-[11px]">in a terminal</div>
+                  <div class="text-white font-bold">error E_UNSUPPORTED_TYPE orders.total</div>
+                  <div>No generator exists for type "money", and the column is NOT NULL.</div>
+                  <div class="text-white pt-2 font-bold">Fix: add a rule in seed.config.ts:</div>
+                  <pre class="text-[#8a9199] text-[11px] overflow-x-auto">tables: &#123; orders: &#123; columns: &#123; total: (&#123; faker &#125;) =&gt; "$" + faker.finance.amount() &#125; &#125; &#125;</pre>
+                </div>
+              </div>
+
+              <div class="silver-frame">
+                <div class="bg-[#0c0d10] border border-[#2c3036] rounded-[18px] p-5 space-y-2 text-[#c7ccd2]">
+                  <div class="text-[#8a9199] text-[11px]">with --format json</div>
+                  <pre class="leading-relaxed overflow-x-auto text-[11px] text-[#f4f6f8]">&#123;
   "error": &#123;
     "code": "E_UNSUPPORTED_TYPE",
     "where": "orders.total",
@@ -677,55 +685,57 @@ export default {
     "exit": 3
   &#125;
 &#125;</pre>
+                </div>
+              </div>
             </div>
-          </div>
 
-          <!-- Exit Codes Table -->
-          <div class="space-y-3 pt-4">
-            <h3 class="font-mono text-sm font-semibold text-white">Exit codes</h3>
-            <div class="rounded-xl border border-slate-800 bg-[#090d16] overflow-hidden">
-              <table class="w-full text-left font-sans text-xs border-collapse">
-                <thead>
-                  <tr class="border-b border-slate-800 bg-slate-900/60 font-mono text-slate-300">
-                    <th class="py-3 px-4 font-semibold w-16">Code</th>
-                    <th class="py-3 px-4 font-semibold">Meaning</th>
-                  </tr>
-                </thead>
-                <tbody class="divide-y divide-slate-800/60 text-slate-300 font-sans">
-                  <tr class="hover:bg-slate-900/30 transition-colors">
-                    <td class="py-3 px-4 font-mono font-bold text-emerald-400">0</td>
-                    <td class="py-3 px-4">Success, or a clean dry run.</td>
-                  </tr>
-                  <tr class="hover:bg-slate-900/30 transition-colors">
-                    <td class="py-3 px-4 font-mono font-bold text-amber-400">1</td>
-                    <td class="py-3 px-4">Runtime or database error. The transaction was rolled back.</td>
-                  </tr>
-                  <tr class="hover:bg-slate-900/30 transition-colors">
-                    <td class="py-3 px-4 font-mono font-bold text-amber-400">2</td>
-                    <td class="py-3 px-4">Usage or config error: bad flag, missing URL, invalid config.</td>
-                  </tr>
-                  <tr class="hover:bg-slate-900/30 transition-colors">
-                    <td class="py-3 px-4 font-mono font-bold text-rose-400">3</td>
-                    <td class="py-3 px-4">Schema problem: an unbreakable circular dependency, or an unsupported required column type.</td>
-                  </tr>
-                </tbody>
-              </table>
+            <!-- Exit Codes Table -->
+            <div class="space-y-3 pt-4">
+              <h3 class="font-mono text-sm font-bold text-[#0a0a0a]">Exit codes</h3>
+              <div class="surface-panel overflow-hidden">
+                <table class="w-full text-left font-sans text-xs border-collapse">
+                  <thead>
+                    <tr class="border-b border-[#9aa1a8] bg-gradient-to-b from-[#ffffff] to-[#cfd4da] font-mono text-[#0a0a0a]">
+                      <th class="py-3 px-4 font-bold w-16">Code</th>
+                      <th class="py-3 px-4 font-bold">Meaning</th>
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y divide-[#b9c0c8] text-[#0a0a0a] font-sans">
+                    <tr class="hover:bg-[#ffffff]/50 transition-colors">
+                      <td class="py-3.5 px-4 font-mono font-bold text-white"><span class="bg-[#0a0a0a] px-2 py-0.5 rounded">0</span></td>
+                      <td class="py-3.5 px-4 font-medium text-[#0a0a0a]">Success, or a clean dry run.</td>
+                    </tr>
+                    <tr class="hover:bg-[#ffffff]/50 transition-colors">
+                      <td class="py-3.5 px-4 font-mono font-bold text-white"><span class="bg-[#3a3f47] px-2 py-0.5 rounded">1</span></td>
+                      <td class="py-3.5 px-4 text-[#4a4f56]">Runtime or database error. The transaction was rolled back.</td>
+                    </tr>
+                    <tr class="hover:bg-[#ffffff]/50 transition-colors">
+                      <td class="py-3.5 px-4 font-mono font-bold text-white"><span class="bg-[#4a4f56] px-2 py-0.5 rounded">2</span></td>
+                      <td class="py-3.5 px-4 text-[#4a4f56]">Usage or config error: bad flag, missing URL, invalid config.</td>
+                    </tr>
+                    <tr class="hover:bg-[#ffffff]/50 transition-colors">
+                      <td class="py-3.5 px-4 font-mono font-bold text-white"><span class="bg-[#6b727a] px-2 py-0.5 rounded">3</span></td>
+                      <td class="py-3.5 px-4 text-[#4a4f56]">Schema problem: an unbreakable circular dependency, or an unsupported required column type.</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
-          </div>
 
-          <!-- In CI Callout -->
-          <div class="rounded-xl border border-slate-800 bg-[#090d16] p-5 space-y-3">
-            <h3 class="font-mono text-sm font-bold text-white">In CI</h3>
-            <div class="rounded bg-slate-950 p-3 border border-slate-800 font-mono text-xs text-emerald-400 flex items-center justify-between">
-              <span>seed-db run --check --seed 1 --format json</span>
-              <button class="doc-copy-btn text-slate-400 hover:text-white" data-copy="seed-db run --check --seed 1 --format json">Copy</button>
+            <!-- In CI Callout -->
+            <div class="surface-panel p-5 space-y-3">
+              <h3 class="font-mono text-sm font-bold text-[#0a0a0a]">In CI</h3>
+              <div class="rounded-lg bg-[#0c0d10] p-3 border border-[#2c3036] font-mono text-xs text-white flex items-center justify-between">
+                <span class="font-bold">seed-db run --check --seed 1 --format json</span>
+                <button class="doc-copy-btn h-[32px] px-3 rounded text-xs font-mono font-bold text-white bg-[#1b1d22] hover:bg-[#2a2d33] border border-[#454a52] transition-colors" data-copy="seed-db run --check --seed 1 --format json">Copy</button>
+              </div>
+              <p class="font-sans text-xs text-[#4a4f56] leading-relaxed">
+                Exit code 0 means a real run would succeed. Any other code fails the step, and the JSON tells you why.
+              </p>
             </div>
-            <p class="font-sans text-xs text-slate-400 leading-relaxed">
-              Exit code 0 means a real run would succeed. Any other code fails the step, and the JSON tells you why.
-            </p>
-          </div>
-        </section>
-      </article>
+          </section>
+        </article>
+      </div>
     </div>
   </div>
 </Layout>
@@ -740,10 +750,10 @@ export default {
         if (text) {
           navigator.clipboard.writeText(text);
           const orig = btn.textContent;
-          btn.textContent = 'Copied!';
+          btn.textContent = 'Copied';
           setTimeout(() => {
             btn.textContent = orig;
-          }, 2000);
+          }, 1500);
         }
       });
     });
@@ -754,7 +764,7 @@ export default {
 
     function onScroll() {
       let currentSectionId = '';
-      const scrollPos = window.scrollY + 120;
+      const scrollPos = window.scrollY + 140;
 
       sections.forEach(sec => {
         const top = (sec as HTMLElement).offsetTop;
@@ -767,11 +777,9 @@ export default {
       navLinks.forEach(link => {
         const href = link.getAttribute('href')?.replace('#', '');
         if (href === currentSectionId) {
-          link.classList.remove('text-slate-400');
-          link.classList.add('text-emerald-400', 'bg-emerald-500/10', 'font-semibold');
+          link.className = 'docs-nav-link block px-3 py-2 rounded text-white bg-[var(--btn-dark)] border border-[#3a3f47] font-bold shadow-sm';
         } else {
-          link.classList.remove('text-emerald-400', 'bg-emerald-500/10', 'font-semibold');
-          link.classList.add('text-slate-400');
+          link.className = 'docs-nav-link block px-3 py-2 rounded text-[#4a4f56] hover:text-[#0a0a0a] transition-all';
         }
       });
     }
