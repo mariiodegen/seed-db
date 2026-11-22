@@ -55,8 +55,19 @@ import PillBadge from '../components/PillBadge.astro';
             <p class="font-sans text-base text-[#4a4f56] leading-relaxed">
               Everything you need to seed a PostgreSQL database with seed-db, in the order you will need it.
             </p>
-            <div class="surface-panel p-4 text-xs font-sans text-[#0a0a0a] leading-relaxed">
-              <strong class="font-mono">Notice:</strong> seed-db is pre-release. Version 0.0.1 only reserves the package name, so these docs describe version 1 as designed. The commands below are the plan, not something you can install today.
+            <div class="surface-panel p-4 text-xs font-sans text-[#0a0a0a] leading-relaxed flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+              <div>
+                <strong class="font-mono font-bold text-[#0a0a0a]">Published on npm:</strong> Run directly via <code class="code-chip">npx @mariiodegen/seed-db</code> or install into your project as a development dependency.
+              </div>
+              <a
+                href="https://www.npmjs.com/package/@mariiodegen/seed-db"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded text-xs font-mono font-bold text-white bg-[#1b1d22] hover:bg-[#2a2d33] border border-[#454a52] transition-colors flex-none"
+              >
+                <span>View on npm</span>
+                <span>&rarr;</span>
+              </a>
             </div>
           </div>
 
@@ -65,11 +76,31 @@ import PillBadge from '../components/PillBadge.astro';
             <div class="space-y-2">
               <h2 class="font-mono text-2xl font-bold text-[#0a0a0a]">Quick start</h2>
               <p class="font-sans text-sm text-[#4a4f56] leading-relaxed">
-                seed-db works with PostgreSQL, one schema per run (default <span class="code-chip">public</span>). Three commands take you from nothing to seeded data.
+                seed-db works with PostgreSQL, one schema per run (default <span class="code-chip">public</span>). Run it directly with <span class="code-chip">npx</span> or install as a dependency.
               </p>
             </div>
 
             <div class="space-y-4">
+              <!-- Step 0: Install -->
+              <div class="surface-panel p-5 space-y-3 card-lift">
+                <h3 class="font-mono text-sm font-bold text-[#0a0a0a] flex items-center gap-2">
+                  <span>0.</span> Install or run directly
+                </h3>
+                <div class="space-y-2">
+                  <div class="rounded-lg bg-[#0c0d10] p-3 border border-[#2c3036] flex items-center justify-between font-mono text-xs text-white">
+                    <span class="font-bold"><span class="text-[#8a9199] select-none">$ </span>npx @mariiodegen/seed-db init</span>
+                    <button class="doc-copy-btn min-h-[44px] px-3.5 rounded text-xs font-mono font-bold text-white bg-[#1b1d22] hover:bg-[#2a2d33] border border-[#454a52] transition-colors flex items-center justify-center flex-none" data-copy="npx @mariiodegen/seed-db init">Copy</button>
+                  </div>
+                  <div class="rounded-lg bg-[#0c0d10] p-3 border border-[#2c3036] flex items-center justify-between font-mono text-xs text-white">
+                    <span class="font-bold"><span class="text-[#8a9199] select-none">$ </span>npm i -D @mariiodegen/seed-db</span>
+                    <button class="doc-copy-btn min-h-[44px] px-3.5 rounded text-xs font-mono font-bold text-white bg-[#1b1d22] hover:bg-[#2a2d33] border border-[#454a52] transition-colors flex items-center justify-center flex-none" data-copy="npm i -D @mariiodegen/seed-db">Copy</button>
+                  </div>
+                </div>
+                <p class="font-sans text-xs text-[#4a4f56] leading-relaxed">
+                  You can invoke <span class="code-chip">npx @mariiodegen/seed-db</span> directly with zero local installation, or add it to your project's <span class="code-chip">devDependencies</span>.
+                </p>
+              </div>
+
               <!-- Step 1 -->
               <div class="surface-panel p-5 space-y-3 card-lift">
                 <h3 class="font-mono text-sm font-bold text-[#0a0a0a] flex items-center gap-2">

@@ -26,9 +26,15 @@ const isDocs = currentPath.startsWith("/docs");
           docs
         </span>
       ) : (
-        <span class="hidden lg:inline-flex items-center px-2.5 py-0.5 rounded text-[11px] font-mono text-[#9aa1a8] bg-[#15171b]/80 border border-[#2c3036]">
-          Pre-release. The npm name is reserved.
-        </span>
+        <a
+          href="https://www.npmjs.com/package/@mariiodegen/seed-db"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="hidden lg:inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded text-[11px] font-mono text-[#c7ccd2] hover:text-white bg-[#15171b]/80 hover:bg-[#1e2127] border border-[#2c3036] hover:border-[#454a52] transition-colors"
+        >
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+          <span>npm package</span>
+        </a>
       )}
     </div>
 

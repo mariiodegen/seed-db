@@ -7,6 +7,12 @@
   Built with Bun, TypeScript, and postgres.js.
 </p>
 
+<p align="center">
+  <a href="https://www.npmjs.com/package/@mariiodegen/seed-db"><img src="https://img.shields.io/npm/v/@mariiodegen/seed-db.svg?color=emerald&label=npm" alt="npm version" /></a>
+  <a href="https://mariiodegen.github.io/seed-db/"><img src="https://img.shields.io/badge/docs-website-blue.svg" alt="Documentation Website" /></a>
+  <a href="./LICENSE"><img src="https://img.shields.io/badge/license-MIT-green.svg" alt="MIT License" /></a>
+</p>
+
 ---
 
 `seed-db` connects to any live PostgreSQL database, analyzes table relationships into a Directed Acyclic Graph (DAG), and fills your tables with realistic fake data in the correct dependency order—all wrapped in a safe, all-or-nothing transaction.
@@ -15,15 +21,25 @@
 
 ## 🚀 30-Second Quickstart
 
+Run directly with zero installation via `npx`:
+
 ```bash
 # 1. Scaffold a starter configuration and .env file
-bun run src/index.ts init
+npx @mariiodegen/seed-db init
 
 # 2. Inspect your schema to see the calculated insertion order and patch pass
-bun run src/index.ts inspect
+npx @mariiodegen/seed-db inspect
 
 # 3. Seed your database with 25 rows per table using a repeatable seed
-bun run src/index.ts run --rows 25 --seed 42
+npx @mariiodegen/seed-db run --rows 25 --seed 42
+```
+
+Or install as a development dependency:
+
+```bash
+npm install -D @mariiodegen/seed-db
+# or
+bun add -d @mariiodegen/seed-db
 ```
 
 ---
