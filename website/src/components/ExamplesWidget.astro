@@ -1,0 +1,231 @@
+---
+---
+
+<div class="rounded-xl border border-slate-800 bg-[#090d16] p-6 shadow-2xl font-mono text-sm">
+  <!-- Tab selectors -->
+  <div class="flex flex-wrap items-center gap-2 pb-5 border-b border-slate-800" id="examples-tabs">
+    <button
+      data-example="local"
+      class="example-tab active px-3.5 py-1.5 rounded-lg text-xs transition-colors bg-emerald-500/20 text-emerald-400 font-bold border border-emerald-500/30"
+    >
+      Seed locally
+    </button>
+    <button
+      data-example="tables"
+      class="example-tab px-3.5 py-1.5 rounded-lg text-xs transition-colors text-slate-400 hover:text-white border border-transparent"
+    >
+      Only some tables
+    </button>
+    <button
+      data-example="offline"
+      class="example-tab px-3.5 py-1.5 rounded-lg text-xs transition-colors text-slate-400 hover:text-white border border-transparent"
+    >
+      No live database
+    </button>
+    <button
+      data-example="ci"
+      class="example-tab px-3.5 py-1.5 rounded-lg text-xs transition-colors text-slate-400 hover:text-white border border-transparent"
+    >
+      Check in CI
+    </button>
+    <button
+      data-example="override"
+      class="example-tab px-3.5 py-1.5 rounded-lg text-xs transition-colors text-slate-400 hover:text-white border border-transparent"
+    >
+      Override a column
+    </button>
+  </div>
+
+  <!-- Tab Panels -->
+  <div class="pt-5" id="examples-panels">
+    <!-- Panel: local -->
+    <div id="example-local" class="example-panel block space-y-4">
+      <div>
+        <h4 class="text-white font-semibold text-base mb-1 font-sans">Fill a local database</h4>
+        <p class="text-slate-400 text-xs font-sans">You want a development database full of realistic rows.</p>
+      </div>
+
+      <div class="rounded-lg bg-slate-950 p-4 border border-slate-800 relative group">
+        <div class="text-xs text-slate-500 mb-1">terminal</div>
+        <div class="text-emerald-400 font-bold flex items-center justify-between">
+          <span>seed-db run --seed 1 --rows 25</span>
+          <button
+            class="copy-btn opacity-60 group-hover:opacity-100 transition-opacity text-slate-400 hover:text-white text-xs flex items-center gap-1"
+            data-copy="seed-db run --seed 1 --rows 25"
+          >
+            Copy
+          </button>
+        </div>
+      </div>
+
+      <div class="text-xs text-slate-400 flex items-center gap-2">
+        <span class="text-emerald-400">✔</span>
+        <span>Same --seed, same rows, every time.</span>
+      </div>
+    </div>
+
+    <!-- Panel: tables -->
+    <div id="example-tables" class="example-panel hidden space-y-4">
+      <div>
+        <h4 class="text-white font-semibold text-base mb-1 font-sans">Seed a subset of tables</h4>
+        <p class="text-slate-400 text-xs font-sans">You are testing orders and only want to seed users, products, and orders.</p>
+      </div>
+
+      <div class="rounded-lg bg-slate-950 p-4 border border-slate-800 relative group">
+        <div class="text-xs text-slate-500 mb-1">terminal</div>
+        <div class="text-emerald-400 font-bold flex items-center justify-between">
+          <span>seed-db run --tables users,products,orders --rows 50</span>
+          <button
+            class="copy-btn opacity-60 group-hover:opacity-100 transition-opacity text-slate-400 hover:text-white text-xs flex items-center gap-1"
+            data-copy="seed-db run --tables users,products,orders --rows 50"
+          >
+            Copy
+          </button>
+        </div>
+      </div>
+
+      <div class="text-xs text-slate-400 flex items-center gap-2">
+        <span class="text-emerald-400">✔</span>
+        <span>Missing parent rows are sampled from rows that already exist in the database.</span>
+      </div>
+    </div>
+
+    <!-- Panel: offline -->
+    <div id="example-offline" class="example-panel hidden space-y-4">
+      <div>
+        <h4 class="text-white font-semibold text-base mb-1 font-sans">Snapshot, then a standalone SQL file</h4>
+        <p class="text-slate-400 text-xs font-sans">Generate plain SQL statements from an offline schema snapshot without connecting to a live server.</p>
+      </div>
+
+      <div class="rounded-lg bg-slate-950 p-4 border border-slate-800 relative group space-y-2">
+        <div class="text-xs text-slate-500">terminal</div>
+        <div class="text-emerald-400 font-bold">
+          <div>seed-db inspect --json &gt; schema.json</div>
+          <div>seed-db run --snapshot schema.json --out seed.sql --seed 1</div>
+          <div>psql mydb -f seed.sql</div>
+        </div>
+        <button
+          class="copy-btn absolute top-4 right-4 opacity-60 group-hover:opacity-100 transition-opacity text-slate-400 hover:text-white text-xs flex items-center gap-1"
+          data-copy="seed-db inspect --json > schema.json && seed-db run --snapshot schema.json --out seed.sql --seed 1 && psql mydb -f seed.sql"
+        >
+          Copy
+        </button>
+      </div>
+
+      <div class="text-xs text-slate-400 flex items-center gap-2">
+        <span class="text-emerald-400">✔</span>
+        <span>Safe to share. Snapshot has no row data, credentials, or host details.</span>
+      </div>
+    </div>
+
+    <!-- Panel: ci -->
+    <div id="example-ci" class="example-panel hidden space-y-4">
+      <div>
+        <h4 class="text-white font-semibold text-base mb-1 font-sans">Dry verification in CI</h4>
+        <p class="text-slate-400 text-xs font-sans">Run a full relational test inside an all-or-nothing transaction and automatically roll back.</p>
+      </div>
+
+      <div class="rounded-lg bg-slate-950 p-4 border border-slate-800 relative group">
+        <div class="text-xs text-slate-500 mb-1">terminal</div>
+        <div class="text-emerald-400 font-bold flex items-center justify-between">
+          <span>seed-db run --check --seed 1 --format json</span>
+          <button
+            class="copy-btn opacity-60 group-hover:opacity-100 transition-opacity text-slate-400 hover:text-white text-xs flex items-center gap-1"
+            data-copy="seed-db run --check --seed 1 --format json"
+          >
+            Copy
+          </button>
+        </div>
+      </div>
+
+      <div class="text-xs text-slate-400 flex items-center gap-2">
+        <span class="text-emerald-400">✔</span>
+        <span>Exit code 0 confirms all constraints and foreign keys pass. Leaves zero dirty rows behind.</span>
+      </div>
+    </div>
+
+    <!-- Panel: override -->
+    <div id="example-override" class="example-panel hidden space-y-4">
+      <div>
+        <h4 class="text-white font-semibold text-base mb-1 font-sans">Custom column rules in seed.config.ts</h4>
+        <p class="text-slate-400 text-xs font-sans">Fine-tune generators with faker expressions or deterministic functions.</p>
+      </div>
+
+      <div class="rounded-lg bg-slate-950 p-4 border border-slate-800 relative group text-xs text-slate-300">
+        <div class="text-xs text-slate-500 mb-2">seed.config.ts</div>
+        <pre class="overflow-x-auto text-slate-300">export default &#123;
+  tables: &#123;
+    users: &#123;
+      columns: &#123;
+        status: (&#123; faker &#125;) =&gt; faker.helpers.arrayElement(["active", "suspended"]),
+        tenant_id: "fixed-uuid-1234",
+        age: &#123; int: &#123; min: 18, max: 90 &#125; &#125;,
+      &#125;,
+    &#125;,
+  &#125;,
+&#125;;</pre>
+        <button
+          class="copy-btn absolute top-4 right-4 opacity-60 group-hover:opacity-100 transition-opacity text-slate-400 hover:text-white text-xs flex items-center gap-1"
+          data-copy='export default { tables: { users: { columns: { status: ({ faker }) => faker.helpers.arrayElement(["active", "suspended"]), tenant_id: "fixed-uuid-1234", age: { int: { min: 18, max: 90 } } } } } };'
+        >
+          Copy
+        </button>
+      </div>
+
+      <div class="text-xs text-slate-400 flex items-center gap-2">
+        <span class="text-emerald-400">✔</span>
+        <span>Config rules take tier-2 precedence, immediately winning over heuristics.</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function setupExamplesWidget() {
+    const tabs = document.querySelectorAll('.example-tab');
+    const panels = document.querySelectorAll('.example-panel');
+    const copyBtns = document.querySelectorAll('.copy-btn');
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const target = tab.getAttribute('data-example');
+        if (!target) return;
+
+        tabs.forEach(t => {
+          t.classList.remove('bg-emerald-500/20', 'text-emerald-400', 'font-bold', 'border-emerald-500/30');
+          t.classList.add('text-slate-400', 'border-transparent');
+        });
+
+        tab.classList.remove('text-slate-400', 'border-transparent');
+        tab.classList.add('bg-emerald-500/20', 'text-emerald-400', 'font-bold', 'border-emerald-500/30');
+
+        panels.forEach(p => {
+          if (p.id === `example-${target}`) {
+            p.classList.remove('hidden');
+            p.classList.add('block');
+          } else {
+            p.classList.remove('block');
+            p.classList.add('hidden');
+          }
+        });
+      });
+    });
+
+    copyBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const text = btn.getAttribute('data-copy');
+        if (text) {
+          navigator.clipboard.writeText(text);
+          const orig = btn.textContent;
+          btn.textContent = 'Copied!';
+          setTimeout(() => {
+            btn.textContent = orig;
+          }, 2000);
+        }
+      });
+    });
+  }
+
+  setupExamplesWidget();
+  document.addEventListener('astro:page-load', setupExamplesWidget);
+</script>

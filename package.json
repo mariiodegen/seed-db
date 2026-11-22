@@ -8,7 +8,8 @@
   },
   "scripts": {
     "test": "bun test",
-    "build": "bun build --compile --minify --outfile dist/seed-db src/index.ts"
+    "build": "bun build --compile --minify --outfile dist/seed-db src/index.ts",
+    "build:website": "bun run --cwd website build"
   },
   "files": [
     "src",

@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <!-- seed-db Favicon (64x64) -->
+  <g id="favicon-cylinder">
+    <!-- Bottom Tier -->
+    <path d="M10 42 C10 49 54 49 54 42 V48 C54 55 10 55 10 48 Z" fill="#1b3d32"/>
+    <path d="M10 46 C10 53 54 53 54 46" stroke="#255445" stroke-width="1.5" fill="none"/>
+
+    <!-- Middle Tier -->
+    <path d="M10 33 C10 40 54 40 54 33 V39 C54 46 10 46 10 39 Z" fill="#234c3f"/>
+    <path d="M10 37 C10 44 54 44 54 37" stroke="#2c6150" stroke-width="1.5" fill="none"/>
+
+    <!-- Top Tier -->
+    <path d="M10 24 C10 31 54 31 54 24 V30 C54 37 10 37 10 30 Z" fill="#2d5e4e"/>
+    <ellipse cx="32" cy="24" rx="22" ry="7" fill="#387461"/>
+    <ellipse cx="32" cy="24" rx="6" ry="2" fill="#1a352c"/>
+  </g>
+  <!-- Sprout -->
+  <g id="favicon-sprout">
+    <path d="M32 24 C32 19 32 15 32 13" stroke="#4ade80" stroke-width="2.5" stroke-linecap="round"/>
+    <path d="M32 18 C26 18 20 14 22 9 C28 8 31 13 32 18 Z" fill="#4ade80"/>
+    <path d="M32 15 C38 14 44 10 42 6 C36 6 33 11 32 15 Z" fill="#22c55e"/>
+  </g>
+</svg>

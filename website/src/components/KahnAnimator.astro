@@ -1,0 +1,318 @@
+---
+---
+
+<div class="rounded-xl border border-slate-800 bg-[#090d16] p-6 shadow-2xl font-mono text-sm" id="kahn-widget">
+  <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-5 border-b border-slate-800 gap-4">
+    <div>
+      <div class="text-xs text-slate-400 uppercase tracking-wider mb-1">Topological Sort Simulation</div>
+      <div class="text-white font-semibold text-base">Kahn's Algorithm Rounds</div>
+    </div>
+
+    <!-- Stepper Controls -->
+    <div class="flex items-center gap-1.5 bg-slate-900/80 p-1.5 rounded-lg border border-slate-800 self-start sm:self-auto">
+      <button
+        data-step="1"
+        class="kahn-step-btn active px-3 py-1 rounded text-xs transition-all bg-emerald-500/20 text-emerald-400 font-bold border border-emerald-500/30"
+      >
+        1
+      </button>
+      <button
+        data-step="2"
+        class="kahn-step-btn px-3 py-1 rounded text-xs transition-all text-slate-400 hover:text-white border border-transparent"
+      >
+        2
+      </button>
+      <button
+        data-step="3"
+        class="kahn-step-btn px-3 py-1 rounded text-xs transition-all text-slate-400 hover:text-white border border-transparent"
+      >
+        3
+      </button>
+      <button
+        data-step="4"
+        class="kahn-step-btn px-3 py-1 rounded text-xs transition-all text-slate-400 hover:text-white border border-transparent"
+      >
+        4
+      </button>
+      <button
+        id="kahn-play-pause-btn"
+        class="ml-2 px-3 py-1 rounded text-xs text-slate-300 hover:text-emerald-400 border border-slate-700 bg-slate-800/80 flex items-center gap-1 transition-colors"
+      >
+        <span id="play-pause-icon">⏸</span>
+        <span id="play-pause-label">Pause</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Table Insertion List -->
+  <div class="py-5 space-y-2.5" id="kahn-table-list">
+    <!-- employees -->
+    <div
+      id="item-employees"
+      class="kahn-item flex items-center justify-between p-3 rounded-lg border border-slate-800 bg-slate-900/40 transition-all"
+    >
+      <div class="flex items-center gap-3">
+        <span class="round-badge text-xs px-2 py-0.5 rounded font-mono font-bold bg-slate-800 text-slate-400">Round 1</span>
+        <div>
+          <span class="font-bold text-slate-100">employees</span>
+          <span class="text-xs text-slate-400 block sm:inline sm:ml-2">No parents. manager_id stays empty for now.</span>
+        </div>
+      </div>
+      <span class="status-badge text-xs px-2.5 py-0.5 rounded-full font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+        inserted
+      </span>
+    </div>
+
+    <!-- products -->
+    <div
+      id="item-products"
+      class="kahn-item flex items-center justify-between p-3 rounded-lg border border-slate-800 bg-slate-900/40 transition-all"
+    >
+      <div class="flex items-center gap-3">
+        <span class="round-badge text-xs px-2 py-0.5 rounded font-mono font-bold bg-slate-800 text-slate-400">Round 1</span>
+        <div>
+          <span class="font-bold text-slate-100">products</span>
+          <span class="text-xs text-slate-400 block sm:inline sm:ml-2">No parents.</span>
+        </div>
+      </div>
+      <span class="status-badge text-xs px-2.5 py-0.5 rounded-full font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+        inserted
+      </span>
+    </div>
+
+    <!-- users -->
+    <div
+      id="item-users"
+      class="kahn-item flex items-center justify-between p-3 rounded-lg border border-slate-800 bg-slate-900/40 transition-all"
+    >
+      <div class="flex items-center gap-3">
+        <span class="round-badge text-xs px-2 py-0.5 rounded font-mono font-bold bg-slate-800 text-slate-400">Round 1</span>
+        <div>
+          <span class="font-bold text-slate-100">users</span>
+          <span class="text-xs text-slate-400 block sm:inline sm:ml-2">No parents.</span>
+        </div>
+      </div>
+      <span class="status-badge text-xs px-2.5 py-0.5 rounded-full font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+        inserted
+      </span>
+    </div>
+
+    <!-- orders -->
+    <div
+      id="item-orders"
+      class="kahn-item flex items-center justify-between p-3 rounded-lg border border-slate-800 bg-slate-900/40 transition-all"
+    >
+      <div class="flex items-center gap-3">
+        <span class="round-badge text-xs px-2 py-0.5 rounded font-mono font-bold bg-slate-800 text-slate-400">Round 2</span>
+        <div>
+          <span class="font-bold text-slate-100">orders</span>
+          <span class="text-xs text-slate-400 block sm:inline sm:ml-2">Needs users, which are in.</span>
+        </div>
+      </div>
+      <span class="status-badge text-xs px-2.5 py-0.5 rounded-full font-medium bg-amber-500/10 text-amber-400 border border-amber-500/20">
+        inserting now
+      </span>
+    </div>
+
+    <!-- order_items -->
+    <div
+      id="item-order-items"
+      class="kahn-item flex items-center justify-between p-3 rounded-lg border border-slate-800 bg-slate-900/40 transition-all"
+    >
+      <div class="flex items-center gap-3">
+        <span class="round-badge text-xs px-2 py-0.5 rounded font-mono font-bold bg-slate-800 text-slate-400">Round 3</span>
+        <div>
+          <span class="font-bold text-slate-100">order_items</span>
+          <span class="text-xs text-slate-400 block sm:inline sm:ml-2">Needs orders and products, both in.</span>
+        </div>
+      </div>
+      <span class="status-badge text-xs px-2.5 py-0.5 rounded-full font-medium bg-slate-800 text-slate-400 border border-slate-700">
+        waiting
+      </span>
+    </div>
+
+    <!-- patch employees -->
+    <div
+      id="item-patch-employees"
+      class="kahn-item flex items-center justify-between p-3 rounded-lg border border-slate-800 bg-slate-900/40 transition-all"
+    >
+      <div class="flex items-center gap-3">
+        <span class="round-badge text-xs px-2 py-0.5 rounded font-mono font-bold bg-amber-950/40 text-amber-400 border border-amber-800/40">Last</span>
+        <div>
+          <span class="font-bold text-slate-100">patch employees</span>
+          <span class="text-xs text-slate-400 block sm:inline sm:ml-2">One update fills manager_id.</span>
+        </div>
+      </div>
+      <span class="status-badge text-xs px-2.5 py-0.5 rounded-full font-medium bg-slate-800 text-slate-400 border border-slate-700">
+        waiting
+      </span>
+    </div>
+  </div>
+
+  <!-- Dynamic Caption Footer -->
+  <div class="p-3.5 bg-slate-950/80 rounded-lg border border-slate-800/80 flex items-center gap-2.5">
+    <div class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></div>
+    <div id="kahn-caption" class="text-xs text-emerald-300 font-medium">
+      Round 2: orders needs users, and users are now in.
+    </div>
+  </div>
+</div>
+
+<script>
+  function setupKahnAnimator() {
+    const stepBtns = document.querySelectorAll('.kahn-step-btn');
+    const playPauseBtn = document.getElementById('kahn-play-pause-btn');
+    const playPauseIcon = document.getElementById('play-pause-icon');
+    const playPauseLabel = document.getElementById('play-pause-label');
+    const caption = document.getElementById('kahn-caption');
+
+    const items = {
+      emp: document.getElementById('item-employees'),
+      prod: document.getElementById('item-products'),
+      users: document.getElementById('item-users'),
+      orders: document.getElementById('item-orders'),
+      items: document.getElementById('item-order-items'),
+      patch: document.getElementById('item-patch-employees'),
+    };
+
+    let currentStep = 2;
+    let isPlaying = true;
+    let intervalId: any = null;
+
+    const stepConfigs = {
+      1: {
+        caption: "Round 1: tables with 0 parents (employees, products, users) are inserted simultaneously.",
+        states: {
+          emp: 'inserting',
+          prod: 'inserting',
+          users: 'inserting',
+          orders: 'waiting',
+          items: 'waiting',
+          patch: 'waiting',
+        }
+      },
+      2: {
+        caption: "Round 2: orders needs users, and users are now in.",
+        states: {
+          emp: 'inserted',
+          prod: 'inserted',
+          users: 'inserted',
+          orders: 'inserting',
+          items: 'waiting',
+          patch: 'waiting',
+        }
+      },
+      3: {
+        caption: "Round 3: order_items needs orders and products, both now in.",
+        states: {
+          emp: 'inserted',
+          prod: 'inserted',
+          users: 'inserted',
+          orders: 'inserted',
+          items: 'inserting',
+          patch: 'waiting',
+        }
+      },
+      4: {
+        caption: "Last pass: One batch UPDATE patches employees.manager_id with real parent keys.",
+        states: {
+          emp: 'inserted',
+          prod: 'inserted',
+          users: 'inserted',
+          orders: 'inserted',
+          items: 'inserted',
+          patch: 'inserting',
+        }
+      }
+    };
+
+    function setBadge(el: HTMLElement | null, status: 'inserted' | 'inserting' | 'waiting') {
+      if (!el) return;
+      const badge = el.querySelector('.status-badge');
+      if (!badge) return;
+
+      badge.className = 'status-badge text-xs px-2.5 py-0.5 rounded-full font-medium transition-all ';
+      if (status === 'inserted') {
+        badge.className += 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30';
+        badge.textContent = 'inserted';
+        el.className = 'kahn-item flex items-center justify-between p-3 rounded-lg border border-slate-800 bg-slate-900/40 transition-all';
+      } else if (status === 'inserting') {
+        badge.className += 'bg-amber-500/20 text-amber-400 border border-amber-500/40 animate-pulse';
+        badge.textContent = status === 'inserting' ? 'inserting now' : 'patching now';
+        el.className = 'kahn-item flex items-center justify-between p-3 rounded-lg border border-amber-500/30 bg-amber-950/20 transition-all shadow-lg shadow-amber-950/20';
+      } else {
+        badge.className += 'bg-slate-800 text-slate-500 border border-slate-700/60';
+        badge.textContent = 'waiting';
+        el.className = 'kahn-item flex items-center justify-between p-3 rounded-lg border border-slate-800/60 bg-slate-900/20 opacity-70 transition-all';
+      }
+    }
+
+    function renderStep(step: number) {
+      currentStep = step;
+      const config = (stepConfigs as any)[step];
+      if (!config) return;
+
+      if (caption) caption.textContent = config.caption;
+
+      stepBtns.forEach(btn => {
+        const s = parseInt(btn.getAttribute('data-step') || '0', 10);
+        if (s === step) {
+          btn.className = 'kahn-step-btn active px-3 py-1 rounded text-xs transition-all bg-emerald-500/20 text-emerald-400 font-bold border border-emerald-500/30';
+        } else {
+          btn.className = 'kahn-step-btn px-3 py-1 rounded text-xs transition-all text-slate-400 hover:text-white border border-transparent';
+        }
+      });
+
+      setBadge(items.emp, config.states.emp);
+      setBadge(items.prod, config.states.prod);
+      setBadge(items.users, config.states.users);
+      setBadge(items.orders, config.states.orders);
+      setBadge(items.items, config.states.items);
+      setBadge(items.patch, config.states.patch);
+    }
+
+    stepBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const step = parseInt(btn.getAttribute('data-step') || '1', 10);
+        renderStep(step);
+      });
+    });
+
+    function startAutoPlay() {
+      if (intervalId) clearInterval(intervalId);
+      intervalId = setInterval(() => {
+        let next = currentStep + 1;
+        if (next > 4) next = 1;
+        renderStep(next);
+      }, 3500);
+      isPlaying = true;
+      if (playPauseIcon) playPauseIcon.textContent = '⏸';
+      if (playPauseLabel) playPauseLabel.textContent = 'Pause';
+    }
+
+    function stopAutoPlay() {
+      if (intervalId) clearInterval(intervalId);
+      intervalId = null;
+      isPlaying = false;
+      if (playPauseIcon) playPauseIcon.textContent = '▶';
+      if (playPauseLabel) playPauseLabel.textContent = 'Play';
+    }
+
+    if (playPauseBtn) {
+      playPauseBtn.addEventListener('click', () => {
+        if (isPlaying) {
+          stopAutoPlay();
+        } else {
+          startAutoPlay();
+        }
+      });
+    }
+
+    // Initial render
+    renderStep(2);
+    startAutoPlay();
+  }
+
+  setupKahnAnimator();
+  document.addEventListener('astro:page-load', setupKahnAnimator);
+</script>

@@ -1,0 +1,242 @@
+---
+---
+
+<div class="rounded-xl border border-slate-800 bg-[#090d16] shadow-2xl overflow-hidden font-mono text-xs sm:text-sm">
+  <!-- Top bar with tabs -->
+  <div class="flex flex-wrap items-center justify-between border-b border-slate-800/80 bg-slate-900/60 px-4 py-2.5 gap-2">
+    <!-- Window buttons -->
+    <div class="flex items-center gap-1.5">
+      <span class="w-3 h-3 rounded-full bg-red-500/80 inline-block"></span>
+      <span class="w-3 h-3 rounded-full bg-amber-500/80 inline-block"></span>
+      <span class="w-3 h-3 rounded-full bg-emerald-500/80 inline-block"></span>
+      <span class="ml-2 text-[11px] text-slate-500 hidden sm:inline">seed-db terminal</span>
+    </div>
+
+    <!-- Tabs -->
+    <div class="flex items-center gap-1 bg-slate-950/60 p-1 rounded-lg border border-slate-800" id="terminal-tabs">
+      <button
+        data-target="tab-inspect"
+        class="terminal-tab active px-2.5 py-1 rounded text-xs transition-colors bg-emerald-500/20 text-emerald-400 font-medium"
+      >
+        inspect
+      </button>
+      <button
+        data-target="tab-run"
+        class="terminal-tab px-2.5 py-1 rounded text-xs transition-colors text-slate-400 hover:text-slate-200"
+      >
+        run
+      </button>
+      <button
+        data-target="tab-dry-run"
+        class="terminal-tab px-2.5 py-1 rounded text-xs transition-colors text-slate-400 hover:text-slate-200"
+      >
+        --dry-run
+      </button>
+      <button
+        data-target="tab-check"
+        class="terminal-tab px-2.5 py-1 rounded text-xs transition-colors text-slate-400 hover:text-slate-200"
+      >
+        --check
+      </button>
+      <button
+        data-target="tab-error"
+        class="terminal-tab px-2.5 py-1 rounded text-xs transition-colors text-slate-400 hover:text-rose-400"
+      >
+        error
+      </button>
+    </div>
+  </div>
+
+  <div class="px-4 py-2 bg-slate-950/30 border-b border-slate-800/40 text-[11px] text-slate-400 flex items-center justify-between">
+    <span>example output, pick a command above</span>
+    <button
+      id="copy-terminal-btn"
+      class="text-[11px] text-slate-400 hover:text-emerald-400 transition-colors flex items-center gap-1"
+      title="Copy to clipboard"
+    >
+      <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+      </svg>
+      <span id="copy-status">Copy</span>
+    </button>
+  </div>
+
+  <!-- Terminal Content Panels -->
+  <div class="p-5 overflow-x-auto min-h-[300px]">
+    <!-- Tab: inspect -->
+    <div id="tab-inspect" class="terminal-panel block">
+      <div class="flex items-center gap-2 text-slate-300 mb-3">
+        <span class="text-emerald-400 select-none">$</span>
+        <span class="text-white font-semibold">seed-db inspect</span>
+      </div>
+      <div class="text-slate-400 space-y-1.5 leading-relaxed">
+        <div class="text-slate-300 font-semibold mb-2">Insert order</div>
+        <div class="flex items-center justify-between gap-4">
+          <div><span class="text-emerald-400 font-bold">1</span> <span class="text-slate-200">employees</span></div>
+          <div class="text-slate-400">10 rows</div>
+          <div class="text-amber-400/90 text-xs">manager_id deferred (self-reference)</div>
+        </div>
+        <div class="flex items-center justify-between gap-4">
+          <div><span class="text-emerald-400 font-bold">2</span> <span class="text-slate-200">products</span></div>
+          <div class="text-slate-400">10 rows</div>
+          <div class="text-slate-600 text-xs">—</div>
+        </div>
+        <div class="flex items-center justify-between gap-4">
+          <div><span class="text-emerald-400 font-bold">3</span> <span class="text-slate-200">users</span></div>
+          <div class="text-slate-400">10 rows</div>
+          <div class="text-slate-400 text-xs">user_id &lt;- users.id</div>
+        </div>
+        <div class="flex items-center justify-between gap-4">
+          <div><span class="text-emerald-400 font-bold">4</span> <span class="text-slate-200">orders</span></div>
+          <div class="text-slate-400">10 rows</div>
+          <div class="text-slate-400 text-xs">order_id &lt;- orders.id, product_id &lt;- products.id</div>
+        </div>
+        <div class="flex items-center justify-between gap-4">
+          <div><span class="text-emerald-400 font-bold">5</span> <span class="text-slate-200">order_items</span></div>
+          <div class="text-slate-400">10 rows</div>
+          <div class="text-slate-600 text-xs">—</div>
+        </div>
+
+        <div class="pt-4 text-slate-300 font-semibold">Patch pass</div>
+        <div class="text-amber-400/90 text-xs">employees.manager_id</div>
+      </div>
+    </div>
+
+    <!-- Tab: run -->
+    <div id="tab-run" class="terminal-panel hidden">
+      <div class="flex items-center gap-2 text-slate-300 mb-3">
+        <span class="text-emerald-400 select-none">$</span>
+        <span class="text-white font-semibold">seed-db run</span>
+      </div>
+      <div class="text-slate-400 space-y-1.5 leading-relaxed">
+        <div class="text-slate-400">[seed-db] Starting single transaction (all-or-nothing atomicity)...</div>
+        <div>[1/5] <span class="text-slate-200">employees</span>: <span class="text-emerald-400">10 rows</span> inserted <span class="text-amber-400/90 text-xs">(manager_id deferred)</span></div>
+        <div>[2/5] <span class="text-slate-200">products</span>: <span class="text-emerald-400">10 rows</span> inserted</div>
+        <div>[3/5] <span class="text-slate-200">users</span>: <span class="text-emerald-400">10 rows</span> inserted</div>
+        <div>[4/5] <span class="text-slate-200">orders</span>: <span class="text-emerald-400">10 rows</span> inserted <span class="text-slate-400 text-xs">(user_id sampled from users.id)</span></div>
+        <div>[5/5] <span class="text-slate-200">order_items</span>: <span class="text-emerald-400">10 rows</span> inserted <span class="text-slate-400 text-xs">(order_id, product_id sampled)</span></div>
+        <div class="text-amber-300">[patch] employees.manager_id: 10 rows updated with valid parent IDs</div>
+        <div class="pt-2 text-emerald-400 font-semibold">✔ Committed 50 rows across 5 tables in 18ms. Exit code 0.</div>
+      </div>
+    </div>
+
+    <!-- Tab: dry-run -->
+    <div id="tab-dry-run" class="terminal-panel hidden">
+      <div class="flex items-center gap-2 text-slate-300 mb-3">
+        <span class="text-emerald-400 select-none">$</span>
+        <span class="text-white font-semibold">seed-db run --dry-run</span>
+      </div>
+      <div class="text-slate-400 space-y-1 leading-relaxed text-xs">
+        <div class="text-slate-400">-- seed-db dry-run output (preview only, database untouched)</div>
+        <div class="text-sky-400">BEGIN;</div>
+        <div><span class="text-sky-400">INSERT INTO</span> <span class="text-emerald-300">"public"."employees"</span> ("id", "name") <span class="text-sky-400">VALUES</span> (1, 'Alice Smith'), (2, 'Bob Jones');</div>
+        <div><span class="text-sky-400">INSERT INTO</span> <span class="text-emerald-300">"public"."products"</span> ("id", "title", "price") <span class="text-sky-400">VALUES</span> (1, 'Mechanical Keyboard', 129.99);</div>
+        <div><span class="text-sky-400">INSERT INTO</span> <span class="text-emerald-300">"public"."users"</span> ("id", "email") <span class="text-sky-400">VALUES</span> (1, 'dev@example.com'), (2, 'ops@example.com');</div>
+        <div><span class="text-sky-400">INSERT INTO</span> <span class="text-emerald-300">"public"."orders"</span> ("id", "user_id", "total") <span class="text-sky-400">VALUES</span> (1, 1, 129.99);</div>
+        <div><span class="text-sky-400">UPDATE</span> <span class="text-emerald-300">"public"."employees"</span> <span class="text-sky-400">SET</span> "manager_id" = 1 <span class="text-sky-400">WHERE</span> "id" = 2;</div>
+        <div class="text-sky-400">COMMIT;</div>
+      </div>
+    </div>
+
+    <!-- Tab: check -->
+    <div id="tab-check" class="terminal-panel hidden">
+      <div class="flex items-center gap-2 text-slate-300 mb-3">
+        <span class="text-emerald-400 select-none">$</span>
+        <span class="text-white font-semibold">seed-db run --check --seed 1</span>
+      </div>
+      <div class="text-slate-400 space-y-1.5 leading-relaxed">
+        <div class="text-slate-400">[seed-db] Running dry verification mode inside isolated transaction...</div>
+        <div>[1/5] employees: <span class="text-emerald-400">10 rows</span> validated</div>
+        <div>[2/5] products: <span class="text-emerald-400">10 rows</span> validated</div>
+        <div>[3/5] users: <span class="text-emerald-400">10 rows</span> validated</div>
+        <div>[4/5] orders: <span class="text-emerald-400">10 rows</span> validated</div>
+        <div>[5/5] order_items: <span class="text-emerald-400">10 rows</span> validated</div>
+        <div class="text-amber-300">[patch] employees.manager_id: 10 rows validated</div>
+        <div class="text-sky-400">[seed-db] Rolling back transaction (clean rollback guaranteed)...</div>
+        <div class="pt-2 text-emerald-400 font-semibold">✔ Verification passed: 0 constraint violations. Exit code 0.</div>
+        <div class="text-slate-400 text-xs">Tables remain untouched. Sequences advanced per PostgreSQL design.</div>
+      </div>
+    </div>
+
+    <!-- Tab: error -->
+    <div id="tab-error" class="terminal-panel hidden">
+      <div class="flex items-center gap-2 text-slate-300 mb-3">
+        <span class="text-emerald-400 select-none">$</span>
+        <span class="text-white font-semibold">seed-db run --seed 1</span>
+      </div>
+      <div class="space-y-2 text-xs leading-relaxed">
+        <div class="text-rose-400 font-bold">error E_UNSUPPORTED_TYPE orders.total</div>
+        <div class="text-slate-300">No generator exists for type "money", and the column is NOT NULL.</div>
+        <div class="p-3 bg-slate-950/80 rounded border border-rose-900/50 text-slate-300">
+          <div class="text-emerald-400 font-semibold mb-1">Fix: add a rule in seed.config.ts:</div>
+          <pre class="text-slate-300">tables: &#123;
+  orders: &#123;
+    columns: &#123;
+      total: (&#123; faker &#125;) =&gt; "$" + faker.finance.amount()
+    &#125;
+  &#125;
+&#125;</pre>
+        </div>
+        <div class="text-slate-400 text-xs">Exit code: <span class="text-rose-400 font-bold">3</span> (Schema problem)</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function setupTerminalTabs() {
+    const tabs = document.querySelectorAll('.terminal-tab');
+    const panels = document.querySelectorAll('.terminal-panel');
+    const copyBtn = document.getElementById('copy-terminal-btn');
+    const copyStatus = document.getElementById('copy-status');
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const targetId = tab.getAttribute('data-target');
+        if (!targetId) return;
+
+        // Reset all tabs
+        tabs.forEach(t => {
+          t.classList.remove('bg-emerald-500/20', 'text-emerald-400', 'font-medium', 'bg-rose-500/20', 'text-rose-400');
+          t.classList.add('text-slate-400');
+        });
+
+        // Activate clicked tab
+        tab.classList.remove('text-slate-400');
+        if (targetId === 'tab-error') {
+          tab.classList.add('bg-rose-500/20', 'text-rose-400', 'font-medium');
+        } else {
+          tab.classList.add('bg-emerald-500/20', 'text-emerald-400', 'font-medium');
+        }
+
+        // Show corresponding panel
+        panels.forEach(p => {
+          if (p.id === targetId) {
+            p.classList.remove('hidden');
+            p.classList.add('block');
+          } else {
+            p.classList.remove('block');
+            p.classList.add('hidden');
+          }
+        });
+      });
+    });
+
+    if (copyBtn && copyStatus) {
+      copyBtn.addEventListener('click', () => {
+        const activePanel = document.querySelector('.terminal-panel.block');
+        if (activePanel) {
+          navigator.clipboard.writeText(activePanel.textContent?.trim() || '');
+          copyStatus.textContent = 'Copied!';
+          setTimeout(() => {
+            copyStatus.textContent = 'Copy';
+          }, 2000);
+        }
+      });
+    }
+  }
+
+  // Setup on page load and on view transitions
+  setupTerminalTabs();
+  document.addEventListener('astro:page-load', setupTerminalTabs);
+</script>
